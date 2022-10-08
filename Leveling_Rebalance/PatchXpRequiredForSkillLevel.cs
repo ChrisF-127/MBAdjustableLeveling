@@ -14,7 +14,7 @@ internal static class PatchXpRequiredForSkillLevel
 		{
 			if (i < 300)
 			{
-				num += 30;
+				num += 12 + (int)(i / 2.25);
 				____xpRequiredForSkillLevel[i] = ____xpRequiredForSkillLevel[i - 1] + num;
 			}
 			else

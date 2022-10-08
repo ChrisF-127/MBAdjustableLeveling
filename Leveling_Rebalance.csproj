@@ -12,6 +12,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <BaseOutputPath></BaseOutputPath>
+    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Bannerlord.ReferenceAssemblies.Core.EarlyAccess" Version="1.8.1.1942" />
