@@ -40,4 +40,7 @@
     </Reference>
     <Reference Include="System.Core" />
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="copy /Y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\Leveling_Rebalance\Bin\Win64_Shipping_Client\$(TargetName).dll&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\Leveling_Rebalance\Bin\Win64_Shipping_Client\$(TargetName).pdb&quot;" />
+  </Target>
 </Project>
