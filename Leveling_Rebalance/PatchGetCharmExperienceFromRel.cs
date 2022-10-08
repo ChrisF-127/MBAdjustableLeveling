@@ -16,7 +16,6 @@ public static class PatchGetCharmExperienceFromRelationGain
 		int num = 0;
 		for (int i = 0; i < list.Count; i++)
 		{
-			FileLog.Log(list[i].ToString());
 			if (num == 0 && list[i].opcode == OpCodes.Ldc_R4)
 			{
 				list[i].operand = 40f;
