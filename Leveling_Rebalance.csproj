@@ -12,15 +12,16 @@
   </PropertyGroup>
   <PropertyGroup>
     <BaseOutputPath></BaseOutputPath>
-    <RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
+    <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Bannerlord.ReferenceAssemblies.Core.EarlyAccess" Version="1.8.1.1942" />
-    <PackageReference Include="Bannerlord.ReferenceAssemblies.CustomBattle.EarlyAccess" Version="1.8.1.1942" />
-    <PackageReference Include="Bannerlord.ReferenceAssemblies.EarlyAccess" Version="1.8.1.1942" />
-    <PackageReference Include="Bannerlord.ReferenceAssemblies.Native.EarlyAccess" Version="1.8.1.1942" />
-    <PackageReference Include="Bannerlord.ReferenceAssemblies.SandBox.EarlyAccess" Version="1.8.1.1942" />
-    <PackageReference Include="Bannerlord.ReferenceAssemblies.StoryMode.EarlyAccess" Version="1.8.1.1942" />
+    <PackageReference Include="Bannerlord.MCM" Version="5.0.0" />
+    <PackageReference Include="Bannerlord.ReferenceAssemblies.Core.EarlyAccess" Version="1.9.0.3526" />
+    <PackageReference Include="Bannerlord.ReferenceAssemblies.CustomBattle.EarlyAccess" Version="1.9.0.3526" />
+    <PackageReference Include="Bannerlord.ReferenceAssemblies.EarlyAccess" Version="1.9.0.3526" />
+    <PackageReference Include="Bannerlord.ReferenceAssemblies.Native.EarlyAccess" Version="1.9.0.3526" />
+    <PackageReference Include="Bannerlord.ReferenceAssemblies.SandBox.EarlyAccess" Version="1.9.0.3526" />
+    <PackageReference Include="Bannerlord.ReferenceAssemblies.StoryMode.EarlyAccess" Version="1.9.0.3526" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="TaleWorlds.MountAndBlade" />
@@ -42,6 +43,6 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\Leveling_Rebalance\Bin\Win64_Shipping_Client\$(TargetName).dll&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\Leveling_Rebalance\Bin\Win64_Shipping_Client\$(TargetName).pdb&quot;" />
+    <Exec Command="copy /Y &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\Leveling_Rebalance\Bin\Win64_Shipping_Client\$(TargetName).pdb&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\Leveling_Rebalance\Bin\Win64_Shipping_Client\$(TargetName).dll&quot;&#xD;&#xA;" />
   </Target>
 </Project>
