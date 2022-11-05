@@ -2,7 +2,7 @@
   <PropertyGroup>
     <AssemblyName>Leveling_Rebalance</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
-    <TargetFramework>net472</TargetFramework>
+    <TargetFramework>net48</TargetFramework>
     <PlatformTarget>x64</PlatformTarget>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
@@ -15,32 +15,21 @@
     <RunPostBuildEvent>Always</RunPostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Bannerlord.MCM" Version="5.0.0" />
-    <PackageReference Include="Bannerlord.ReferenceAssemblies.Core.EarlyAccess" Version="1.9.0.3526" />
-    <PackageReference Include="Bannerlord.ReferenceAssemblies.CustomBattle.EarlyAccess" Version="1.9.0.3526" />
-    <PackageReference Include="Bannerlord.ReferenceAssemblies.EarlyAccess" Version="1.9.0.3526" />
-    <PackageReference Include="Bannerlord.ReferenceAssemblies.Native.EarlyAccess" Version="1.9.0.3526" />
-    <PackageReference Include="Bannerlord.ReferenceAssemblies.SandBox.EarlyAccess" Version="1.9.0.3526" />
-    <PackageReference Include="Bannerlord.ReferenceAssemblies.StoryMode.EarlyAccess" Version="1.9.0.3526" />
+    <PackageReference Include="Bannerlord.ReferenceAssemblies" Version="1.0.0.4373" />
+    <PackageReference Include="Krafs.Publicizer" Version="2.0.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Bannerlord.MCM" Version="5.0.4" />
+    <PackageReference Include="Lib.Harmony" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="TaleWorlds.MountAndBlade" />
-    <Reference Include="0Harmony">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\Leveling_Rebalance\Bin\Win64_Shipping_Client\0Harmony.dll</HintPath>
-    </Reference>
-    <Reference Include="TaleWorlds.CampaignSystem">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.CampaignSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="TaleWorlds.Core">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="TaleWorlds.Localization">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.Localization.dll</HintPath>
-    </Reference>
-    <Reference Include="TaleWorlds.Library">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.Library.dll</HintPath>
-    </Reference>
     <Reference Include="System.Core" />
+  </ItemGroup>
+  <ItemGroup>
+    <Publicize Include="TaleWorlds.MountAndBlade" />
+    <Publicize Include="TaleWorlds.Core" />
+    <Publicize Include="TaleWorlds.CampaignSystem" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Exec Command="copy /Y &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\Leveling_Rebalance\Bin\Win64_Shipping_Client\$(TargetName).pdb&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\Leveling_Rebalance\Bin\Win64_Shipping_Client\$(TargetName).dll&quot;&#xD;&#xA;" />

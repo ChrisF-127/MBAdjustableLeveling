@@ -14,13 +14,13 @@ public class Leveling_Rebalance_SubModule : MBSubModuleBase
 
 	private bool isInitialized = false;
 
-	protected override void OnBeforeInitialModuleScreenSetAsRoot()
+	public override void OnBeforeInitialModuleScreenSetAsRoot()
 	{
 		base.OnBeforeInitialModuleScreenSetAsRoot();
 		if (isInitialized)
 			return;
 
-		InformationManager.DisplayMessage(new InformationMessage("Leveling Rebalance 2.0.2"));
+		InformationManager.DisplayMessage(new InformationMessage("Leveling Rebalance REWORK"));
 
 		Settings = GlobalSettings<MCMSettings>.Instance;
 		if (Settings == null)
@@ -29,7 +29,7 @@ public class Leveling_Rebalance_SubModule : MBSubModuleBase
 		isInitialized = true;
 	}
 
-	protected override void OnSubModuleLoad()
+	public override void OnSubModuleLoad()
 	{
 		base.OnSubModuleLoad();
 		Harmony harmony = new Harmony("levelingrebalance");

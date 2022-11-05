@@ -16,9 +16,14 @@ internal static class PatchAddSkillXp
 	{
 		//var hero = __instance?.Hero;
 		//if (hero != null && (hero.CharacterObject.IsPlayerCharacter || hero.IsWanderer))
-		{
-			//FileLog.Log($"{__instance.Hero?.Name} {skill.Name} {rawXp} {rawXp * Leveling_Rebalance_SubModule.Settings.SkillXPMultiplier}");
-			rawXp *= Leveling_Rebalance_SubModule.Settings.SkillXPMultiplier;
-		}
+		//{
+		//FileLog.Log($"{__instance.Hero?.Name} {skill.Name} {rawXp} {rawXp * Leveling_Rebalance_SubModule.Settings.SkillXPMultiplier}");
+		//	rawXp *= Leveling_Rebalance_SubModule.Settings.SkillXPMultiplier;
+		//}
+
+		rawXp *= Leveling_Rebalance_SubModule.Settings.SkillXPMultiplier;
+
+		if (__instance?.Hero?.CharacterObject.IsPlayerCharacter == false)
+			rawXp *= Leveling_Rebalance_SubModule.Settings.NPCSkillXPMultiplier;
 	}
 }

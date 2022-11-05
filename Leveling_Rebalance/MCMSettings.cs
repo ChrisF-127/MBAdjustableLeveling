@@ -10,11 +10,6 @@ using TaleWorlds.MountAndBlade;
 
 namespace Leveling_Rebalance
 {
-#warning TODO: Add (Combat?)SkillXPMultiplier for Companions
-#warning TODO: Increase XP needed for high skill levels
-#warning TODO: Increase XP needed for level up
-
-
 	public class MCMSettings : AttributeGlobalSettings<MCMSettings>
 	{
 		public override string Id => "LevelingRebalance";
@@ -38,5 +33,18 @@ namespace Leveling_Rebalance
 			"Multiplier",
 			GroupOrder = 0)]
 		public float SkillXPMultiplier { get; set; } = 1f;
+
+		[SettingPropertyFloatingInteger(
+			"NPC Skill XP Multiplier",
+			0.01f,
+			100.0f,
+			"#0%",
+			RequireRestart = false,
+			HintText = "Adjust npc skill xp gain rate. [Native: 100%]",
+			Order = 1)]
+		[SettingPropertyGroup(
+			"Multiplier",
+			GroupOrder = 0)]
+		public float NPCSkillXPMultiplier { get; set; } = 1f;
 	}
 }

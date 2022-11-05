@@ -12,21 +12,15 @@ internal class PatchGetSkillLevelChange
 	public static bool Prefix(ref DefaultCharacterDevelopmentModel __instance, ref int __result, Hero hero, SkillObject skill, float skillXp)
 	{
 		int[] array = (int[])typeof(DefaultCharacterDevelopmentModel).GetField("_xpRequiredForSkillLevel", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(__instance);
-		int num = 0;
-		int skillValue = hero.GetSkillValue(skill);
-		for (int i = 0; i < 300; i++)
+		int start = hero.GetSkillValue(skill);
+		int next = start;
+		while (next < 300)
 		{
-			int num2 = skillValue + i;
-			if (num2 < 300)
-			{
-				if ((double)skillXp < (double)array[num2])
-				{
-					break;
-				}
-				num++;
-			}
+			if ((double)skillXp < (double)array[next + 1])
+				break;
+			next++;
 		}
-		__result = num;
+		__result = next - start;
 		return false;
 	}
 }
