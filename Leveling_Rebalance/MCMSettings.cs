@@ -28,7 +28,7 @@ namespace Leveling_Rebalance
 			"#0%",
 			RequireRestart = false,
 			HintText = "Adjust skill xp gain rate. [Native: 100%]",
-			Order = 1)]
+			Order = 0)]
 		[SettingPropertyGroup(
 			"Multiplier",
 			GroupOrder = 0)]
@@ -46,5 +46,18 @@ namespace Leveling_Rebalance
 			"Multiplier",
 			GroupOrder = 0)]
 		public float NPCSkillXPMultiplier { get; set; } = 1f;
+
+		[SettingPropertyFloatingInteger(
+			"Smithing Part Research Multiplier",
+			0.01f,
+			100.0f,
+			"#0%",
+			RequireRestart = false,
+			HintText = "Adjust smithing part research gain rate. [Native: 100%]",
+			Order = 2)]
+		[SettingPropertyGroup(
+			"Multiplier",
+			GroupOrder = 0)]
+		public float SmithingResearchModifier { get; set; } = 1f;
 	}
 }

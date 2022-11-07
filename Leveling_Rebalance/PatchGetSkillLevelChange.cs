@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Reflection;
 using HarmonyLib;
 using TaleWorlds.CampaignSystem;
@@ -16,7 +17,7 @@ internal class PatchGetSkillLevelChange
 		int next = start;
 		while (next < 300)
 		{
-			if ((double)skillXp < (double)array[next + 1])
+			if ((double)skillXp < (double)array[next])
 				break;
 			next++;
 		}
