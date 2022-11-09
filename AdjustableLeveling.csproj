@@ -18,6 +18,7 @@
     <FileVersion>1.0.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Bannerlord.ReferenceAssemblies" Version="1.0.1.4441" />
     <PackageReference Include="Krafs.Publicizer" Version="2.0.1">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
@@ -27,58 +28,6 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Core">
-      <CopyLocal>False</CopyLocal>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="TaleWorlds.CampaignSystem">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.CampaignSystem.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="TaleWorlds.CampaignSystem.ViewModelCollection">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.CampaignSystem.ViewModelCollection.dll</HintPath>
-      <CopyLocal>False</CopyLocal>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="TaleWorlds.Core">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.Core.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="TaleWorlds.Core.ViewModelCollection">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.Core.ViewModelCollection.dll</HintPath>
-      <CopyLocal>False</CopyLocal>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="TaleWorlds.Library">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.Library.dll</HintPath>
-      <CopyLocal>False</CopyLocal>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="TaleWorlds.Localization">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.Localization.dll</HintPath>
-      <CopyLocal>False</CopyLocal>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="TaleWorlds.ModuleManager">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.ModuleManager.dll</HintPath>
-      <CopyLocal>False</CopyLocal>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="TaleWorlds.MountAndBlade">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="TaleWorlds.MountAndBlade.Helpers">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.Helpers.dll</HintPath>
-      <CopyLocal>False</CopyLocal>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="TaleWorlds.MountAndBlade.ViewModelCollection">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.MountAndBlade.ViewModelCollection.dll</HintPath>
-      <CopyLocal>False</CopyLocal>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="TaleWorlds.ObjectSystem">
-      <HintPath>F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.ObjectSystem.dll</HintPath>
       <CopyLocal>False</CopyLocal>
       <Private>False</Private>
     </Reference>

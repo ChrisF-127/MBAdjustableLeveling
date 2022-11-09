@@ -23,8 +23,7 @@ internal class PatchSetInitialLevelFromSkills
 			var xp = PatchXpRequiredForSkillLevel.XpRequiredForSkillLevel[skillValue];
 			totalXP += xp;
 		}
-		__instance.TotalXp = totalXP;
-		//typeof(HeroDeveloper).GetProperty(nameof(HeroDeveloper.TotalXp)).GetSetMethod(true).Invoke(__instance, new object[] { totalXP });
+		typeof(HeroDeveloper).GetProperty(nameof(HeroDeveloper.TotalXp)).GetSetMethod(true).Invoke(__instance, new object[] { totalXP });
 		return false;
 	}
 }
