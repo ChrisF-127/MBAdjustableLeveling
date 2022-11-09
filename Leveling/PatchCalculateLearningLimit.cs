@@ -19,7 +19,7 @@ internal class PatchCalculateLearningLimit
 
 	public static bool Prefix(ref ExplainedNumber __result, ref DefaultCharacterDevelopmentModel __instance, int attributeValue, int focusValue, TextObject attributeName, bool includeDescriptions = false)
 	{
-		ExplainedNumber explainedNumber = new ExplainedNumber(50f, includeDescriptions);
+		var explainedNumber = new ExplainedNumber(50f, includeDescriptions);
 		explainedNumber.Add(focusValue * 50, _skillFocusText);
 		explainedNumber.LimitMin(0f);
 		__result = explainedNumber;

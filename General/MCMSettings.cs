@@ -46,7 +46,7 @@ namespace AdjustableLeveling
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Adjust character level learning rate. [Native: 100%]",
+			HintText = "Adjust how skill xp is converted into level xp, default is 1-to-1 at 100%. [Native: 100%]",
 			Order = 1)]
 		[SettingPropertyGroup(
 			"Character Leveling",
