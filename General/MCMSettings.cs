@@ -23,29 +23,42 @@ namespace AdjustableLeveling
 
 		// --- LEVELING
 
+		[SettingPropertyInteger(
+			"Levels per Attribute Point",
+			1,
+			10,
+			"0",
+			RequireRestart = false,
+			HintText = "Number of level ups required to gain an attribute point. [Native: 4]",
+			Order = 0)]
+		[SettingPropertyGroup(
+			"General",
+			GroupOrder = 0)]
+		public int LevelsPerAttributePoint { get; set; } = 4;
+
 		[SettingPropertyFloatingInteger(
 			"Skill XP Multiplier",
 			0.01f,
-			100.0f,
-			"#0%",
+			10.0f,
+			"0%",
 			RequireRestart = false,
 			HintText = "Adjust skill xp gain rate. [Native: 100%]",
-			Order = 0)]
+			Order = 1)]
 		[SettingPropertyGroup(
-			"Multiplier",
+			"General",
 			GroupOrder = 0)]
 		public float SkillXPMultiplier { get; set; } = 1f;
 
 		[SettingPropertyFloatingInteger(
 			"NPC Skill XP Multiplier",
 			0.01f,
-			100.0f,
-			"#0%",
+			10.0f,
+			"0%",
 			RequireRestart = false,
 			HintText = "Adjust npc skill xp gain rate, multiplicative with 'Skill XP Multiplier'. [Native: 100%]",
-			Order = 1)]
+			Order = 2)]
 		[SettingPropertyGroup(
-			"Multiplier",
+			"General",
 			GroupOrder = 0)]
 		public float NPCSkillXPMultiplier { get; set; } = 1f;
 
@@ -55,8 +68,8 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Part Research Multiplier",
 			0.01f,
-			100.0f,
-			"#0%",
+			10.0f,
+			"0%",
 			RequireRestart = false,
 			HintText = "Adjust smithing part research gain rate for smithing and smelting weapons. [Native: 100%]",
 			Order = 0)]
@@ -68,10 +81,10 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Free Build Part Research Multiplier",
 			0.01f,
-			10.0f,
-			"#0%",
+			1.0f,
+			"0%",
 			RequireRestart = false,
-			HintText = "Adjust smithing part research gain rate when smithing in free build mode. [Native: 10%]",
+			HintText = "Adjust smithing part research gain rate when in free build mode. With the default setting, unlocking parts is slow in free build mode. [Native: 10%]",
 			Order = 1)]
 		[SettingPropertyGroup(
 			"Smithing Research",

@@ -8,6 +8,6 @@ public static class PatchLevelsPerAttributePoint
 {
 	public static void Postfix(ref int __result)
 	{
-		__result = 2;
+		__result = AdjustableLeveling.Settings.LevelsPerAttributePoint;
 	}
 }
