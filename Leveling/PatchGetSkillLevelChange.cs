@@ -17,7 +17,7 @@ internal class PatchGetSkillLevelChange
 		int next = start;
 		while (next < 300)
 		{
-			if ((double)skillXp < (double)array[next])
+			if (skillXp < array[next])
 				break;
 			next++;
 		}

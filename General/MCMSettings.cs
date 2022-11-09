@@ -21,8 +21,7 @@ namespace AdjustableLeveling
 		public override string FormatType => "json";
 
 
-		// --- LEVELING
-
+		#region CHARACTER LEVELING MODIFIERS
 		[SettingPropertyInteger(
 			"Levels per Attribute Point",
 			1,
@@ -32,10 +31,26 @@ namespace AdjustableLeveling
 			HintText = "Number of level ups required to gain an attribute point. [Native: 4]",
 			Order = 0)]
 		[SettingPropertyGroup(
-			"General",
+			"Character Leveling",
 			GroupOrder = 0)]
 		public int LevelsPerAttributePoint { get; set; } = 4;
 
+		[SettingPropertyFloatingInteger(
+			"Character Level XP Multiplier",
+			0.01f,
+			10.0f,
+			"0%",
+			RequireRestart = false,
+			HintText = "Adjust character level xp gain rate. [Native: 100%]",
+			Order = 1)]
+		[SettingPropertyGroup(
+			"Character Leveling",
+			GroupOrder = 0)]
+		public float LevelXPMultiplier { get; set; } = 1f;
+		#endregion
+
+
+		#region SKILL LEVELING MODIFIERS
 		[SettingPropertyFloatingInteger(
 			"Skill XP Multiplier",
 			0.01f,
@@ -43,9 +58,9 @@ namespace AdjustableLeveling
 			"0%",
 			RequireRestart = false,
 			HintText = "Adjust skill xp gain rate. [Native: 100%]",
-			Order = 1)]
+			Order = 0)]
 		[SettingPropertyGroup(
-			"General",
+			"Skill Leveling",
 			GroupOrder = 0)]
 		public float SkillXPMultiplier { get; set; } = 1f;
 
@@ -56,15 +71,18 @@ namespace AdjustableLeveling
 			"0%",
 			RequireRestart = false,
 			HintText = "Adjust npc skill xp gain rate, multiplicative with 'Skill XP Multiplier'. [Native: 100%]",
-			Order = 2)]
+			Order = 1)]
 		[SettingPropertyGroup(
-			"General",
+			"Skill Leveling",
 			GroupOrder = 0)]
 		public float NPCSkillXPMultiplier { get; set; } = 1f;
+		#endregion
+
+		#region SKILL MODIFIERS
+		#endregion
 
 
-		// --- SMITHING
-
+		#region SMITHING PART RESEARCH MODIFIERS
 		[SettingPropertyFloatingInteger(
 			"Part Research Multiplier",
 			0.01f,
@@ -90,5 +108,6 @@ namespace AdjustableLeveling
 			"Smithing Research",
 			GroupOrder = 1)]
 		public float SmithingFreeBuildResearchModifier { get; set; } = 0.1f;
+		#endregion
 	}
 }
