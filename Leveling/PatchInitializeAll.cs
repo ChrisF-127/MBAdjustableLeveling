@@ -4,7 +4,7 @@ using System.Reflection.Emit;
 using HarmonyLib;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
 
-namespace AdjustableLeveling
+namespace AdjustableLeveling.Leveling
 {
 	[HarmonyPatch(typeof(DefaultPerks))]
 	[HarmonyPatch("InitializeAll")]

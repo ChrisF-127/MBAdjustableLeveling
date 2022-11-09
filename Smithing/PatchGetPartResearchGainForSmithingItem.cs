@@ -8,7 +8,7 @@ using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace AdjustableLeveling;
+namespace AdjustableLeveling.Smithing;
 
 [HarmonyPatch(typeof(DefaultSmithingModel), "GetPartResearchGainForSmithingItem")]
 internal static class PatchGetPartResearchGainForSmithingItem

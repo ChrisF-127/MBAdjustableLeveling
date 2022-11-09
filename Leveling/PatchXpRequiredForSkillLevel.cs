@@ -3,7 +3,7 @@ using System;
 using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.Library;
 
-namespace AdjustableLeveling;
+namespace AdjustableLeveling.Leveling;
 
 [HarmonyPatch(typeof(DefaultCharacterDevelopmentModel), "InitializeXpRequiredForSkillLevel")]
 internal static class PatchXpRequiredForSkillLevel

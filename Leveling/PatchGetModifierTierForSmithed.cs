@@ -4,7 +4,7 @@ using System.Reflection.Emit;
 using HarmonyLib;
 using TaleWorlds.CampaignSystem.GameComponents;
 
-namespace AdjustableLeveling;
+namespace AdjustableLeveling.Leveling;
 
 [HarmonyPatch(typeof(DefaultSmithingModel))]
 [HarmonyPatch("GetModifierTierForSmithedWeapon")]

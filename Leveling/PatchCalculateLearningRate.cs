@@ -5,7 +5,7 @@ using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace AdjustableLeveling;
+namespace AdjustableLeveling.Leveling;
 
 [HarmonyPatch(typeof(DefaultCharacterDevelopmentModel), "CalculateLearningRate", new Type[]
 {

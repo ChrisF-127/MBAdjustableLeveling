@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Core;
 
-namespace AdjustableLeveling;
+namespace AdjustableLeveling.Leveling;
 
 [HarmonyPatch(typeof(HeroDeveloper), "GainRawXp")]
 internal static class PatchGainRawXp

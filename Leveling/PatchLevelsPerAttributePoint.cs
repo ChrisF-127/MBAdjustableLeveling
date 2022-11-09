@@ -1,7 +1,7 @@
 using HarmonyLib;
 using TaleWorlds.CampaignSystem.GameComponents;
 
-namespace AdjustableLeveling;
+namespace AdjustableLeveling.Leveling;
 
 [HarmonyPatch(typeof(DefaultCharacterDevelopmentModel), "get_LevelsPerAttributePoint")]
 public static class PatchLevelsPerAttributePoint

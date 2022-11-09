@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Core;
 
-namespace AdjustableLeveling;
+namespace AdjustableLeveling.Leveling;
 
 [HarmonyPatch(typeof(HeroDeveloper), "AddSkillXp")]
 internal static class PatchAddSkillXp
 {
 	public static void Prefix(HeroDeveloper __instance, SkillObject skill, ref float rawXp)
 	{
-		rawXp *= AdjustableLeveling.Settings.SkillXPMultiplier;
+		rawXp *= AdjustableLeveling.Settings.SkillXPMultiplier * skill.SkillToModifier();
 
 		if (__instance?.Hero?.CharacterObject.IsPlayerCharacter == false)
-			rawXp *= AdjustableLeveling.Settings.NPCSkillXPMultiplier;
+			rawXp *= AdjustableLeveling.Settings.NPCSkillXPMultiplier * skill.NPCSkillToModifier();
 	}
 }
