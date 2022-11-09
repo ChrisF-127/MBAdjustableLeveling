@@ -5,7 +5,7 @@ using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace Leveling_Rebalance;
+namespace AdjustableLeveling;
 
 [HarmonyPatch(typeof(DefaultCharacterDevelopmentModel), "CalculateLearningRate", new Type[]
 {
@@ -26,13 +26,13 @@ internal class PatchCalculateLearningRate
 
 	public static bool Prefix(ref ExplainedNumber __result, ref DefaultCharacterDevelopmentModel __instance, int attributeValue, int focusValue, int skillValue, int characterLevel, TextObject attributeName, bool includeDescriptions = false)
 	{
-		ExplainedNumber explainedNumber = new ExplainedNumber(0.5f, includeDescriptions: true);
-		explainedNumber.AddFactor(1f * (float)attributeValue - 1f, attributeName);
-		explainedNumber.AddFactor((float)focusValue * 2f, _skillFocusText);
+		var explainedNumber = new ExplainedNumber(0.5f, includeDescriptions: true);
+		explainedNumber.AddFactor(1f * attributeValue - 1f, attributeName);
+		explainedNumber.AddFactor(focusValue * 2f, _skillFocusText);
 		int num = MathF.Round(__instance.CalculateLearningLimit(attributeValue, focusValue, null).ResultNumber);
 		if (skillValue >= num)
 		{
-			explainedNumber.AddFactor(0f - 1f * (float)attributeValue - (float)focusValue * 2f, _overLimitText);
+			explainedNumber.AddFactor(0f - 1f * attributeValue - focusValue * 2f, _overLimitText);
 		}
 		explainedNumber.LimitMin(0f);
 		__result = explainedNumber;

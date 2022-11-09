@@ -3,7 +3,7 @@ using System.Reflection;
 using HarmonyLib;
 using TaleWorlds.CampaignSystem.GameComponents;
 
-namespace Leveling_Rebalance;
+namespace AdjustableLeveling;
 
 [HarmonyPatch(typeof(DefaultSmithingModel), "GetPartResearchGainForSmithingItem")]
 internal class PatchGetPartResearchGainForSmithingItem

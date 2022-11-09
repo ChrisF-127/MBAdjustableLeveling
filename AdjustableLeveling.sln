@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leveling_Rebalance", "Leveling_Rebalance.csproj", "{52BCBD13-349B-4BE9-8A9D-F8ED15FA4936}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdjustableLeveling", "AdjustableLeveling.csproj", "{52BCBD13-349B-4BE9-8A9D-F8ED15FA4936}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

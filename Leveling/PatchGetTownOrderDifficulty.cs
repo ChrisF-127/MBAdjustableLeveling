@@ -5,7 +5,7 @@ using TaleWorlds.CampaignSystem.CampaignBehaviors;
 using TaleWorlds.CampaignSystem.Settlements;
 using TaleWorlds.Core;
 
-namespace Leveling_Rebalance;
+namespace AdjustableLeveling;
 
 [HarmonyPatch(typeof(CraftingCampaignBehavior), "GetTownOrderDifficulty")]
 internal class PatchGetTownOrderDifficulty

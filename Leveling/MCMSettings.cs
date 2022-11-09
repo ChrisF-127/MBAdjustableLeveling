@@ -8,15 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.MountAndBlade;
 
-namespace Leveling_Rebalance
+namespace AdjustableLeveling
 {
 	public class MCMSettings : AttributeGlobalSettings<MCMSettings>
 	{
-		public override string Id => "LevelingRebalance";
+		public override string Id => "AdjustableLeveling";
 
-		public override string DisplayName => "Leveling Rebalance";
+		public override string DisplayName => "Adjustable Leveling";
 
-		public override string FolderName => "LevelingRebalance";
+		public override string FolderName => "AdjustableLeveling";
 
 		public override string FormatType => "json";
 
@@ -40,7 +40,7 @@ namespace Leveling_Rebalance
 			100.0f,
 			"#0%",
 			RequireRestart = false,
-			HintText = "Adjust npc skill xp gain rate. [Native: 100%]",
+			HintText = "Adjust npc skill xp gain rate, multiplicative with 'Skill XP Multiplier'. [Native: 100%]",
 			Order = 1)]
 		[SettingPropertyGroup(
 			"Multiplier",

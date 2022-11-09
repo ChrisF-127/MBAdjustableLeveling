@@ -6,9 +6,9 @@ using System.Reflection;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
 
-namespace Leveling_Rebalance;
+namespace AdjustableLeveling;
 
-public class Leveling_Rebalance_SubModule : MBSubModuleBase
+public class AdjustableLeveling : MBSubModuleBase
 {
 	public static MCMSettings Settings { get; private set; }
 
@@ -20,11 +20,11 @@ public class Leveling_Rebalance_SubModule : MBSubModuleBase
 		if (isInitialized)
 			return;
 
-		InformationManager.DisplayMessage(new InformationMessage("Leveling Rebalance REWORK"));
-
 		Settings = GlobalSettings<MCMSettings>.Instance;
 		if (Settings == null)
 			throw new Exception("Settings is null");
+
+		InformationManager.DisplayMessage(new InformationMessage("Adjustable Leveling initialized"));
 
 		isInitialized = true;
 	}
@@ -32,7 +32,7 @@ public class Leveling_Rebalance_SubModule : MBSubModuleBase
 	public override void OnSubModuleLoad()
 	{
 		base.OnSubModuleLoad();
-		Harmony harmony = new Harmony("levelingrebalance");
+		var harmony = new Harmony("adjustableleveling");
 		harmony.PatchAll(Assembly.GetExecutingAssembly());
 	}
 }

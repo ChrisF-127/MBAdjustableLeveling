@@ -5,7 +5,7 @@ using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.Core;
 
-namespace Leveling_Rebalance;
+namespace AdjustableLeveling;
 
 [HarmonyPatch(typeof(DefaultCharacterDevelopmentModel), "GetSkillLevelChange")]
 internal class PatchGetSkillLevelChange

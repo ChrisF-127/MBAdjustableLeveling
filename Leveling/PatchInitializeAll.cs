@@ -4,13 +4,13 @@ using System.Reflection.Emit;
 using HarmonyLib;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
 
-namespace Leveling_Rebalance
+namespace AdjustableLeveling
 {
 	[HarmonyPatch(typeof(DefaultPerks))]
 	[HarmonyPatch("InitializeAll")]
 	public static class PatchInitializeAll
 	{
-		private static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
+		public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 		{
 			List<CodeInstruction> list = new List<CodeInstruction>(instructions);
 			for (int i = 0; i < list.Count; i++)

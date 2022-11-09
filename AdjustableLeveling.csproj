@@ -1,6 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyName>Leveling_Rebalance</AssemblyName>
+    <AssemblyName>AdjustableLeveling</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <TargetFramework>net48</TargetFramework>
     <PlatformTarget>x64</PlatformTarget>
@@ -13,6 +13,7 @@
   <PropertyGroup>
     <BaseOutputPath></BaseOutputPath>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
+    <DebugType>none</DebugType>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Bannerlord.ReferenceAssemblies" Version="1.0.0.4373" />
@@ -32,6 +33,6 @@
     <Publicize Include="TaleWorlds.CampaignSystem" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(TargetDir)$(TargetName).pdb&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\Leveling_Rebalance\Bin\Win64_Shipping_Client\$(TargetName).pdb&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\Leveling_Rebalance\Bin\Win64_Shipping_Client\$(TargetName).dll&quot;&#xD;&#xA;" />
+    <Exec Command="copy /Y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\AdjustableLeveling\Bin\Win64_Shipping_Client\$(TargetName).dll&quot;&#xD;&#xA;" />
   </Target>
 </Project>

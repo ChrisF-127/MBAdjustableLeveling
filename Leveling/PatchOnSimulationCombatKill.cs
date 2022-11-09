@@ -6,12 +6,12 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Leveling_Rebalance;
+namespace AdjustableLeveling;
 
 [HarmonyPatch(typeof(DefaultSkillLevelingManager), "OnSimulationCombatKill")]
 internal class PatchOnSimulationCombatKill
 {
-	private static bool Prefix(CharacterObject affectorCharacter, CharacterObject affectedCharacter, PartyBase affectorParty, PartyBase commanderParty)
+	public static bool Prefix(CharacterObject affectorCharacter, CharacterObject affectedCharacter, PartyBase affectorParty, PartyBase commanderParty)
 	{
 		int num = Campaign.Current.Models.PartyTrainingModel.GetXpReward(affectedCharacter);
 		if (affectorCharacter.IsHero)

@@ -9,13 +9,13 @@ using TaleWorlds.Library;
 using TaleWorlds.Localization;
 using static TaleWorlds.Core.Crafting;
 
-namespace Leveling_Rebalance;
+namespace AdjustableLeveling;
 
 [HarmonyPatch(typeof(CraftingCampaignBehavior), "AddResearchPoints")]
 internal class PatchAddResearchPoints
 {
 	public static void Prefix(ref int researchPoints)
 	{
-		researchPoints = MathF.Round(researchPoints * Leveling_Rebalance_SubModule.Settings.SmithingResearchModifier);
+		researchPoints = MathF.Round(researchPoints * AdjustableLeveling.Settings.SmithingResearchModifier);
 	}
 }

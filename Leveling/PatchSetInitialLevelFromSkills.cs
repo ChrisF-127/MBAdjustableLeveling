@@ -7,7 +7,7 @@ using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 
-namespace Leveling_Rebalance;
+namespace AdjustableLeveling;
 
 [HarmonyPatch(typeof(HeroDeveloper), "SetInitialLevelFromSkills")]
 internal class PatchSetInitialLevelFromSkills
