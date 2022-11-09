@@ -12,7 +12,7 @@ using static TaleWorlds.Core.Crafting;
 namespace AdjustableLeveling;
 
 [HarmonyPatch(typeof(CraftingCampaignBehavior), "AddResearchPoints")]
-internal class PatchAddResearchPoints
+internal static class PatchAddResearchPoints
 {
 	public static void Prefix(ref int researchPoints)
 	{

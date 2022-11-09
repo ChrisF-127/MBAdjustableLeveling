@@ -1,15 +1,43 @@
 using System.Collections.Generic;
 using System.Reflection;
+using System.Reflection.Emit;
 using HarmonyLib;
+using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.CampaignSystem.GameComponents;
+using TaleWorlds.Core;
+using TaleWorlds.Library;
 
 namespace AdjustableLeveling;
 
 [HarmonyPatch(typeof(DefaultSmithingModel), "GetPartResearchGainForSmithingItem")]
-internal class PatchGetPartResearchGainForSmithingItem
+internal static class PatchGetPartResearchGainForSmithingItem
 {
-	public static void Prefix(ref bool isFreeBuild)
+	public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
 	{
-		isFreeBuild = false;
+		//call static AdjustableLeveling.MCMSettings AdjustableLeveling.AdjustableLeveling::get_Settings()
+		//callvirt System.Single AdjustableLeveling.MCMSettings::get_SmithingFreeBuildResearchModifier()
+		var patched = false;
+		foreach (var instruction in instructions)
+		{
+			if (!patched 
+				&& instruction.opcode == OpCodes.Ldc_R4 
+				&& instruction.operand is 0.1f)
+			{
+				yield return new CodeInstruction(
+					OpCodes.Call, 
+					typeof(AdjustableLeveling).GetProperty(nameof(AdjustableLeveling.Settings), BindingFlags.Static | BindingFlags.Public).GetGetMethod());
+				yield return new CodeInstruction(
+					OpCodes.Callvirt, 
+					typeof(MCMSettings).GetProperty(nameof(MCMSettings.SmithingFreeBuildResearchModifier), BindingFlags.Instance | BindingFlags.Public).GetGetMethod());
+				patched = true;
+			}
+			else
+			{
+				yield return instruction;
+			}
+		}
+		if (!patched)
+			FileLog.Log($"{nameof(AdjustableLeveling)}: failed to patch 'GetPartResearchGainForSmithingItem'");
 	}
 }

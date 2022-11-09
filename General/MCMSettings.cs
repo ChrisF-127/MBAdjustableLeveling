@@ -21,6 +21,8 @@ namespace AdjustableLeveling
 		public override string FormatType => "json";
 
 
+		// --- LEVELING
+
 		[SettingPropertyFloatingInteger(
 			"Skill XP Multiplier",
 			0.01f,
@@ -47,17 +49,33 @@ namespace AdjustableLeveling
 			GroupOrder = 0)]
 		public float NPCSkillXPMultiplier { get; set; } = 1f;
 
+
+		// --- SMITHING
+
 		[SettingPropertyFloatingInteger(
-			"Smithing Part Research Multiplier",
+			"Part Research Multiplier",
 			0.01f,
 			100.0f,
 			"#0%",
 			RequireRestart = false,
-			HintText = "Adjust smithing part research gain rate. [Native: 100%]",
-			Order = 2)]
+			HintText = "Adjust smithing part research gain rate for smithing and smelting weapons. [Native: 100%]",
+			Order = 0)]
 		[SettingPropertyGroup(
-			"Multiplier",
-			GroupOrder = 0)]
+			"Smithing Research",
+			GroupOrder = 1)]
 		public float SmithingResearchModifier { get; set; } = 1f;
+
+		[SettingPropertyFloatingInteger(
+			"Free Build Part Research Multiplier",
+			0.01f,
+			10.0f,
+			"#0%",
+			RequireRestart = false,
+			HintText = "Adjust smithing part research gain rate when smithing in free build mode. [Native: 10%]",
+			Order = 1)]
+		[SettingPropertyGroup(
+			"Smithing Research",
+			GroupOrder = 1)]
+		public float SmithingFreeBuildResearchModifier { get; set; } = 0.1f;
 	}
 }
