@@ -12,18 +12,12 @@ namespace AdjustableLeveling
 {
 	public class MCMSettings : AttributeGlobalSettings<MCMSettings>
 	{
-		public const string SkillHintText =
-			"Adjusts this skill's learning rate for everyone. [Native: 100%]";
-		public const string NPCSkillHintText =
-			"Additional adjustment for this skill's learning rate for non-player characters only. " +
-			"Can be used to increase (> 100%) or decrease (< 100%) the learning rate compared to the player. [Native: 100%]";
+		public const string OverrideHintText = "Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for this specific skill when not 0%. [Native: 0%]";
+		public const string NPCOverrideHintText = "Overrides modifiers for this specific skill for NPCs only when not 0%. [Native: 0%]";
 
 		public override string Id => "AdjustableLeveling";
-
 		public override string DisplayName => "Adjustable Leveling";
-
 		public override string FolderName => "AdjustableLeveling";
-
 		public override string FormatType => "json";
 
 		#region CHARACTER LEVELING MODIFIERS
@@ -41,7 +35,7 @@ namespace AdjustableLeveling
 		public int LevelsPerAttributePoint { get; set; } = 4;
 
 		[SettingPropertyFloatingInteger(
-			"Character Level XP Multiplier",
+			"Character Level XP Modifier",
 			0.01f,
 			10.0f,
 			"0%",
@@ -51,285 +45,284 @@ namespace AdjustableLeveling
 		[SettingPropertyGroup(
 			"Character Leveling",
 			GroupOrder = 0)]
-		public float LevelXPMultiplier { get; set; } = 1f;
+		public float LevelXPModifier { get; set; } = 1f;
 		#endregion
 
 
 		#region SKILL LEVELING MODIFIERS
 		#region GENERAL
 		[SettingPropertyFloatingInteger(
-			"Skill XP Multiplier",
+			"Skill XP Modifier",
 			0.01f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Adjust the overall skill learning rate for everyone. [Native: 100%]",
+			HintText = "Adjust the overall skill learning rate. [Native: 100%]",
 			Order = 0)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
 			GroupOrder = 1)]
-		public float SkillXPMultiplier { get; set; } = 1f;
+		public float SkillXPModifier { get; set; } = 1f;
 
 		[SettingPropertyFloatingInteger(
-			"NPC Skill XP Multiplier",
-			0.01f,
+			"NPC Skill XP Modifier",
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Additional adjustment for the overall skill learning rate for non-player characters only. " +
-				"Can be used to increase (> 100%) or decrease (< 100%) the learning rate compared to the player. [Native: 100%]",
+			HintText = "Overrides 'Skill XP Modifier' for NPCs when not 0%. [Native: 0%]",
 			Order = 1)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier { get; set; } = 1f;
+		public float NPCSkillXPModifier { get; set; } = 0f;
 		#endregion
 
 		#region SKILL MODIFIERS
 		#region VIGOR
 		[SettingPropertyFloatingInteger(
 			"One Handed",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 0)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_OneHanded { get; set; } = 1f;
+		public float SkillXPModifier_OneHanded { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Two Handed",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 1)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_TwoHanded { get; set; } = 1f;
+		public float SkillXPModifier_TwoHanded { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Polearm",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 2)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Polearm { get; set; } = 1f;
+		public float SkillXPModifier_Polearm { get; set; } = 0f;
 		#endregion
 
 		#region CONTROL
 		[SettingPropertyFloatingInteger(
 			"Bow",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 3)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Bow { get; set; } = 1f;
+		public float SkillXPModifier_Bow { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Crossbow",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 4)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Crossbow { get; set; } = 1f;
+		public float SkillXPModifier_Crossbow { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Throwing",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 5)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Throwing { get; set; } = 1f;
+		public float SkillXPModifier_Throwing { get; set; } = 0f;
 		#endregion
 
 		#region ENDURANCE
 		[SettingPropertyFloatingInteger(
 			"Riding",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 6)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Riding { get; set; } = 1f;
+		public float SkillXPModifier_Riding { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Athletics",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 7)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Athletics { get; set; } = 1f;
+		public float SkillXPModifier_Athletics { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Smithing",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 8)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Crafting { get; set; } = 1f;
+		public float SkillXPModifier_Crafting { get; set; } = 0f;
 		#endregion
 
 		#region CUNNING
 		[SettingPropertyFloatingInteger(
 			"Scouting",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 9)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Scouting { get; set; } = 1f;
+		public float SkillXPModifier_Scouting { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Tactics",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 10)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Tactics { get; set; } = 1f;
+		public float SkillXPModifier_Tactics { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Roguery",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 11)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Roguery { get; set; } = 1f;
+		public float SkillXPModifier_Roguery { get; set; } = 0f;
 		#endregion
 
 		#region SOCIAL
 		[SettingPropertyFloatingInteger(
 			"Charm",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 12)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Charm { get; set; } = 1f;
+		public float SkillXPModifier_Charm { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Leadership",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 13)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Leadership { get; set; } = 1f;
+		public float SkillXPModifier_Leadership { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Trade",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 14)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Trade { get; set; } = 1f;
+		public float SkillXPModifier_Trade { get; set; } = 0f;
 		#endregion
 
 		#region INTELLIGENCE
 		[SettingPropertyFloatingInteger(
 			"Steward",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 15)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Steward { get; set; } = 1f;
+		public float SkillXPModifier_Steward { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Medicine",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 16)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Medicine { get; set; } = 1f;
+		public float SkillXPModifier_Medicine { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Engineering",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = SkillHintText,
+			HintText = OverrideHintText,
 			Order = 17)]
 		[SettingPropertyGroup(
 			"Skill Leveling/Skills",
 			GroupOrder = 0)]
-		public float SkillXPMultiplier_Engineering { get; set; } = 1f;
+		public float SkillXPModifier_Engineering { get; set; } = 0f;
 		#endregion
 		#endregion
 
@@ -337,247 +330,247 @@ namespace AdjustableLeveling
 		#region VIGOR
 		[SettingPropertyFloatingInteger(
 			"One Handed (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 0)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_OneHanded { get; set; } = 1f;
+		public float NPCSkillXPModifier_OneHanded { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Two Handed (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 1)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_TwoHanded { get; set; } = 1f;
+		public float NPCSkillXPModifier_TwoHanded { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Polearm (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 2)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Polearm { get; set; } = 1f;
+		public float NPCSkillXPModifier_Polearm { get; set; } = 0f;
 		#endregion
 
 		#region CONTROL
 		[SettingPropertyFloatingInteger(
 			"Bow (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 3)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Bow { get; set; } = 1f;
+		public float NPCSkillXPModifier_Bow { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Crossbow (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 4)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Crossbow { get; set; } = 1f;
+		public float NPCSkillXPModifier_Crossbow { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Throwing (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 5)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Throwing { get; set; } = 1f;
+		public float NPCSkillXPModifier_Throwing { get; set; } = 0f;
 		#endregion
 
 		#region ENDURANCE
 		[SettingPropertyFloatingInteger(
 			"Riding (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 6)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Riding { get; set; } = 1f;
+		public float NPCSkillXPModifier_Riding { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Athletics (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 7)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Athletics { get; set; } = 1f;
+		public float NPCSkillXPModifier_Athletics { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Smithing (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 8)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Crafting { get; set; } = 1f;
+		public float NPCSkillXPModifier_Crafting { get; set; } = 0f;
 		#endregion
 
 		#region CUNNING
 		[SettingPropertyFloatingInteger(
 			"Scouting (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 9)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Scouting { get; set; } = 1f;
+		public float NPCSkillXPModifier_Scouting { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Tactics (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 10)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Tactics { get; set; } = 1f;
+		public float NPCSkillXPModifier_Tactics { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Roguery (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 11)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Roguery { get; set; } = 1f;
+		public float NPCSkillXPModifier_Roguery { get; set; } = 0f;
 		#endregion
 
 		#region SOCIAL
 		[SettingPropertyFloatingInteger(
 			"Charm (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 12)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Charm { get; set; } = 1f;
+		public float NPCSkillXPModifier_Charm { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Leadership (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 13)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Leadership { get; set; } = 1f;
+		public float NPCSkillXPModifier_Leadership { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Trade (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 14)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Trade { get; set; } = 1f;
+		public float NPCSkillXPModifier_Trade { get; set; } = 0f;
 		#endregion
 
 		#region INTELLIGENCE
 		[SettingPropertyFloatingInteger(
 			"Steward (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 15)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Steward { get; set; } = 1f;
+		public float NPCSkillXPModifier_Steward { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Medicine (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 16)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Medicine { get; set; } = 1f;
+		public float NPCSkillXPModifier_Medicine { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"Engineering (NPC)",
-			0.01f,
+			0f,
 			10.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = NPCSkillHintText,
+			HintText = NPCOverrideHintText,
 			Order = 17)]
 		[SettingPropertyGroup(
 			"Skill Leveling/NPC Skills",
 			GroupOrder = 1)]
-		public float NPCSkillXPMultiplier_Engineering { get; set; } = 1f;
+		public float NPCSkillXPModifier_Engineering { get; set; } = 0f;
 		#endregion
 		#endregion
 		#endregion
@@ -585,7 +578,7 @@ namespace AdjustableLeveling
 
 		#region SMITHING PART RESEARCH MODIFIERS
 		[SettingPropertyFloatingInteger(
-			"Part Research Multiplier",
+			"Part Research Modifier",
 			0.01f,
 			10.0f,
 			"0%",
@@ -598,7 +591,7 @@ namespace AdjustableLeveling
 		public float SmithingResearchModifier { get; set; } = 1f;
 
 		[SettingPropertyFloatingInteger(
-			"Free Build Part Research Multiplier",
+			"Free Build Part Research Modifier",
 			0.01f,
 			1.0f,
 			"0%",

@@ -14,7 +14,8 @@ internal static class PatchAddSkillXp
 {
 	public static void Prefix(HeroDeveloper __instance, SkillObject skill, ref float rawXp)
 	{
-		var isNPC = __instance?.Hero?.CharacterObject.IsPlayerCharacter == false;
-		rawXp *= AdjustableLeveling.Settings.SkillXPMultiplier * skill.SkillToModifier(isNPC) * (isNPC ? AdjustableLeveling.Settings.NPCSkillXPMultiplier : 1f);
+		//var b = rawXp;
+		rawXp *= skill.GetSkillModifier(__instance?.Hero);
+		//FileLog.Log($"{__instance.Hero.Name}\t{skill.Name}\t{b}\t{rawXp}");
 	}
 }
