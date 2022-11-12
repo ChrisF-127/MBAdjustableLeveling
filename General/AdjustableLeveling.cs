@@ -12,12 +12,12 @@ public class AdjustableLeveling : MBSubModuleBase
 {
 	public static MCMSettings Settings { get; private set; }
 
-	private bool isInitialized = false;
+	private bool _isInitialized = false;
 
 	public override void OnBeforeInitialModuleScreenSetAsRoot()
 	{
 		base.OnBeforeInitialModuleScreenSetAsRoot();
-		if (isInitialized)
+		if (_isInitialized)
 			return;
 
 		Settings = GlobalSettings<MCMSettings>.Instance;
@@ -26,13 +26,13 @@ public class AdjustableLeveling : MBSubModuleBase
 
 		InformationManager.DisplayMessage(new InformationMessage("Adjustable Leveling initialized"));
 
-		isInitialized = true;
+		_isInitialized = true;
 	}
 
 	public override void OnSubModuleLoad()
 	{
 		base.OnSubModuleLoad();
-		var harmony = new Harmony("adjustableleveling");
+		var harmony = new Harmony("sy.adjustableleveling");
 		harmony.PatchAll(Assembly.GetExecutingAssembly());
 	}
 }
