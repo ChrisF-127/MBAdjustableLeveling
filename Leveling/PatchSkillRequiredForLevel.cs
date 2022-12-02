@@ -14,7 +14,8 @@ internal class PatchSkillRequiredForLevel
 		____skillsRequiredForLevel[1] = 1;
 		for (int i = 2; i < ____skillsRequiredForLevel.Length; i++)
 		{
-			____skillsRequiredForLevel[i] = ____skillsRequiredForLevel[i - 1] + (int)(MathF.Pow(i, 3.3f) + i * 1500f); 
+			____skillsRequiredForLevel[i] = ____skillsRequiredForLevel[i - 1] + (int)(25f * MathF.Pow(i, 3f));
+			//____skillsRequiredForLevel[i] = ____skillsRequiredForLevel[i - 1] + (int)(MathF.Pow(i, 3.3f) + i * 1500f); 
 		}
 		return false;
 	}
