@@ -38,7 +38,7 @@
     <Publicize Include="TaleWorlds.CampaignSystem" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\AdjustableLeveling\Bin\Win64_Shipping_Client\$(TargetName).dll&quot;&#xD;&#xA;" />
+    <Exec Command="copy /Y &quot;$(SolutionDir)_Module\SubModule.xml&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\AdjustableLeveling\SubModule.xml&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\AdjustableLeveling\Bin\Win64_Shipping_Client\$(TargetName).dll&quot;&#xD;&#xA;" />
   </Target>
   <ItemGroup>
     <Reference Update="System">
