@@ -1,27 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Module>
-  <Name value="Adjustable Leveling"/>
-  <Id value="sy.AdjustableLeveling"/>
-  <Version value="v1.0.0"/>
-  <SingleplayerModule value="true"/>
-  <MultiplayerModule value="false"/>
-  <Official value="false"/>
-  <DependedModules>
-    <DependedModule Id="Native"/>
-    <DependedModule Id="SandBoxCore"/>
-    <DependedModule Id="Sandbox"/>
-    <DependedModule Id="CustomBattle"/>
-    <DependedModule Id="StoryMode" />
-  </DependedModules>
-  <SubModules>
-    <SubModule>
-      <Name value="AdjustableLeveling"/>
-      <DLLName value="AdjustableLeveling.dll"/>
-      <SubModuleClassType value="AdjustableLeveling.AdjustableLeveling"/>
-      <Tags>
-        <Tag key="DedicatedServerType" value="none" />
-        <Tag key="IsNoRenderModeElement" value="false" />
-      </Tags>
-    </SubModule>
-  </SubModules>
+	<Name value="Adjustable Leveling"/>
+	<Id value="sy.AdjustableLeveling"/>
+	<Version value="v1.0.1"/>
+	<SingleplayerModule value="true"/>
+	<MultiplayerModule value="false"/>
+	<Official value="false"/>
+	<DependedModules>
+		<DependedModule Id="Native"/>
+		<DependedModule Id="SandBoxCore"/>
+		<DependedModule Id="Sandbox"/>
+		<DependedModule Id="StoryMode"/>
+		<DependedModule Id="Bannerlord.Harmony"/>
+		<DependedModule Id="Bannerlord.MBOptionScreen"/>
+	</DependedModules>
+	<DependedModuleMetadata>
+		<DependedModuleMetadata id="Native" order="LoadBeforeThis"/>
+		<DependedModuleMetadata id="SandBoxCore" order="LoadBeforeThis"/>
+		<DependedModuleMetadata id="Sandbox" order="LoadBeforeThis"/>
+		<DependedModuleMetadata id="StoryMode" order="LoadBeforeThis"/>
+		<DependedModuleMetadata id="Bannerlord.Harmony" order="LoadBeforeThis"/>
+		<DependedModuleMetadata id="Bannerlord.MBOptionScreen" order="LoadBeforeThis"/>
+	</DependedModuleMetadata>
+	<SubModules>
+		<SubModule>
+			<Name value="AdjustableLeveling"/>
+			<DLLName value="AdjustableLeveling.dll"/>
+			<SubModuleClassType value="AdjustableLeveling.AdjustableLeveling"/>
+			<Tags>
+				<Tag key="DedicatedServerType" value="none"/>
+				<Tag key="IsNoRenderModeElement" value="false"/>
+			</Tags>
+		</SubModule>
+	</SubModules>
 </Module>

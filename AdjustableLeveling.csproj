@@ -14,8 +14,8 @@
     <BaseOutputPath></BaseOutputPath>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <DebugType>none</DebugType>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <FileVersion>1.0.0</FileVersion>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Bannerlord.ReferenceAssemblies" Version="1.0.1.4441" />
