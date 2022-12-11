@@ -37,7 +37,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Character Level XP Modifier",
 			0.01f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = "Adjust how skill xp is converted into level xp, default is 1-to-1 at 100%. [Native: 100%]",
@@ -52,13 +52,26 @@ namespace AdjustableLeveling
 		#region SKILL LEVELING MODIFIERS
 		#region GENERAL
 		[SettingPropertyFloatingInteger(
+			"Max Skill Limit increase per Attribute Point",
+			0f,
+			10f,
+			"0",
+			RequireRestart = false,
+			HintText = "E.g. at 3 and with 10 AP an additional 30 skill points can be gained after the learning limit at reducing learning rate; at 5 an additional 50 can be gained. [Native: 3]",
+			Order = 0)]
+		[SettingPropertyGroup(
+			"Skill Leveling",
+			GroupOrder = 1)]
+		public float MaxSkillLimitIncreasePerAttributePoint { get; set; } = 3f;
+
+		[SettingPropertyFloatingInteger(
 			"Skill XP Modifier",
 			0.01f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = "Adjust the overall skill learning rate. [Native: 100%]",
-			Order = 0)]
+			Order = 1)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
 			GroupOrder = 1)]
@@ -67,11 +80,11 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"NPC Skill XP Modifier",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = "Overrides 'Skill XP Modifier' for NPCs when not 0%. [Native: 0%]",
-			Order = 1)]
+			Order = 2)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
 			GroupOrder = 1)]
@@ -83,7 +96,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"One Handed",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -96,7 +109,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Two Handed",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -109,7 +122,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Polearm",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -124,7 +137,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Bow",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -137,7 +150,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Crossbow",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -150,7 +163,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Throwing",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -165,7 +178,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Riding",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -178,7 +191,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Athletics",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -191,7 +204,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Smithing",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -206,7 +219,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Scouting",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -219,7 +232,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Tactics",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -232,7 +245,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Roguery",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -247,7 +260,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Charm",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -260,7 +273,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Leadership",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -273,7 +286,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Trade",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -288,7 +301,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Steward",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -301,7 +314,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Medicine",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -314,7 +327,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Engineering",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = OverrideHintText,
@@ -331,7 +344,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"One Handed (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -344,7 +357,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Two Handed (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -357,7 +370,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Polearm (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -372,7 +385,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Bow (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -385,7 +398,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Crossbow (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -398,7 +411,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Throwing (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -413,7 +426,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Riding (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -426,7 +439,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Athletics (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -439,7 +452,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Smithing (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -454,7 +467,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Scouting (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -467,7 +480,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Tactics (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -480,7 +493,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Roguery (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -495,7 +508,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Charm (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -508,7 +521,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Leadership (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -521,7 +534,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Trade (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -536,7 +549,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Steward (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -549,7 +562,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Medicine (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -562,7 +575,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Engineering (NPC)",
 			0f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
@@ -580,7 +593,7 @@ namespace AdjustableLeveling
 		[SettingPropertyFloatingInteger(
 			"Part Research Modifier",
 			0.01f,
-			10.0f,
+			100f,
 			"0%",
 			RequireRestart = false,
 			HintText = "Adjust smithing part research gain rate for smithing and smelting weapons. [Native: 100%]",

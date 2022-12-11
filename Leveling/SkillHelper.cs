@@ -7,7 +7,6 @@ using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
-using static TaleWorlds.InputSystem.HotKey;
 
 namespace AdjustableLeveling.Leveling
 {

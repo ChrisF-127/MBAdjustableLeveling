@@ -14,8 +14,8 @@ internal static class PatchAddSkillXp
 {
 	public static void Prefix(HeroDeveloper __instance, SkillObject skill, ref float rawXp)
 	{
-		//var b = rawXp;
+		//var oriXp = rawXp;
 		rawXp *= skill.GetSkillModifier(__instance?.Hero);
-		//FileLog.Log($"{__instance.Hero.Name}\t{skill.Name}\t{b}\t{rawXp}");
+		//FileLog.Log($"{__instance.Hero.Name}\t{skill.Name}\t{oriXp}\t{rawXp}");
 	}
 }
