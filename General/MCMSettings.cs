@@ -22,17 +22,17 @@ namespace AdjustableLeveling
 
 		#region CHARACTER LEVELING MODIFIERS
 		[SettingPropertyInteger(
-			"Levels per Attribute Point",
-			1,
-			10,
+			"Max Character Level",
+			5,
+			120,
 			"0",
 			RequireRestart = false,
-			HintText = "Number of level ups required to gain an attribute point. Only affects future level ups, so it should be changed before starting a new campaign to take full effect! [Native: 4]",
+			HintText = "Adjust the maximum achievable character level. Higher levels require much more xp! [Native: 62]",
 			Order = 0)]
 		[SettingPropertyGroup(
 			"Character Leveling",
 			GroupOrder = 0)]
-		public int LevelsPerAttributePoint { get; set; } = 4;
+		public int MaxCharacterLevel { get; set; } = 62;
 
 		[SettingPropertyFloatingInteger(
 			"Character Level XP Modifier",
@@ -46,13 +46,94 @@ namespace AdjustableLeveling
 			"Character Leveling",
 			GroupOrder = 0)]
 		public float LevelXPModifier { get; set; } = 1f;
+
+
+		[SettingPropertyInteger(
+			"Levels per Attribute Point",
+			1,
+			10,
+			"0",
+			RequireRestart = false,
+			HintText = "Number of level ups required to gain an attribute point. Only affects future level ups, so it should be changed before starting a new campaign to take full effect! [Native: 4]",
+			Order = 2)]
+		[SettingPropertyGroup(
+			"Character Leveling",
+			GroupOrder = 0)]
+		public int LevelsPerAttributePoint { get; set; } = 4;
+
+		[SettingPropertyInteger(
+			"Focus Points per Level",
+			1,
+			10,
+			"0",
+			RequireRestart = false,
+			HintText = "Focus points gained per level. [Native: 1]",
+			Order = 3)]
+		[SettingPropertyGroup(
+			"Character Leveling",
+			GroupOrder = 0)]
+		public int FocusPointsPerLevel { get; set; } = 1;
+
+
+		[SettingPropertyInteger(
+			"Max Attribute Points for Attribute",
+			1,
+			20,
+			"0",
+			RequireRestart = false,
+			HintText = "Attribute point limit per attribute. [Native: 10]",
+			Order = 4)]
+		[SettingPropertyGroup(
+			"Character Leveling",
+			GroupOrder = 0)]
+		public int MaxAttribute { get; set; } = 10;
+
+		[SettingPropertyInteger(
+			"Max Focus Points for Skill",
+			1,
+			10,
+			"0",
+			RequireRestart = false,
+			HintText = "Focus point limit per skill. (UI will at most show 5 points) [Native: 5]",
+			Order = 5)]
+		[SettingPropertyGroup(
+			"Character Leveling",
+			GroupOrder = 0)]
+		public int MaxFocusPerSkill { get; set; } = 5;
+
+
+		[SettingPropertyInteger(
+			"Attribute Points at Start",
+			1,
+			100,
+			"0",
+			RequireRestart = false,
+			HintText = "Apparently affects the attribute points with which NPCs start, but not the player. [Native: 15]",
+			Order = 6)]
+		[SettingPropertyGroup(
+			"Character Leveling",
+			GroupOrder = 0)]
+		public int AttributePointsAtStart { get; set; } = 15;
+
+		[SettingPropertyInteger(
+			"Focus Points at Start",
+			1,
+			100,
+			"0",
+			RequireRestart = false,
+			HintText = "Apparently affects the focus points with which NPCs start, but not the player. [Native: 5]",
+			Order = 7)]
+		[SettingPropertyGroup(
+			"Character Leveling",
+			GroupOrder = 0)]
+		public int FocusPointsAtStart { get; set; } = 5;
 		#endregion
 
 
 		#region SKILL LEVELING MODIFIERS
 		#region GENERAL
 		[SettingPropertyFloatingInteger(
-			"Max Skill Limit increase per Attribute Point",
+			"Max Learning Limit increase per Attribute Point",
 			0f,
 			10f,
 			"0",
@@ -64,6 +145,19 @@ namespace AdjustableLeveling
 			GroupOrder = 1)]
 		public float MaxSkillLimitIncreasePerAttributePoint { get; set; } = 3f;
 
+		[SettingPropertyInteger(
+			"Learning Limit Increase per Focus Point",
+			0,
+			100,
+			"0",
+			RequireRestart = false,
+			HintText = "TODO [Native: 50]",
+			Order = 1)]
+		[SettingPropertyGroup(
+			"Skill Leveling",
+			GroupOrder = 1)]
+		public int LearningLimitIncreasePerFocusPoint { get; set; } = 50;
+
 		[SettingPropertyFloatingInteger(
 			"Skill XP Modifier",
 			0.01f,
@@ -71,7 +165,7 @@ namespace AdjustableLeveling
 			"0%",
 			RequireRestart = false,
 			HintText = "Adjust the overall skill learning rate. [Native: 100%]",
-			Order = 1)]
+			Order = 2)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
 			GroupOrder = 1)]
@@ -84,7 +178,7 @@ namespace AdjustableLeveling
 			"0%",
 			RequireRestart = false,
 			HintText = "Overrides 'Skill XP Modifier' for NPCs when not 0%. [Native: 0%]",
-			Order = 2)]
+			Order = 3)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
 			GroupOrder = 1)]
