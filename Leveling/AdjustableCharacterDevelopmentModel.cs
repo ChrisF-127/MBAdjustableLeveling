@@ -69,7 +69,7 @@ namespace AdjustableLeveling.Leveling
 		{
 			_skillsRequiredForLevel[0] = 0;
 			for (int i = 1; i < _skillsRequiredForLevel.Length; i++)
-				_skillsRequiredForLevel[i] = _skillsRequiredForLevel[i - 1] + (int)(25f * MathF.Pow(i, 3f)); // (int)(500f * MathF.Pow(i, 2f));
+				_skillsRequiredForLevel[i] = _skillsRequiredForLevel[i - 1] + (int)(AdjustableLeveling.Settings.UseFasterLevelingCurve ? 500f * MathF.Pow(i, 2f) : 25f * MathF.Pow(i, 3f)); 
 		}
 
 

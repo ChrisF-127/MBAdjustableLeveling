@@ -21,6 +21,21 @@ namespace AdjustableLeveling
 		public override string FormatType => "json";
 
 		#region CHARACTER LEVELING MODIFIERS
+		[SettingPropertyBool(
+			"Use Faster Character Level Curve",
+			RequireRestart = true,
+			HintText = 
+			"Will be slower for earlier but faster for later levels: " +
+			"level 62 requires 40.7 mio total xp compared to 95.4 mio total xp. " +
+			"Changing this in an ongoing save causes lost xp for the current level or gaining a level! " +
+			"[Native: False]",
+			Order = 0)]
+		[SettingPropertyGroup(
+			"Character Leveling",
+			GroupOrder = 0)]
+		public bool UseFasterLevelingCurve { get; set; } = false;
+		
+
 		[SettingPropertyInteger(
 			"Max Character Level",
 			5,
@@ -28,7 +43,7 @@ namespace AdjustableLeveling
 			"0",
 			RequireRestart = false,
 			HintText = "Adjust the maximum achievable character level. Higher levels require much more xp! [Native: 62]",
-			Order = 0)]
+			Order = 1)]
 		[SettingPropertyGroup(
 			"Character Leveling",
 			GroupOrder = 0)]
@@ -41,7 +56,7 @@ namespace AdjustableLeveling
 			"0%",
 			RequireRestart = false,
 			HintText = "Adjust how skill xp is converted into level xp, default is 1-to-1 at 100%. [Native: 100%]",
-			Order = 1)]
+			Order = 2)]
 		[SettingPropertyGroup(
 			"Character Leveling",
 			GroupOrder = 0)]
@@ -55,7 +70,7 @@ namespace AdjustableLeveling
 			"0",
 			RequireRestart = false,
 			HintText = "Number of level ups required to gain an attribute point. Only affects future level ups, so it should be changed before starting a new campaign to take full effect! [Native: 4]",
-			Order = 2)]
+			Order = 3)]
 		[SettingPropertyGroup(
 			"Character Leveling",
 			GroupOrder = 0)]
@@ -68,7 +83,7 @@ namespace AdjustableLeveling
 			"0",
 			RequireRestart = false,
 			HintText = "Focus points gained per level. [Native: 1]",
-			Order = 3)]
+			Order = 4)]
 		[SettingPropertyGroup(
 			"Character Leveling",
 			GroupOrder = 0)]
@@ -82,7 +97,7 @@ namespace AdjustableLeveling
 			"0",
 			RequireRestart = false,
 			HintText = "Attribute point limit per attribute. [Native: 10]",
-			Order = 4)]
+			Order = 5)]
 		[SettingPropertyGroup(
 			"Character Leveling",
 			GroupOrder = 0)]
@@ -95,7 +110,7 @@ namespace AdjustableLeveling
 			"0",
 			RequireRestart = false,
 			HintText = "Focus point limit per skill. (UI will at most show 5 points) [Native: 5]",
-			Order = 5)]
+			Order = 6)]
 		[SettingPropertyGroup(
 			"Character Leveling",
 			GroupOrder = 0)]
@@ -109,7 +124,7 @@ namespace AdjustableLeveling
 			"0",
 			RequireRestart = false,
 			HintText = "Apparently affects the attribute points with which NPCs start, but not the player. [Native: 15]",
-			Order = 6)]
+			Order = 7)]
 		[SettingPropertyGroup(
 			"Character Leveling",
 			GroupOrder = 0)]
@@ -122,7 +137,7 @@ namespace AdjustableLeveling
 			"0",
 			RequireRestart = false,
 			HintText = "Apparently affects the focus points with which NPCs start, but not the player. [Native: 5]",
-			Order = 7)]
+			Order = 8)]
 		[SettingPropertyGroup(
 			"Character Leveling",
 			GroupOrder = 0)]
@@ -151,7 +166,7 @@ namespace AdjustableLeveling
 			100,
 			"0",
 			RequireRestart = false,
-			HintText = "TODO [Native: 50]",
+			HintText = "Adjust the learning limit increase per focus point. [Native: 50]",
 			Order = 1)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
