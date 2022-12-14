@@ -33,13 +33,13 @@ namespace AdjustableLeveling
 		[SettingPropertyGroup(
 			"Character Leveling",
 			GroupOrder = 0)]
-		public bool UseFasterLevelingCurve { get; set; } = false;
+		public bool UseFasterLevelingCurve { get;set; } = false;
 		
 
 		[SettingPropertyInteger(
 			"Max Character Level",
 			5,
-			120,
+			200,
 			"0",
 			RequireRestart = false,
 			HintText = "Adjust the maximum achievable character level. Higher levels require much more xp! [Native: 62]",

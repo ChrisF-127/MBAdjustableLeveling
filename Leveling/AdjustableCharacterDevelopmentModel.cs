@@ -12,13 +12,13 @@ using TaleWorlds.Localization;
 
 namespace AdjustableLeveling.Leveling
 {
-	internal class AdjustableCharacterDevelopmentModel : DefaultCharacterDevelopmentModel
+	public class AdjustableCharacterDevelopmentModel : DefaultCharacterDevelopmentModel
 	{
 		private static readonly TextObject _attributeText;
 		private static readonly TextObject _skillFocusText;
 		private static readonly TextObject _overLimitText;
 
-		private readonly int[] _skillsRequiredForLevel = new int[120];
+		private readonly int[] _skillsRequiredForLevel = new int[201];
 
 		public override int MaxAttribute => 
 			AdjustableLeveling.Settings.MaxAttribute;
@@ -54,8 +54,7 @@ namespace AdjustableLeveling.Leveling
 			try
 			{
 				// overwrite private _skillsRequiredForLevel-field
-				InitializeSkillsRequiredForLevel();
-				typeof(DefaultCharacterDevelopmentModel).GetField(nameof(_skillsRequiredForLevel), BindingFlags.NonPublic | BindingFlags.Instance).SetValue(this, _skillsRequiredForLevel);
+				GenerateSkillsRequiredForLevel();
 			}
 			catch (Exception exc)
 			{
@@ -65,17 +64,17 @@ namespace AdjustableLeveling.Leveling
 			}
 		}
 
-		private void InitializeSkillsRequiredForLevel()
+		public void GenerateSkillsRequiredForLevel()
 		{
 			_skillsRequiredForLevel[0] = 0;
 			for (int i = 1; i < _skillsRequiredForLevel.Length; i++)
-				_skillsRequiredForLevel[i] = _skillsRequiredForLevel[i - 1] + (int)(AdjustableLeveling.Settings.UseFasterLevelingCurve ? 500f * MathF.Pow(i, 2f) : 25f * MathF.Pow(i, 3f)); 
+				_skillsRequiredForLevel[i] = _skillsRequiredForLevel[i - 1] + (int)(AdjustableLeveling.Settings.UseFasterLevelingCurve ? 500f * MathF.Pow(i, 2f) : 25f * MathF.Pow(i, 3f));
+			typeof(DefaultCharacterDevelopmentModel).GetField(nameof(_skillsRequiredForLevel), BindingFlags.NonPublic | BindingFlags.Instance).SetValue(this, _skillsRequiredForLevel);
 		}
 
 
 		public override int SkillsRequiredForLevel(int level) =>
-			level > AdjustableLeveling.Settings.MaxCharacterLevel 
-			|| level > _skillsRequiredForLevel.Length ? int.MaxValue : _skillsRequiredForLevel[level];
+			(level > AdjustableLeveling.Settings.MaxCharacterLevel || level >= _skillsRequiredForLevel.Length) ? int.MaxValue : _skillsRequiredForLevel[level];
 
 		public override ExplainedNumber CalculateLearningLimit(int attributeValue, int focusValue, TextObject attributeName, bool includeDescriptions = false)
 		{

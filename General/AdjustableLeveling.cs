@@ -14,6 +14,7 @@ namespace AdjustableLeveling;
 public class AdjustableLeveling : MBSubModuleBase
 {
 	public static MCMSettings Settings { get; private set; }
+	public static AdjustableCharacterDevelopmentModel CharacterDevelopmentModel { get; private set; }
 
 	private bool _isInitialized = false;
 
@@ -45,7 +46,8 @@ public class AdjustableLeveling : MBSubModuleBase
 			base.OnGameStart(game, gameStarterObject);
 			if (game.GameType is Campaign)
 			{
-				((CampaignGameStarter)gameStarterObject).AddModel(new AdjustableCharacterDevelopmentModel());
+				CharacterDevelopmentModel = new AdjustableCharacterDevelopmentModel();
+				((CampaignGameStarter)gameStarterObject).AddModel(CharacterDevelopmentModel);
 			}
 		}
 		catch (Exception exc)
