@@ -74,7 +74,8 @@ namespace AdjustableLeveling.Leveling
 
 
 		public override int SkillsRequiredForLevel(int level) =>
-			level > AdjustableLeveling.Settings.MaxCharacterLevel || level > _skillsRequiredForLevel.Length ? int.MaxValue : _skillsRequiredForLevel[level];
+			level > AdjustableLeveling.Settings.MaxCharacterLevel 
+			|| level > _skillsRequiredForLevel.Length ? int.MaxValue : _skillsRequiredForLevel[level];
 
 		public override ExplainedNumber CalculateLearningLimit(int attributeValue, int focusValue, TextObject attributeName, bool includeDescriptions = false)
 		{
