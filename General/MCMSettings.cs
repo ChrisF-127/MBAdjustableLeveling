@@ -22,13 +22,11 @@ namespace AdjustableLeveling
 
 		#region CHARACTER LEVELING MODIFIERS
 		[SettingPropertyBool(
-			"Use Faster Character Level Curve",
+			"Faster Leveling Curve",
 			RequireRestart = true,
-			HintText = 
-			"Will be slower for earlier but faster for later levels: " +
-			"level 62 requires 40.7 mio total xp compared to 95.4 mio total xp. " +
-			"Changing this in an ongoing save causes lost xp for the current level or gaining a level! " +
-			"[Native: False]",
+			HintText =
+			"Slower earlier but faster later levels, level 62 total: 40.7m [ON] vs 95.4m [OFF]. [Native: OFF]" +
+			"\nWARNING: Backup save recommended, changing this in an ongoing save will reset the level xp to half-way to the next level (if total xp is out of bounds for the current level after conversion)!",
 			Order = 0)]
 		[SettingPropertyGroup(
 			"Character Leveling",

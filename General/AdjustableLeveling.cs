@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using TaleWorlds.CampaignSystem;
+using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.MountAndBlade;
@@ -55,6 +56,33 @@ public class AdjustableLeveling : MBSubModuleBase
 			var text = $"ERROR: Adjustable Leveling failed to initialize ({nameof(OnGameStart)}):";
 			InformationManager.DisplayMessage(new InformationMessage(text + exc.GetType().ToString(), new Color(1f, 0f, 0f)));
 			FileLog.Log(text + "\n" + exc.ToString());
+		}
+	}
+
+	public override void OnGameLoaded(Game game, object initializerObject)
+	{
+		base.OnGameLoaded(game, initializerObject);
+
+		var _totalXp = typeof(HeroDeveloper).GetField("_totalXp", BindingFlags.NonPublic | BindingFlags.Instance);
+		var characters = game.ObjectManager.GetObjectTypeList<CharacterObject>();
+		foreach (var character in characters)
+		{
+			if (character.IsHero 
+				&& character.HeroObject is Hero hero
+				&& hero.HeroDeveloper is IHeroDeveloper heroDeveloper)
+			{
+				var level = hero.Level;
+				var totalXp = heroDeveloper.TotalXp;
+				var currXp = heroDeveloper.GetXpRequiredForLevel(level);
+				var nextXp = heroDeveloper.GetXpRequiredForLevel(level + 1);
+
+				// reset totalXp to half-way to next level if it is out of bounds for the current level
+				if (level > 0 && (totalXp < currXp || totalXp > nextXp))
+				{
+					var newTotalXp = (currXp + nextXp) / 2;
+					_totalXp.SetValue(heroDeveloper, newTotalXp);
+				}
+			}
 		}
 	}
 
