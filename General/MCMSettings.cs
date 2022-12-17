@@ -171,6 +171,19 @@ namespace AdjustableLeveling
 			GroupOrder = 1)]
 		public int LearningLimitIncreasePerFocusPoint { get; set; } = 50;
 
+		[SettingPropertyInteger(
+			"Base Learning Limit",
+			0,
+			100,
+			"0",
+			RequireRestart = false,
+			HintText = "The base learning limit. [Native: 50]",
+			Order = 2)]
+		[SettingPropertyGroup(
+			"Skill Leveling",
+			GroupOrder = 1)]
+		public int BaseLearningLimit { get; set; } = 50;
+
 		[SettingPropertyFloatingInteger(
 			"Skill XP Modifier",
 			0.01f,
@@ -178,7 +191,7 @@ namespace AdjustableLeveling
 			"0%",
 			RequireRestart = false,
 			HintText = "Adjust the overall skill learning rate. [Native: 100%]",
-			Order = 2)]
+			Order = 3)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
 			GroupOrder = 1)]
@@ -191,7 +204,7 @@ namespace AdjustableLeveling
 			"0%",
 			RequireRestart = false,
 			HintText = "Overrides 'Skill XP Modifier' for NPCs when not 0%. [Native: 0%]",
-			Order = 3)]
+			Order = 4)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
 			GroupOrder = 1)]

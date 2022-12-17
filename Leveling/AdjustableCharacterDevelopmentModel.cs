@@ -79,7 +79,7 @@ namespace AdjustableLeveling.Leveling
 		public override ExplainedNumber CalculateLearningLimit(int attributeValue, int focusValue, TextObject attributeName, bool includeDescriptions = false)
 		{
 			var learningLimitPerFP = AdjustableLeveling.Settings.LearningLimitIncreasePerFocusPoint;
-			var explainedNumber = new ExplainedNumber(learningLimitPerFP, includeDescriptions);
+			var explainedNumber = new ExplainedNumber(AdjustableLeveling.Settings.BaseLearningLimit, includeDescriptions);
 			explainedNumber.Add(focusValue * learningLimitPerFP, _skillFocusText);
 			explainedNumber.LimitMin(0f);
 			return explainedNumber;
