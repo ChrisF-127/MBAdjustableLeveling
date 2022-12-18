@@ -51,7 +51,7 @@ namespace AdjustableLeveling
 			"Character Level XP Modifier",
 			0.01f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = "Adjust how skill xp is converted into level xp, default is 1-to-1 at 100%. [Native: 100%]",
 			Order = 2)]
@@ -188,7 +188,7 @@ namespace AdjustableLeveling
 			"Skill XP Modifier",
 			0.01f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = "Adjust the overall skill learning rate. [Native: 100%]",
 			Order = 3)]
@@ -201,7 +201,7 @@ namespace AdjustableLeveling
 			"NPC Skill XP Modifier",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = "Overrides 'Skill XP Modifier' for NPCs when not 0%. [Native: 0%]",
 			Order = 4)]
@@ -217,7 +217,7 @@ namespace AdjustableLeveling
 			"One Handed",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 0)]
@@ -230,7 +230,7 @@ namespace AdjustableLeveling
 			"Two Handed",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 1)]
@@ -243,7 +243,7 @@ namespace AdjustableLeveling
 			"Polearm",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 2)]
@@ -258,7 +258,7 @@ namespace AdjustableLeveling
 			"Bow",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 3)]
@@ -271,7 +271,7 @@ namespace AdjustableLeveling
 			"Crossbow",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 4)]
@@ -284,7 +284,7 @@ namespace AdjustableLeveling
 			"Throwing",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 5)]
@@ -299,7 +299,7 @@ namespace AdjustableLeveling
 			"Riding",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 6)]
@@ -312,7 +312,7 @@ namespace AdjustableLeveling
 			"Athletics",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 7)]
@@ -325,7 +325,7 @@ namespace AdjustableLeveling
 			"Smithing",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 8)]
@@ -340,7 +340,7 @@ namespace AdjustableLeveling
 			"Scouting",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 9)]
@@ -353,7 +353,7 @@ namespace AdjustableLeveling
 			"Tactics",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 10)]
@@ -366,7 +366,7 @@ namespace AdjustableLeveling
 			"Roguery",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 11)]
@@ -381,7 +381,7 @@ namespace AdjustableLeveling
 			"Charm",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 12)]
@@ -394,7 +394,7 @@ namespace AdjustableLeveling
 			"Leadership",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 13)]
@@ -407,7 +407,7 @@ namespace AdjustableLeveling
 			"Trade",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 14)]
@@ -422,7 +422,7 @@ namespace AdjustableLeveling
 			"Steward",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 15)]
@@ -435,7 +435,7 @@ namespace AdjustableLeveling
 			"Medicine",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 16)]
@@ -448,7 +448,7 @@ namespace AdjustableLeveling
 			"Engineering",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = OverrideHintText,
 			Order = 17)]
@@ -465,7 +465,7 @@ namespace AdjustableLeveling
 			"One Handed (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 0)]
@@ -478,7 +478,7 @@ namespace AdjustableLeveling
 			"Two Handed (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 1)]
@@ -491,7 +491,7 @@ namespace AdjustableLeveling
 			"Polearm (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 2)]
@@ -506,7 +506,7 @@ namespace AdjustableLeveling
 			"Bow (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 3)]
@@ -519,7 +519,7 @@ namespace AdjustableLeveling
 			"Crossbow (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 4)]
@@ -532,7 +532,7 @@ namespace AdjustableLeveling
 			"Throwing (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 5)]
@@ -547,7 +547,7 @@ namespace AdjustableLeveling
 			"Riding (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 6)]
@@ -560,7 +560,7 @@ namespace AdjustableLeveling
 			"Athletics (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 7)]
@@ -573,7 +573,7 @@ namespace AdjustableLeveling
 			"Smithing (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 8)]
@@ -588,7 +588,7 @@ namespace AdjustableLeveling
 			"Scouting (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 9)]
@@ -601,7 +601,7 @@ namespace AdjustableLeveling
 			"Tactics (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 10)]
@@ -614,7 +614,7 @@ namespace AdjustableLeveling
 			"Roguery (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 11)]
@@ -629,7 +629,7 @@ namespace AdjustableLeveling
 			"Charm (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 12)]
@@ -642,7 +642,7 @@ namespace AdjustableLeveling
 			"Leadership (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 13)]
@@ -655,7 +655,7 @@ namespace AdjustableLeveling
 			"Trade (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 14)]
@@ -670,7 +670,7 @@ namespace AdjustableLeveling
 			"Steward (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 15)]
@@ -683,7 +683,7 @@ namespace AdjustableLeveling
 			"Medicine (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 16)]
@@ -696,7 +696,7 @@ namespace AdjustableLeveling
 			"Engineering (NPC)",
 			0f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = NPCOverrideHintText,
 			Order = 17)]
@@ -714,7 +714,7 @@ namespace AdjustableLeveling
 			"Part Research Modifier",
 			0.01f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = "Adjust smithing part research gain rate for smithing and smelting weapons. [Native: 100%]",
 			Order = 0)]
@@ -727,7 +727,7 @@ namespace AdjustableLeveling
 			"Free Build Part Research Modifier",
 			0.01f,
 			1.0f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
 			HintText = "Adjust smithing part research gain rate when in free build mode. With the default setting, unlocking parts is slow in free build mode. [Native: 10%]",
 			Order = 1)]
