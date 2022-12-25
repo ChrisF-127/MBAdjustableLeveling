@@ -12,9 +12,6 @@ namespace AdjustableLeveling
 {
 	public class MCMSettings : AttributeGlobalSettings<MCMSettings>
 	{
-		public const string OverrideHintText = "Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for this specific skill when not 0%. [Native: 0%]";
-		public const string NPCOverrideHintText = "Overrides modifiers for this specific skill for NPCs only when not 0%. [Native: 0%]";
-
 		public override string Id => "AdjustableLeveling";
 		public override string DisplayName => "Adjustable Leveling";
 		public override string FolderName => "AdjustableLeveling";
@@ -53,7 +50,7 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Adjust how skill xp is converted into level xp, default is 1-to-1 at 100%. [Native: 100%]",
+			HintText = "Adjust how skill xp is converted into level xp, default is 1-to-1 at 1.00. [Native: 1.00]",
 			Order = 2)]
 		[SettingPropertyGroup(
 			"Character Leveling",
@@ -190,7 +187,7 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Adjust the overall skill learning rate. [Native: 100%]",
+			HintText = "Adjust the overall skill learning rate. [Native: 1.00]",
 			Order = 3)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
@@ -203,7 +200,7 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Overrides 'Skill XP Modifier' for NPCs when not 0%. [Native: 0%]",
+			HintText = "Overrides 'Skill XP Modifier' for NPCs when not 0. [Native: 0.00]",
 			Order = 4)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
@@ -212,6 +209,8 @@ namespace AdjustableLeveling
 		#endregion
 
 		#region SKILL MODIFIERS
+		public const string OverrideHintText = "Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for this specific skill when not 0. [Native: 0.00]";
+
 		#region VIGOR
 		[SettingPropertyFloatingInteger(
 			"One Handed",
@@ -460,6 +459,8 @@ namespace AdjustableLeveling
 		#endregion
 
 		#region NPC SKILL MODIFIERS
+		public const string NPCOverrideHintText = "Overrides modifiers for this specific skill for NPCs only when not 0. [Native: 0.00]";
+
 		#region VIGOR
 		[SettingPropertyFloatingInteger(
 			"One Handed (NPC)",
@@ -714,7 +715,7 @@ namespace AdjustableLeveling
 			"Part Research Modifier",
 			0.01f,
 			100f,
-			"0.00",
+			"0%",
 			RequireRestart = false,
 			HintText = "Adjust smithing part research gain rate for smithing and smelting weapons. [Native: 100%]",
 			Order = 0)]
@@ -727,7 +728,7 @@ namespace AdjustableLeveling
 			"Free Build Part Research Modifier",
 			0.01f,
 			1.0f,
-			"0.00",
+			"0%",
 			RequireRestart = false,
 			HintText = "Adjust smithing part research gain rate when in free build mode. With the default setting, unlocking parts is slow in free build mode. [Native: 10%]",
 			Order = 1)]
