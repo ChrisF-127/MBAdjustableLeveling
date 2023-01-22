@@ -34,9 +34,7 @@ public class AdjustableLeveling : MBSubModuleBase
 		}
 		catch (Exception exc)
 		{
-			var text = $"ERROR: Adjustable Leveling failed to initialize ({nameof(OnBeforeInitialModuleScreenSetAsRoot)}):";
-			InformationManager.DisplayMessage(new InformationMessage(text + exc.GetType().ToString(), new Color(1f, 0f, 0f)));
-			FileLog.Log(text + "\n" + exc.ToString());
+			Message($"ERROR: Adjustable Leveling failed to initialize ({nameof(OnBeforeInitialModuleScreenSetAsRoot)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 		}
 	}
 
@@ -53,9 +51,7 @@ public class AdjustableLeveling : MBSubModuleBase
 		}
 		catch (Exception exc)
 		{
-			var text = $"ERROR: Adjustable Leveling failed to initialize ({nameof(OnGameStart)}):";
-			InformationManager.DisplayMessage(new InformationMessage(text + exc.GetType().ToString(), new Color(1f, 0f, 0f)));
-			FileLog.Log(text + "\n" + exc.ToString());
+			Message($"ERROR: Adjustable Leveling failed to initialize ({nameof(OnGameStart)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 		}
 	}
 
@@ -96,9 +92,22 @@ public class AdjustableLeveling : MBSubModuleBase
 		}
 		catch (Exception exc)
 		{
-			var text = $"ERROR: Adjustable Leveling failed to initialize ({nameof(OnSubModuleLoad)}):";
-			InformationManager.DisplayMessage(new InformationMessage(text + exc.GetType().ToString(), new Color(1f, 0f, 0f)));
-			FileLog.Log(text + "\n" + exc.ToString());
+			Message($"ERROR: Adjustable Leveling failed to initialize ({nameof(OnSubModuleLoad)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+		}
+	}
+
+
+	internal static void Message(string s, bool stacktrace = true, Color? color = null, bool log = true)
+	{
+		try
+		{
+			if (log)
+				FileLog.Log(s + (stacktrace ? $"\n{Environment.StackTrace}" : ""));
+
+			InformationManager.DisplayMessage(new InformationMessage(s, color ?? new Color(1f, 0f, 0f)));
+		}
+		catch
+		{
 		}
 	}
 }

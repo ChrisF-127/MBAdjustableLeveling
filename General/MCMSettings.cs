@@ -142,10 +142,10 @@ namespace AdjustableLeveling
 
 		#region SKILL LEVELING MODIFIERS
 		#region GENERAL
-		[SettingPropertyFloatingInteger(
-			"Max Learning Limit increase per Attribute Point",
-			0f,
-			10f,
+		[SettingPropertyInteger(
+			"Learning Limit Increase per Attribute Point",
+			0,
+			50,
 			"0",
 			RequireRestart = false,
 			HintText = "E.g. at 3 and with 10 AP an additional 30 skill points can be gained after the learning limit at reducing learning rate; at 5 an additional 50 can be gained. [Native: 3]",
@@ -153,7 +153,7 @@ namespace AdjustableLeveling
 		[SettingPropertyGroup(
 			"Skill Leveling",
 			GroupOrder = 1)]
-		public float MaxSkillLimitIncreasePerAttributePoint { get; set; } = 3f;
+		public int LearningLimitIncreasePerAttributePoint { get; set; } = 3;
 
 		[SettingPropertyInteger(
 			"Learning Limit Increase per Focus Point",

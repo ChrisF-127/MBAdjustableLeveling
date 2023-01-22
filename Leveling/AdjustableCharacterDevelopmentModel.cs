@@ -43,9 +43,7 @@ namespace AdjustableLeveling.Leveling
 			}
 			catch (Exception exc)
 			{
-				var text = $"ERROR: Adjustable Leveling failed to initialize (static {nameof(AdjustableCharacterDevelopmentModel)}):";
-				InformationManager.DisplayMessage(new InformationMessage(text + exc.GetType().ToString(), new Color(1f, 0f, 0f)));
-				FileLog.Log(text + "\n" + exc.ToString());
+				AdjustableLeveling.Message($"ERROR: Adjustable Leveling failed to initialize (static {nameof(AdjustableCharacterDevelopmentModel)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 			}
 		}
 
@@ -58,9 +56,7 @@ namespace AdjustableLeveling.Leveling
 			}
 			catch (Exception exc)
 			{
-				var text = $"ERROR: Adjustable Leveling failed to initialize (public {nameof(AdjustableCharacterDevelopmentModel)}):";
-				InformationManager.DisplayMessage(new InformationMessage(text + exc.GetType().ToString(), new Color(1f, 0f, 0f)));
-				FileLog.Log(text + "\n" + exc.ToString());
+				AdjustableLeveling.Message($"ERROR: Adjustable Leveling failed to initialize (public {nameof(AdjustableCharacterDevelopmentModel)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 			}
 		}
 
@@ -78,29 +74,38 @@ namespace AdjustableLeveling.Leveling
 
 		public override ExplainedNumber CalculateLearningLimit(int attributeValue, int focusValue, TextObject attributeName, bool includeDescriptions = false)
 		{
-			var learningLimitPerFP = AdjustableLeveling.Settings.LearningLimitIncreasePerFocusPoint;
 			var explainedNumber = new ExplainedNumber(AdjustableLeveling.Settings.BaseLearningLimit, includeDescriptions);
-			explainedNumber.Add(focusValue * learningLimitPerFP, _skillFocusText);
+			explainedNumber.Add(
+				focusValue * AdjustableLeveling.Settings.LearningLimitIncreasePerFocusPoint, 
+				_skillFocusText);
+			explainedNumber.Add(
+				attributeValue * AdjustableLeveling.Settings.LearningLimitIncreasePerAttributePoint, 
+				_attributeText);
 			explainedNumber.LimitMin(0f);
 			return explainedNumber;
 		}
 
 		public override ExplainedNumber CalculateLearningRate(int attributeValue, int focusValue, int skillValue, int characterLevel, TextObject attributeName, bool includeDescriptions = false)
 		{
-			int focusLimit = MathF.Round(CalculateLearningLimit(attributeValue, focusValue, null).ResultNumber);
-			int attributeLimitIncrease = (int)(attributeValue * AdjustableLeveling.Settings.MaxSkillLimitIncreasePerAttributePoint);
+			int baseLimit = AdjustableLeveling.Settings.BaseLearningLimit;
+			int focusLimit = focusValue * AdjustableLeveling.Settings.LearningLimitIncreasePerFocusPoint;
+			int attributeLimit = attributeValue * AdjustableLeveling.Settings.LearningLimitIncreasePerAttributePoint;
+
+			int focusMax = baseLimit + focusLimit;
+			int finalMax = focusMax + attributeLimit;
+
 			var explainedNumber = new ExplainedNumber(0f, includeDescriptions);
-			if (skillValue < focusLimit)
+			if (skillValue < focusMax)
 			{
-				var skillFactor = 1f - skillValue / (float)focusLimit;
-				explainedNumber.Add((0.25f + 0.5f * skillFactor) * attributeValue, attributeName);
-				explainedNumber.Add((0.50f + skillFactor) * focusValue, _skillFocusText);
+				var factor = 1f - skillValue / (float)focusMax;
+				explainedNumber.Add((0.25f + 0.5f * factor) * attributeValue, attributeName);
+				explainedNumber.Add((0.50f + factor) * focusValue, _skillFocusText);
 			}
-			else if (skillValue < focusLimit + attributeLimitIncrease)
+			else if (skillValue < finalMax)
 			{
-				var skillFactor = 1f - (skillValue - focusLimit) / (float)attributeLimitIncrease;
-				explainedNumber.Add(0.25f * skillFactor * attributeValue, attributeName);
-				explainedNumber.Add(0.50f * skillFactor * focusValue, _skillFocusText);
+				var factor = 1f - (skillValue - focusMax) / (float)attributeLimit;
+				explainedNumber.Add(0.25f * factor * attributeValue, attributeName);
+				explainedNumber.Add(0.50f * factor * focusValue, _skillFocusText);
 			}
 			else
 			{
