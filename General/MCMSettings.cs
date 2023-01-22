@@ -22,7 +22,7 @@ namespace AdjustableLeveling
 			"Faster Leveling Curve",
 			RequireRestart = true,
 			HintText =
-			"Slower earlier but faster later levels, level 62 total: 40.7m [ON] vs 95.4m [OFF]. [Native: OFF]" +
+			"Slower earlier but faster later levels, level 62 total: 40.7m [ON] vs 95.4m [OFF]. [Default: OFF]" +
 			"\nWARNING: Backup save recommended, changing this in an ongoing save will reset the level xp to half-way to the next level (if total xp is out of bounds for the current level after conversion)!",
 			Order = 0)]
 		[SettingPropertyGroup(
@@ -37,7 +37,7 @@ namespace AdjustableLeveling
 			200,
 			"0",
 			RequireRestart = false,
-			HintText = "Adjust the maximum achievable character level. Higher levels require much more xp! [Native: 62]",
+			HintText = "Adjust the maximum achievable character level. Higher levels require much more xp! [Default: 62]",
 			Order = 1)]
 		[SettingPropertyGroup(
 			"Character Leveling",
@@ -50,7 +50,7 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Adjust how skill xp is converted into level xp, default is 1-to-1 at 1.00. [Native: 1.00]",
+			HintText = "Adjust how skill xp is converted into level xp, default is 1-to-1 at 1.00. [Default: 1.00]",
 			Order = 2)]
 		[SettingPropertyGroup(
 			"Character Leveling",
@@ -64,7 +64,7 @@ namespace AdjustableLeveling
 			10,
 			"0",
 			RequireRestart = false,
-			HintText = "Number of level ups required to gain an attribute point. Only affects future level ups, so it should be changed before starting a new campaign to take full effect! [Native: 4]",
+			HintText = "Number of level ups required to gain an attribute point. Only affects future level ups, so it should be changed before starting a new campaign to take full effect! [Default: 4]",
 			Order = 3)]
 		[SettingPropertyGroup(
 			"Character Leveling",
@@ -77,7 +77,7 @@ namespace AdjustableLeveling
 			10,
 			"0",
 			RequireRestart = false,
-			HintText = "Focus points gained per level. [Native: 1]",
+			HintText = "Focus points gained per level. [Default: 1]",
 			Order = 4)]
 		[SettingPropertyGroup(
 			"Character Leveling",
@@ -91,7 +91,7 @@ namespace AdjustableLeveling
 			20,
 			"0",
 			RequireRestart = false,
-			HintText = "Attribute point limit per attribute. [Native: 10]",
+			HintText = "Attribute point limit per attribute. [Default: 10]",
 			Order = 5)]
 		[SettingPropertyGroup(
 			"Character Leveling",
@@ -104,7 +104,7 @@ namespace AdjustableLeveling
 			10,
 			"0",
 			RequireRestart = false,
-			HintText = "Focus point limit per skill. (UI will at most show 5 points) [Native: 5]",
+			HintText = "Focus point limit per skill. (UI will at most show 5 points) [Default: 5]",
 			Order = 6)]
 		[SettingPropertyGroup(
 			"Character Leveling",
@@ -118,7 +118,7 @@ namespace AdjustableLeveling
 			100,
 			"0",
 			RequireRestart = false,
-			HintText = "Apparently affects the attribute points with which NPCs start, but not the player. [Native: 15]",
+			HintText = "Apparently affects the attribute points with which NPCs start, but not the player. [Default: 15]",
 			Order = 7)]
 		[SettingPropertyGroup(
 			"Character Leveling",
@@ -131,7 +131,7 @@ namespace AdjustableLeveling
 			100,
 			"0",
 			RequireRestart = false,
-			HintText = "Apparently affects the focus points with which NPCs start, but not the player. [Native: 5]",
+			HintText = "Apparently affects the focus points with which NPCs start, but not the player. [Default: 5]",
 			Order = 8)]
 		[SettingPropertyGroup(
 			"Character Leveling",
@@ -148,7 +148,7 @@ namespace AdjustableLeveling
 			50,
 			"0",
 			RequireRestart = false,
-			HintText = "E.g. at 3 and with 10 AP an additional 30 skill points can be gained after the learning limit at reducing learning rate; at 5 an additional 50 can be gained. [Native: 3]",
+			HintText = "E.g. at 3 and with 10 AP an additional 30 skill points can be gained after the learning limit at reducing learning rate; at 5 an additional 50 can be gained. [Default: 3]",
 			Order = 0)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
@@ -161,7 +161,7 @@ namespace AdjustableLeveling
 			100,
 			"0",
 			RequireRestart = false,
-			HintText = "Adjust the learning limit increase per focus point. [Native: 50]",
+			HintText = "Adjust the learning limit increase per focus point. [Default: 50]",
 			Order = 1)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
@@ -174,7 +174,7 @@ namespace AdjustableLeveling
 			100,
 			"0",
 			RequireRestart = false,
-			HintText = "The base learning limit. [Native: 50]",
+			HintText = "The base learning limit. [Default: 50]",
 			Order = 2)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
@@ -187,7 +187,7 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Adjust the overall skill learning rate. [Native: 1.00]",
+			HintText = "Adjust the overall skill learning rate. [Default: 1.00]",
 			Order = 3)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
@@ -200,7 +200,7 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Overrides 'Skill XP Modifier' for NPCs when not 0. [Native: 0.00]",
+			HintText = "Overrides 'Skill XP Modifier' for NPCs when not 0. [Default: 0.00]",
 			Order = 4)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
@@ -209,7 +209,7 @@ namespace AdjustableLeveling
 		#endregion
 
 		#region SKILL MODIFIERS
-		public const string OverrideHintText = "Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for this specific skill when not 0. [Native: 0.00]";
+		public const string OverrideHintText = "Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for this specific skill when not 0. [Default: 0.00]";
 
 		#region VIGOR
 		[SettingPropertyFloatingInteger(
@@ -459,7 +459,7 @@ namespace AdjustableLeveling
 		#endregion
 
 		#region NPC SKILL MODIFIERS
-		public const string NPCOverrideHintText = "Overrides modifiers for this specific skill for NPCs only when not 0. [Native: 0.00]";
+		public const string NPCOverrideHintText = "Overrides modifiers for this specific skill for NPCs only when not 0. [Default: 0.00]";
 
 		#region VIGOR
 		[SettingPropertyFloatingInteger(
@@ -717,7 +717,7 @@ namespace AdjustableLeveling
 			100f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Adjust smithing part research gain rate for smithing and smelting weapons. [Native: 100%]",
+			HintText = "Adjust smithing part research gain rate for smithing and smelting weapons. [Default: 100%]",
 			Order = 0)]
 		[SettingPropertyGroup(
 			"Smithing Research",
@@ -730,7 +730,7 @@ namespace AdjustableLeveling
 			1.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Adjust smithing part research gain rate when in free build mode. With the default setting, unlocking parts is slow in free build mode. [Native: 10%]",
+			HintText = "Adjust smithing part research gain rate when in free build mode. With the default setting, unlocking parts is slow in free build mode. [Default: 10%]",
 			Order = 1)]
 		[SettingPropertyGroup(
 			"Smithing Research",
