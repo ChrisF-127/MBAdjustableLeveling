@@ -112,7 +112,9 @@ namespace AdjustableLeveling.Leveling
 				explainedNumber.Add(-1f, _overLimitText);
 			}
 
-			explainedNumber.LimitMin(0f);
+			explainedNumber.LimitMin(AdjustableLeveling.Settings.MinLearningRate);
+			if (AdjustableLeveling.Settings.MaxLearningRate > 0f)
+				explainedNumber.LimitMax(AdjustableLeveling.Settings.MaxLearningRate);
 			return explainedNumber;
 		}
 	}

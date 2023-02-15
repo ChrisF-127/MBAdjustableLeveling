@@ -181,6 +181,34 @@ namespace AdjustableLeveling
 			GroupOrder = 1)]
 		public int BaseLearningLimit { get; set; } = 50;
 
+
+		[SettingPropertyFloatingInteger(
+			"Minimum Learning Rate",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = "Set a minimum learning rate. [Default: 0.00]",
+			Order = 3)]
+		[SettingPropertyGroup(
+			"Skill Leveling",
+			GroupOrder = 1)]
+		public float MinLearningRate { get; set; } = 0f;
+
+		[SettingPropertyFloatingInteger(
+			"Maximum Learning Rate",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = "Set a maximum learning rate, zero disables it. [Default: 0.00]",
+			Order = 4)]
+		[SettingPropertyGroup(
+			"Skill Leveling",
+			GroupOrder = 1)]
+		public float MaxLearningRate { get; set; } = 0f;
+
+
 		[SettingPropertyFloatingInteger(
 			"Skill XP Modifier",
 			0.01f,
@@ -188,7 +216,7 @@ namespace AdjustableLeveling
 			"0.00",
 			RequireRestart = false,
 			HintText = "Adjust the overall skill learning rate. [Default: 1.00]",
-			Order = 3)]
+			Order = 5)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
 			GroupOrder = 1)]
@@ -201,7 +229,7 @@ namespace AdjustableLeveling
 			"0.00",
 			RequireRestart = false,
 			HintText = "Overrides 'Skill XP Modifier' for NPCs when not 0. [Default: 0.00]",
-			Order = 4)]
+			Order = 6)]
 		[SettingPropertyGroup(
 			"Skill Leveling",
 			GroupOrder = 1)]
