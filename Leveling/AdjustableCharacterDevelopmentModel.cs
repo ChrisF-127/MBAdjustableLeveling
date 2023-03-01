@@ -37,7 +37,6 @@ namespace AdjustableLeveling.Leveling
 		{
 			try
 			{
-				_attributeText = (TextObject)typeof(DefaultCharacterDevelopmentModel).GetField(nameof(_attributeText), BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
 				_skillFocusText = (TextObject)typeof(DefaultCharacterDevelopmentModel).GetField(nameof(_skillFocusText), BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
 				_overLimitText = (TextObject)typeof(DefaultCharacterDevelopmentModel).GetField(nameof(_overLimitText), BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
 			}
@@ -79,8 +78,8 @@ namespace AdjustableLeveling.Leveling
 				focusValue * AdjustableLeveling.Settings.LearningLimitIncreasePerFocusPoint, 
 				_skillFocusText);
 			explainedNumber.Add(
-				attributeValue * AdjustableLeveling.Settings.LearningLimitIncreasePerAttributePoint, 
-				_attributeText);
+				attributeValue * AdjustableLeveling.Settings.LearningLimitIncreasePerAttributePoint,
+				attributeName);
 			explainedNumber.LimitMin(0f);
 			return explainedNumber;
 		}
