@@ -14,7 +14,6 @@ namespace AdjustableLeveling.Leveling
 {
 	public class AdjustableCharacterDevelopmentModel : DefaultCharacterDevelopmentModel
 	{
-		private static readonly TextObject _attributeText;
 		private static readonly TextObject _skillFocusText;
 		private static readonly TextObject _overLimitText;
 

@@ -18,6 +18,8 @@ namespace AdjustableLeveling
 		public override string FormatType => "json";
 
 		#region CHARACTER LEVELING MODIFIERS
+		private const string CharacterLevelingGroupName = "Character Leveling";
+
 		[SettingPropertyBool(
 			"Faster Leveling Curve",
 			RequireRestart = true,
@@ -26,7 +28,7 @@ namespace AdjustableLeveling
 			"\nWARNING: Backup save recommended, changing this in an ongoing save will reset the level xp to half-way to the next level (if total xp is out of bounds for the current level after conversion)!",
 			Order = 0)]
 		[SettingPropertyGroup(
-			"Character Leveling",
+			CharacterLevelingGroupName,
 			GroupOrder = 0)]
 		public bool UseFasterLevelingCurve { get;set; } = false;
 		
@@ -40,7 +42,7 @@ namespace AdjustableLeveling
 			HintText = "Adjust the maximum achievable character level. Higher levels require much more xp! [Default: 62]",
 			Order = 1)]
 		[SettingPropertyGroup(
-			"Character Leveling",
+			CharacterLevelingGroupName,
 			GroupOrder = 0)]
 		public int MaxCharacterLevel { get; set; } = 62;
 
@@ -53,7 +55,7 @@ namespace AdjustableLeveling
 			HintText = "Adjust how skill xp is converted into level xp, default is 1-to-1 at 1.00. [Default: 1.00]",
 			Order = 2)]
 		[SettingPropertyGroup(
-			"Character Leveling",
+			CharacterLevelingGroupName,
 			GroupOrder = 0)]
 		public float LevelXPModifier { get; set; } = 1f;
 
@@ -67,7 +69,7 @@ namespace AdjustableLeveling
 			HintText = "Number of level ups required to gain an attribute point. Only affects future level ups, so it should be changed before starting a new campaign to take full effect! [Default: 4]",
 			Order = 3)]
 		[SettingPropertyGroup(
-			"Character Leveling",
+			CharacterLevelingGroupName,
 			GroupOrder = 0)]
 		public int LevelsPerAttributePoint { get; set; } = 4;
 
@@ -80,7 +82,7 @@ namespace AdjustableLeveling
 			HintText = "Focus points gained per level. [Default: 1]",
 			Order = 4)]
 		[SettingPropertyGroup(
-			"Character Leveling",
+			CharacterLevelingGroupName,
 			GroupOrder = 0)]
 		public int FocusPointsPerLevel { get; set; } = 1;
 
@@ -94,7 +96,7 @@ namespace AdjustableLeveling
 			HintText = "Attribute point limit per attribute. [Default: 10]",
 			Order = 5)]
 		[SettingPropertyGroup(
-			"Character Leveling",
+			CharacterLevelingGroupName,
 			GroupOrder = 0)]
 		public int MaxAttribute { get; set; } = 10;
 
@@ -107,7 +109,7 @@ namespace AdjustableLeveling
 			HintText = "Focus point limit per skill. (UI will at most show 5 points) [Default: 5]",
 			Order = 6)]
 		[SettingPropertyGroup(
-			"Character Leveling",
+			CharacterLevelingGroupName,
 			GroupOrder = 0)]
 		public int MaxFocusPerSkill { get; set; } = 5;
 
@@ -121,7 +123,7 @@ namespace AdjustableLeveling
 			HintText = "Apparently affects the attribute points with which NPCs start, but not the player. [Default: 15]",
 			Order = 7)]
 		[SettingPropertyGroup(
-			"Character Leveling",
+			CharacterLevelingGroupName,
 			GroupOrder = 0)]
 		public int AttributePointsAtStart { get; set; } = 15;
 
@@ -134,13 +136,15 @@ namespace AdjustableLeveling
 			HintText = "Apparently affects the focus points with which NPCs start, but not the player. [Default: 5]",
 			Order = 8)]
 		[SettingPropertyGroup(
-			"Character Leveling",
+			CharacterLevelingGroupName,
 			GroupOrder = 0)]
 		public int FocusPointsAtStart { get; set; } = 5;
 		#endregion
 
 
 		#region SKILL LEVELING MODIFIERS
+		private const string SkillLevelingGroupName = "Skill Leveling";
+
 		#region GENERAL
 		[SettingPropertyInteger(
 			"Learning Limit Increase per Attribute Point",
@@ -151,7 +155,7 @@ namespace AdjustableLeveling
 			HintText = "E.g. at 3 and with 10 AP an additional 30 skill points can be gained after the learning limit at reducing learning rate; at 5 an additional 50 can be gained. [Default: 3]",
 			Order = 0)]
 		[SettingPropertyGroup(
-			"Skill Leveling",
+			SkillLevelingGroupName,
 			GroupOrder = 1)]
 		public int LearningLimitIncreasePerAttributePoint { get; set; } = 3;
 
@@ -164,7 +168,7 @@ namespace AdjustableLeveling
 			HintText = "Adjust the learning limit increase per focus point. [Default: 50]",
 			Order = 1)]
 		[SettingPropertyGroup(
-			"Skill Leveling",
+			SkillLevelingGroupName,
 			GroupOrder = 1)]
 		public int LearningLimitIncreasePerFocusPoint { get; set; } = 50;
 
@@ -177,7 +181,7 @@ namespace AdjustableLeveling
 			HintText = "The base learning limit. [Default: 50]",
 			Order = 2)]
 		[SettingPropertyGroup(
-			"Skill Leveling",
+			SkillLevelingGroupName,
 			GroupOrder = 1)]
 		public int BaseLearningLimit { get; set; } = 50;
 
@@ -191,7 +195,7 @@ namespace AdjustableLeveling
 			HintText = "Set a minimum learning rate. [Default: 0.00]",
 			Order = 3)]
 		[SettingPropertyGroup(
-			"Skill Leveling",
+			SkillLevelingGroupName,
 			GroupOrder = 1)]
 		public float MinLearningRate { get; set; } = 0f;
 
@@ -204,7 +208,7 @@ namespace AdjustableLeveling
 			HintText = "Set a maximum learning rate, zero disables it. [Default: 0.00]",
 			Order = 4)]
 		[SettingPropertyGroup(
-			"Skill Leveling",
+			SkillLevelingGroupName,
 			GroupOrder = 1)]
 		public float MaxLearningRate { get; set; } = 0f;
 
@@ -218,7 +222,7 @@ namespace AdjustableLeveling
 			HintText = "Adjust the overall skill learning rate. [Default: 1.00]",
 			Order = 5)]
 		[SettingPropertyGroup(
-			"Skill Leveling",
+			SkillLevelingGroupName,
 			GroupOrder = 1)]
 		public float SkillXPModifier { get; set; } = 1f;
 
@@ -231,13 +235,14 @@ namespace AdjustableLeveling
 			HintText = "Overrides 'Skill XP Modifier' for NPCs when not 0. [Default: 0.00]",
 			Order = 6)]
 		[SettingPropertyGroup(
-			"Skill Leveling",
+			SkillLevelingGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier { get; set; } = 0f;
 		#endregion
 
 		#region SKILL MODIFIERS
-		public const string OverrideHintText = "Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for this specific skill when not 0. [Default: 0.00]";
+		private const string SkillLevelingSkillsGroupName = "Skill Leveling/Skills";
+		private const string OverrideHintText = "Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for this specific skill when not 0. [Default: 0.00]";
 
 		#region VIGOR
 		[SettingPropertyFloatingInteger(
@@ -249,7 +254,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 0)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_OneHanded { get; set; } = 0f;
 
@@ -262,7 +267,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 1)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_TwoHanded { get; set; } = 0f;
 
@@ -275,7 +280,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 2)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Polearm { get; set; } = 0f;
 		#endregion
@@ -290,7 +295,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 3)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Bow { get; set; } = 0f;
 
@@ -303,7 +308,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 4)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Crossbow { get; set; } = 0f;
 
@@ -316,7 +321,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 5)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Throwing { get; set; } = 0f;
 		#endregion
@@ -331,7 +336,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 6)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Riding { get; set; } = 0f;
 
@@ -344,7 +349,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 7)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Athletics { get; set; } = 0f;
 
@@ -357,7 +362,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 8)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Crafting { get; set; } = 0f;
 		#endregion
@@ -372,7 +377,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 9)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Scouting { get; set; } = 0f;
 
@@ -385,7 +390,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 10)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Tactics { get; set; } = 0f;
 
@@ -398,7 +403,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 11)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Roguery { get; set; } = 0f;
 		#endregion
@@ -413,7 +418,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 12)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Charm { get; set; } = 0f;
 
@@ -426,7 +431,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 13)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Leadership { get; set; } = 0f;
 
@@ -439,7 +444,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 14)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Trade { get; set; } = 0f;
 		#endregion
@@ -454,7 +459,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 15)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Steward { get; set; } = 0f;
 
@@ -467,7 +472,7 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 16)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Medicine { get; set; } = 0f;
 
@@ -480,14 +485,15 @@ namespace AdjustableLeveling
 			HintText = OverrideHintText,
 			Order = 17)]
 		[SettingPropertyGroup(
-			"Skill Leveling/Skills",
+			SkillLevelingSkillsGroupName,
 			GroupOrder = 0)]
 		public float SkillXPModifier_Engineering { get; set; } = 0f;
 		#endregion
 		#endregion
 
 		#region NPC SKILL MODIFIERS
-		public const string NPCOverrideHintText = "Overrides modifiers for this specific skill for NPCs only when not 0. [Default: 0.00]";
+		private const string SkillLevelingNPCSkillsGroupName = "Skill Leveling/NPC Skills";
+		private const string NPCOverrideHintText = "Overrides modifiers for this specific skill for NPCs only when not 0. [Default: 0.00]";
 
 		#region VIGOR
 		[SettingPropertyFloatingInteger(
@@ -499,7 +505,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 0)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_OneHanded { get; set; } = 0f;
 
@@ -512,7 +518,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 1)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_TwoHanded { get; set; } = 0f;
 
@@ -525,7 +531,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 2)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Polearm { get; set; } = 0f;
 		#endregion
@@ -540,7 +546,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 3)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Bow { get; set; } = 0f;
 
@@ -553,7 +559,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 4)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Crossbow { get; set; } = 0f;
 
@@ -566,7 +572,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 5)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Throwing { get; set; } = 0f;
 		#endregion
@@ -581,7 +587,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 6)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Riding { get; set; } = 0f;
 
@@ -594,7 +600,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 7)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Athletics { get; set; } = 0f;
 
@@ -607,7 +613,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 8)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Crafting { get; set; } = 0f;
 		#endregion
@@ -622,7 +628,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 9)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Scouting { get; set; } = 0f;
 
@@ -635,7 +641,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 10)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Tactics { get; set; } = 0f;
 
@@ -648,7 +654,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 11)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Roguery { get; set; } = 0f;
 		#endregion
@@ -663,7 +669,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 12)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Charm { get; set; } = 0f;
 
@@ -676,7 +682,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 13)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Leadership { get; set; } = 0f;
 
@@ -689,7 +695,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 14)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Trade { get; set; } = 0f;
 		#endregion
@@ -704,7 +710,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 15)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Steward { get; set; } = 0f;
 
@@ -717,7 +723,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 16)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Medicine { get; set; } = 0f;
 
@@ -730,7 +736,7 @@ namespace AdjustableLeveling
 			HintText = NPCOverrideHintText,
 			Order = 17)]
 		[SettingPropertyGroup(
-			"Skill Leveling/NPC Skills",
+			SkillLevelingNPCSkillsGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier_Engineering { get; set; } = 0f;
 		#endregion
@@ -739,6 +745,8 @@ namespace AdjustableLeveling
 
 
 		#region SMITHING PART RESEARCH MODIFIERS
+		private const string SmithingResearchGroupName = "Smithing Research";
+
 		[SettingPropertyFloatingInteger(
 			"Part Research Modifier",
 			0.01f,
@@ -748,7 +756,7 @@ namespace AdjustableLeveling
 			HintText = "Adjust smithing part research gain rate for smithing and smelting weapons. [Default: 100%]",
 			Order = 0)]
 		[SettingPropertyGroup(
-			"Smithing Research",
+			SmithingResearchGroupName,
 			GroupOrder = 1)]
 		public float SmithingResearchModifier { get; set; } = 1f;
 
@@ -761,7 +769,7 @@ namespace AdjustableLeveling
 			HintText = "Adjust smithing part research gain rate when in free build mode. With the default setting, unlocking parts is slow in free build mode. [Default: 10%]",
 			Order = 1)]
 		[SettingPropertyGroup(
-			"Smithing Research",
+			SmithingResearchGroupName,
 			GroupOrder = 1)]
 		public float SmithingFreeBuildResearchModifier { get; set; } = 0.1f;
 		#endregion

@@ -28,9 +28,7 @@ public class AdjustableLeveling : MBSubModuleBase
 				return;
 			_isInitialized = true;
 
-			Settings = GlobalSettings<MCMSettings>.Instance;
-			if (Settings == null)
-				throw new Exception("Settings is null");
+			Settings = GlobalSettings<MCMSettings>.Instance ?? throw new NullReferenceException("Settings is null");
 		}
 		catch (Exception exc)
 		{

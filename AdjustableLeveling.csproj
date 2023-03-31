@@ -18,7 +18,7 @@
     <FileVersion>1.1.0.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Bannerlord.ReferenceAssemblies" Version="1.1.0.12734" />
+    <PackageReference Include="Bannerlord.ReferenceAssemblies" Version="1.1.2.14580" />
     <PackageReference Include="Bannerlord.MCM" Version="5.5.5" />
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />
   </ItemGroup>
@@ -34,7 +34,7 @@
     <Publicize Include="TaleWorlds.CampaignSystem" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="copy /Y &quot;$(SolutionDir)_Module\SubModule.xml&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\AdjustableLeveling\SubModule.xml&quot;&#xD;&#xA;copy /Y &quot;$(TargetDir)$(TargetName).dll&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\AdjustableLeveling\Bin\Win64_Shipping_Client\$(TargetName).dll&quot;&#xD;&#xA;" />
+    <Exec Command="del &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\AdjustableLeveling&quot; /Q&#xD;&#xA;xcopy &quot;$(SolutionDir)_Module&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\AdjustableLeveling&quot; /E /I /Y&#xD;&#xA;xcopy &quot;$(TargetDir)$(TargetName).dll&quot; &quot;F:\Steam\SteamApps\common\Mount &amp; Blade II Bannerlord\Modules\AdjustableLeveling\Bin\Win64_Shipping_Client\$(TargetName).dll&quot; /Y&#xD;&#xA;" />
   </Target>
   <ItemGroup>
     <Reference Update="System">
