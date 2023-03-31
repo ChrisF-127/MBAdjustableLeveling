@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+	<tags>
+		<tag language="Deutsch" />
+	</tags>
+	<strings>
+		
+		<!-- CHARACTER LEVELING -->
+		
+		<string 
+			id="adjlvl_group_CharacterLeveling" 
+			text="Charakter Level" />
+		
+		<string 
+			id="adjlvl_name_FasterLevelingCurve" 
+			text="Schnellere Level-Kurve" />
+		<string 
+			id="adjlvl_hint_FasterLevelingCurve" 
+			text="Langsamere niedrige Level, aber schnellere höher Level. Level 62 benötigt z.B. insgesamt 40.7mio [AN] vs. 95.4mio [AUS]. [Standard: AUS]
+			ACHTUNG: Backup-Spielstand ist empfohlen, da bei Änderung im laufenden Spiel die Punkte auf Hälfte des nächsten Levels zurückgesetzt werden (sofern gesamte Punkte nach der Konvertierung die des momentanen Levels überschreiten)!" />
+		
+		<string 
+			id="adjlvl_name_MaxCharacterLevel" 
+			text="Maximales Charakter Level" />
+		<string 
+			id="adjlvl_hint_MaxCharacterLevel" 
+			text="Legt die Obergrenze für das Charakter-Level fest. Höhere Level erfordern deutlich mehr Fertigkeitspunkte! [Standard: 62]" />
+		
+		<string 
+			id="adjlvl_name_CharacterLevelXPModifier" 
+			text="Charakter-Level-EP Multiplikator" />
+		<string 
+			id="adjlvl_hint_CharacterLevelXPModifier" 
+			text="Passt die Konvertierungsrate der Fertigkeitspunkte zu Charakter-Level-Punkten an, standard ist 1-zu-1 beim Wert 1.00. [Standard: 1.00]" />
+		
+		<string 
+			id="adjlvl_name_LevelsPerAttributePoint" 
+			text="Level pro Attributpunkt" />
+		<string 
+			id="adjlvl_hint_LevelsPerAttributePoint" 
+			text="Anzahl der benötigten Level-Aufstiege um einen weiteren Attributpunkt zu erhalten. Beeinflusst nur folgende Level-Aufstiege, sollte daher für vollen Effekt zu Beginn einer neuen Kampagne geändert werden! [Standard: 4]" />
+		
+		<string 
+			id="adjlvl_name_FocusPointsPerLevel" 
+			text="Fokuspunkte pro Level" />
+		<string 
+			id="adjlvl_hint_FocusPointsPerLevel" 
+			text="Erhaltene Fokuspunkte pro Level. [Standard: 1]" />
+		
+		<string 
+			id="adjlvl_name_MaxAttributePointsForAttribute" 
+			text="Maximale Attributpunkte je Attribut" />
+		<string 
+			id="adjlvl_hint_MaxAttributePointsForAttribute" 
+			text="Anzahl an Attributpunkten, welche an ein Attribut vergebene werden können. [Standard: 10]" />
+		
+		<string 
+			id="adjlvl_name_MaxFocusPointsForSkill" 
+			text="Maximale Fokuspunkte je Fertigkeit" />
+		<string 
+			id="adjlvl_hint_MaxFocusPointsForSkill" 
+			text="Anzahl an Fokuspunkten, welche an eine Fertigkeit vergeben werden können. (Die graphische Oberfläche zeigt maximal 5 Punkte) [Standard: 5]" />
+		
+		<string 
+			id="adjlvl_name_AttributePointsAtStart" 
+			text="Attributpunkte am Anfang einer Kampagne" />
+		<string 
+			id="adjlvl_hint_AttributePointsAtStart" 
+			text="Beeinflusst scheinbar die Anzahl an Attributpunkten, mit welcher NSCs beginnen, nicht aber den Spieler-Charakter. [Standard: 15]" />
+		
+		<string 
+			id="adjlvl_name_FocusPointsAtStart" 
+			text="Fokuspunkte am Anfang einer Kampagne" />
+		<string 
+			id="adjlvl_hint_FocusPointsAtStart" 
+			text="Beeinflusst scheinbar die Anzahl an Fokuspunkten, mit welcher NSCs beginnen, nicht aber den Spieler-Charakter. [Standard: 5]" />
+		
+		<!-- SKILL LEVELING -->
+		
+		<string 
+			id="adjlvl_group_SkillLeveling" 
+			text="Fertigkeiten Level" />
+			
+		<!-- GENERAL -->
+		
+		<string 
+			id="adjlvl_name_LearningLimitAttributePoint" 
+			text="Erhöhung des Lernlimits pro Attributpunkt" />
+		<string 
+			id="adjlvl_hint_LearningLimitAttributePoint" 
+			text="Z.B. erhöht sich das Lernlimit beim Wert 3 und 10 Attributpunkten um 30 Fertigkeitspunkte, jedoch mit reduzierter Lernrate; beim Wert 5 sind es 50 Fertigkeitspunkte. [Standard: 3]" />
+		
+		<string 
+			id="adjlvl_name_LearningLimitFocusPoint" 
+			text="Erhöhung des Lernlimits pro Fokuspunkt" />
+		<string 
+			id="adjlvl_hint_LearningLimitFocusPoint" 
+			text="Passt an, um wieviel ein Fokuspunkt das Lernlimit erhöht. [Standard: 50]" />
+		
+		<string 
+			id="adjlvl_name_BaseLearningLimit" 
+			text="Basis-Lernlimit" />
+		<string 
+			id="adjlvl_hint_BaseLearningLimit" 
+			text="Der Basis-Wert des Lernlimits, welcher auch ohne Fokuspunkte erreicht werden kann. [Standard: 50]" />
+		
+		<string 
+			id="adjlvl_name_MinLearningRate" 
+			text="Minimale Lernrate" />
+		<string 
+			id="adjlvl_hint_MinLearningRate" 
+			text="Erlaubt das Setzen einer minimalen Lernrate, so dass kein absolutes Lernlimit exisitiert. [Standard: 0.00]" />
+		
+		<string 
+			id="adjlvl_name_MaxLearningRate" 
+			text="Maximale Lernrate" />
+		<string 
+			id="adjlvl_hint_MaxLearningRate" 
+			text="Erlaubt das Setzen einer maximalen Lernrate. Die Lernrate ist unlimitiert beim Wert 0.00. [Standard: 0.00]" />
+		
+		<string 
+			id="adjlvl_name_SkillXPModifier" 
+			text="Fertigkeits-EP Multiplikator" />
+		<string 
+			id="adjlvl_hint_SkillXPModifier" 
+			text="Passt die generelle Lernrate für Fertigkeits-Erfahrungspunkte an. [Standard: 1.00]" />
+		
+		<string 
+			id="adjlvl_name_NPCSkillXPModifier" 
+			text="NSC Fertigkeits-EP Multiplikator" />
+		<string 
+			id="adjlvl_hint_NPCSkillXPModifier" 
+			text="Überschreibt 'Fertigkeits-EP Multiplikator' für NSCs, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
+		
+		<string 
+			id="adjlvl_name_CompanionSkillXPModifier" 
+			text="Gefährten Fertigkeits-EP Multiplikator" />
+		<string 
+			id="adjlvl_hint_CompanionSkillXPModifier" 
+			text="Überschreibt 'Fertigkeits-EP Multiplikator' und 'NSC Fertigkeits-EP Multiplikator' für Gefährten, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
+		
+		<!-- SKILLS -->
+		
+		<string 
+			id="adjlvl_group_Skills" 
+			text="Fertigkeiten" />
+		
+		<string 
+			id="adjlvl_hint_SkillOverride" 
+			text="Überschreibt 'Fertigkeits-EP Multiplikator' und 'NSC Fertigkeits-EP Multiplikator' für diese Fertigkeit, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
+		
+		<!-- NPC SKILLS -->
+		
+		<string 
+			id="adjlvl_group_NPCSkills" 
+			text="NSC Fertigkeiten" />
+		
+		<string 
+			id="adjlvl_hint_NPCSkillOverride" 
+			text="Überschreibt Multiplikatoren für diese Fertigkeit für NSCs, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
+		
+		<!-- COMPANION SKILLS -->
+		
+		<string 
+			id="adjlvl_group_CompanionSkills" 
+			text="Gefährten Fertigkeiten" />
+		
+		<string 
+			id="adjlvl_hint_CompanionSkillOverride" 
+			text="Überschreibt Multiplikatoren für diese Fertigkeit für Gefährten, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
+		
+		<!-- SMITHING RESEARCH -->
+		
+		<string 
+			id="adjlvl_group_SmithingResearch" 
+			text="Schmiede Forschung" />
+		
+		<string 
+			id="adjlvl_name_PartResearch" 
+			text="Teil-Fortschritts Multiplikator" />
+		<string 
+			id="adjlvl_hint_PartResearch" 
+			text="Passt den durch Schmieden und Einschmelzen erhaltenen Forschungsfortschritt für Waffenteile an. [Standard: 100%]" />
+		
+		<string 
+			id="adjlvl_name_FreeBuildPartResearch" 
+			text="Freies Bauen Teil-Fortschritt Multiplikator" />
+		<string 
+			id="adjlvl_hint_FreeBuildPartResearch" 
+			text="Passt den erhaltenen Forschungsfortschritt für Waffenteile im freien Bauen an. Mit der Standard-Einstellung ist das Freischalten von Teilen in diesem Modus sehr langsam. [Standard: 10%]" />
+			
+	</strings>
+</base>

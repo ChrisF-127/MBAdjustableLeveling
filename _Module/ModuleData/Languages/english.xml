@@ -88,7 +88,7 @@
 			text="Learning Limit Increase per Attribute Point" />
 		<string 
 			id="adjlvl_hint_LearningLimitAttributePoint" 
-			text="E.g. at 3 and with 10 AP an additional 30 skill points can be gained after the learning limit at reducing learning rate; at 5 an additional 50 can be gained. [Default: 3]" />
+			text="E.g. at 3 and with 10 AP an additional 30 skill points can be gained at reducing learning rate; at 5 an additional 50 can be gained. [Default: 3]" />
 		
 		<string 
 			id="adjlvl_name_LearningLimitFocusPoint" 
@@ -163,7 +163,7 @@
 		
 		<string 
 			id="adjlvl_group_CompanionSkills" 
-			text="NPC Skills" />
+			text="Companion Skills" />
 		
 		<string 
 			id="adjlvl_hint_CompanionSkillOverride" 

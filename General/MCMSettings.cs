@@ -150,7 +150,7 @@ namespace AdjustableLeveling
 			50,
 			"0",
 			RequireRestart = false,
-			HintText = "{=adjlvl_hint_LearningLimitAttributePoint}E.g. at 3 and with 10 AP an additional 30 skill points can be gained after the learning limit at reducing learning rate; at 5 an additional 50 can be gained. [Default: 3]",
+			HintText = "{=adjlvl_hint_LearningLimitAttributePoint}E.g. at 3 and with 10 AP an additional 30 skill points can be gained at reducing learning rate; at 5 an additional 50 can be gained. [Default: 3]",
 			Order = 0)]
 		[SettingPropertyGroup(
 			SkillLevelingGroupName,
