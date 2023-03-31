@@ -18,28 +18,26 @@ namespace AdjustableLeveling
 		public override string FormatType => "json";
 
 		#region CHARACTER LEVELING MODIFIERS
-		private const string CharacterLevelingGroupName = "Character Leveling";
+		private const string CharacterLevelingGroupName = "{=adjlvl_group_CharacterLeveling}Character Leveling";
 
 		[SettingPropertyBool(
-			"Faster Leveling Curve",
+			"{=adjlvl_name_FasterLevelingCurve}Faster Leveling Curve",
 			RequireRestart = true,
-			HintText =
-			"Slower earlier but faster later levels, level 62 total: 40.7m [ON] vs 95.4m [OFF]. [Default: OFF]" +
-			"\nWARNING: Backup save recommended, changing this in an ongoing save will reset the level xp to half-way to the next level (if total xp is out of bounds for the current level after conversion)!",
+			HintText = "{=adjlvl_hint_FasterLevelingCurve}Slower earlier but faster later levels, level 62 total: 40.7m [ON] vs 95.4m [OFF]. [Default: OFF]\nWARNING: Backup save recommended, changing this in an ongoing save will reset the level xp to half-way to the next level (if total xp is out of bounds for the current level after conversion)!",
 			Order = 0)]
 		[SettingPropertyGroup(
 			CharacterLevelingGroupName,
 			GroupOrder = 0)]
-		public bool UseFasterLevelingCurve { get;set; } = false;
+		public bool UseFasterLevelingCurve { get; set; } = false;
 		
 
 		[SettingPropertyInteger(
-			"Max Character Level",
+			"{=adjlvl_name_MaxCharacterLevel}Maximum Character Level",
 			5,
 			200,
 			"0",
 			RequireRestart = false,
-			HintText = "Adjust the maximum achievable character level. Higher levels require much more xp! [Default: 62]",
+			HintText = "{=adjlvl_hint_MaxCharacterLevel}Adjust the maximum achievable character level. Higher levels require much more xp! [Default: 62]",
 			Order = 1)]
 		[SettingPropertyGroup(
 			CharacterLevelingGroupName,
@@ -47,12 +45,12 @@ namespace AdjustableLeveling
 		public int MaxCharacterLevel { get; set; } = 62;
 
 		[SettingPropertyFloatingInteger(
-			"Character Level XP Modifier",
+			"{=adjlvl_name_CharacterLevelXPModifier}Character Level XP Modifier",
 			0.01f,
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Adjust how skill xp is converted into level xp, default is 1-to-1 at 1.00. [Default: 1.00]",
+			HintText = "{=adjlvl_hint_CharacterLevelXPModifier}Adjust how skill xp is converted into level xp, default is 1-to-1 at 1.00. [Default: 1.00]",
 			Order = 2)]
 		[SettingPropertyGroup(
 			CharacterLevelingGroupName,
@@ -61,12 +59,12 @@ namespace AdjustableLeveling
 
 
 		[SettingPropertyInteger(
-			"Levels per Attribute Point",
+			"{=adjlvl_name_LevelsPerAttributePoint}Levels per Attribute Point",
 			1,
 			10,
 			"0",
 			RequireRestart = false,
-			HintText = "Number of level ups required to gain an attribute point. Only affects future level ups, so it should be changed before starting a new campaign to take full effect! [Default: 4]",
+			HintText = "{=adjlvl_hint_LevelsPerAttributePoint}Number of level ups required to gain an attribute point. Only affects future level ups, so it should be changed before starting a new campaign to take full effect! [Default: 4]",
 			Order = 3)]
 		[SettingPropertyGroup(
 			CharacterLevelingGroupName,
@@ -74,12 +72,12 @@ namespace AdjustableLeveling
 		public int LevelsPerAttributePoint { get; set; } = 4;
 
 		[SettingPropertyInteger(
-			"Focus Points per Level",
+			"{=adjlvl_name_FocusPointsPerLevel}Focus Points per Level",
 			1,
 			10,
 			"0",
 			RequireRestart = false,
-			HintText = "Focus points gained per level. [Default: 1]",
+			HintText = "{=adjlvl_hint_FocusPointsPerLevel}Focus points gained per level. [Default: 1]",
 			Order = 4)]
 		[SettingPropertyGroup(
 			CharacterLevelingGroupName,
@@ -88,12 +86,12 @@ namespace AdjustableLeveling
 
 
 		[SettingPropertyInteger(
-			"Max Attribute Points for Attribute",
+			"{=adjlvl_name_MaxAttributePointsForAttribute}Max Attribute Points for Attribute",
 			1,
 			20,
 			"0",
 			RequireRestart = false,
-			HintText = "Attribute point limit per attribute. [Default: 10]",
+			HintText = "{=adjlvl_hint_MaxAttributePointsForAttribute}Attribute point limit per attribute. [Default: 10]",
 			Order = 5)]
 		[SettingPropertyGroup(
 			CharacterLevelingGroupName,
@@ -101,12 +99,12 @@ namespace AdjustableLeveling
 		public int MaxAttribute { get; set; } = 10;
 
 		[SettingPropertyInteger(
-			"Max Focus Points for Skill",
+			"{=adjlvl_name_MaxFocusPointsForSkill}Max Focus Points for Skill",
 			1,
 			10,
 			"0",
 			RequireRestart = false,
-			HintText = "Focus point limit per skill. (UI will at most show 5 points) [Default: 5]",
+			HintText = "{=adjlvl_hint_MaxFocusPointsForSkill}Focus point limit per skill. (UI will at most show 5 points) [Default: 5]",
 			Order = 6)]
 		[SettingPropertyGroup(
 			CharacterLevelingGroupName,
@@ -115,12 +113,12 @@ namespace AdjustableLeveling
 
 
 		[SettingPropertyInteger(
-			"Attribute Points at Start",
+			"{=adjlvl_name_AttributePointsAtStart}Attribute Points at Start",
 			1,
 			100,
 			"0",
 			RequireRestart = false,
-			HintText = "Apparently affects the attribute points with which NPCs start, but not the player. [Default: 15]",
+			HintText = "{=adjlvl_hint_AttributePointsAtStart}Apparently affects the attribute points with which NPCs start, but not the player. [Default: 15]",
 			Order = 7)]
 		[SettingPropertyGroup(
 			CharacterLevelingGroupName,
@@ -128,12 +126,12 @@ namespace AdjustableLeveling
 		public int AttributePointsAtStart { get; set; } = 15;
 
 		[SettingPropertyInteger(
-			"Focus Points at Start",
+			"{=adjlvl_name_FocusPointsAtStart}Focus Points at Start",
 			1,
 			100,
 			"0",
 			RequireRestart = false,
-			HintText = "Apparently affects the focus points with which NPCs start, but not the player. [Default: 5]",
+			HintText = "{=adjlvl_hint_FocusPointsAtStart}Apparently affects the focus points with which NPCs start, but not the player. [Default: 5]",
 			Order = 8)]
 		[SettingPropertyGroup(
 			CharacterLevelingGroupName,
@@ -143,16 +141,16 @@ namespace AdjustableLeveling
 
 
 		#region SKILL LEVELING MODIFIERS
-		private const string SkillLevelingGroupName = "Skill Leveling";
+		private const string SkillLevelingGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling";
 
 		#region GENERAL
 		[SettingPropertyInteger(
-			"Learning Limit Increase per Attribute Point",
+			"{=adjlvl_name_LearningLimitAttributePoint}Learning Limit Increase per Attribute Point",
 			0,
 			50,
 			"0",
 			RequireRestart = false,
-			HintText = "E.g. at 3 and with 10 AP an additional 30 skill points can be gained after the learning limit at reducing learning rate; at 5 an additional 50 can be gained. [Default: 3]",
+			HintText = "{=adjlvl_hint_LearningLimitAttributePoint}E.g. at 3 and with 10 AP an additional 30 skill points can be gained after the learning limit at reducing learning rate; at 5 an additional 50 can be gained. [Default: 3]",
 			Order = 0)]
 		[SettingPropertyGroup(
 			SkillLevelingGroupName,
@@ -160,12 +158,12 @@ namespace AdjustableLeveling
 		public int LearningLimitIncreasePerAttributePoint { get; set; } = 3;
 
 		[SettingPropertyInteger(
-			"Learning Limit Increase per Focus Point",
+			"{=adjlvl_name_LearningLimitFocusPoint}Learning Limit Increase per Focus Point",
 			0,
 			100,
 			"0",
 			RequireRestart = false,
-			HintText = "Adjust the learning limit increase per focus point. [Default: 50]",
+			HintText = "{=adjlvl_hint_LearningLimitFocusPoint}Adjust the learning limit increase per focus point. [Default: 50]",
 			Order = 1)]
 		[SettingPropertyGroup(
 			SkillLevelingGroupName,
@@ -173,12 +171,12 @@ namespace AdjustableLeveling
 		public int LearningLimitIncreasePerFocusPoint { get; set; } = 50;
 
 		[SettingPropertyInteger(
-			"Base Learning Limit",
+			"{=adjlvl_name_BaseLearningLimit}Base Learning Limit",
 			0,
 			100,
 			"0",
 			RequireRestart = false,
-			HintText = "The base learning limit. [Default: 50]",
+			HintText = "{=adjlvl_hint_BaseLearningLimit}The base learning limit. [Default: 50]",
 			Order = 2)]
 		[SettingPropertyGroup(
 			SkillLevelingGroupName,
@@ -187,12 +185,12 @@ namespace AdjustableLeveling
 
 
 		[SettingPropertyFloatingInteger(
-			"Minimum Learning Rate",
+			"{=adjlvl_name_MinLearningRate}Minimum Learning Rate",
 			0f,
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Set a minimum learning rate. [Default: 0.00]",
+			HintText = "{=adjlvl_hint_MinLearningRate}Set a minimum learning rate. [Default: 0.00]",
 			Order = 3)]
 		[SettingPropertyGroup(
 			SkillLevelingGroupName,
@@ -200,12 +198,12 @@ namespace AdjustableLeveling
 		public float MinLearningRate { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Maximum Learning Rate",
+			"{=adjlvl_name_MaxLearningRate}Maximum Learning Rate",
 			0f,
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Set a maximum learning rate, zero disables it. [Default: 0.00]",
+			HintText = "{=adjlvl_hint_MaxLearningRate}Set a maximum learning rate, zero disables it. [Default: 0.00]",
 			Order = 4)]
 		[SettingPropertyGroup(
 			SkillLevelingGroupName,
@@ -214,12 +212,12 @@ namespace AdjustableLeveling
 
 
 		[SettingPropertyFloatingInteger(
-			"Skill XP Modifier",
+			"{=adjlvl_name_SkillXPModifier}Skill XP Modifier",
 			0.01f,
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Adjust the overall skill learning rate. [Default: 1.00]",
+			HintText = "{=adjlvl_hint_SkillXPModifier}Adjust the overall skill learning rate. [Default: 1.00]",
 			Order = 5)]
 		[SettingPropertyGroup(
 			SkillLevelingGroupName,
@@ -227,26 +225,39 @@ namespace AdjustableLeveling
 		public float SkillXPModifier { get; set; } = 1f;
 
 		[SettingPropertyFloatingInteger(
-			"NPC Skill XP Modifier",
+			"{=adjlvl_name_NPCSkillXPModifier}NPC Skill XP Modifier",
 			0f,
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "Overrides 'Skill XP Modifier' for NPCs when not 0. [Default: 0.00]",
+			HintText = "{=adjlvl_hint_NPCSkillXPModifier}Overrides 'Skill XP Modifier' for NPCs, when not 0. [Default: 0.00]",
 			Order = 6)]
 		[SettingPropertyGroup(
 			SkillLevelingGroupName,
 			GroupOrder = 1)]
 		public float NPCSkillXPModifier { get; set; } = 0f;
+
+		[SettingPropertyFloatingInteger(
+			"{=adjlvl_name_CompanionSkillXPModifier}Companion Skill XP Modifier",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = "{=adjlvl_hint_CompanionSkillXPModifier}Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for companions, when not 0. [Default: 0.00]",
+			Order = 7)]
+		[SettingPropertyGroup(
+			SkillLevelingGroupName,
+			GroupOrder = 1)]
+		public float CompanionSkillXPModifier { get; set; } = 0f;
 		#endregion
 
 		#region SKILL MODIFIERS
-		private const string SkillLevelingSkillsGroupName = "Skill Leveling/Skills";
-		private const string OverrideHintText = "Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for this specific skill when not 0. [Default: 0.00]";
+		private const string SkillLevelingSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_Skills}Skills";
+		private const string OverrideHintText = "{=adjlvl_hint_SkillOverride}Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for this specific skill, when not 0. [Default: 0.00]";
 
 		#region VIGOR
 		[SettingPropertyFloatingInteger(
-			"One Handed",
+			"{=PiHpR4QL}One Handed",
 			0f,
 			100f,
 			"0.00",
@@ -259,7 +270,7 @@ namespace AdjustableLeveling
 		public float SkillXPModifier_OneHanded { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Two Handed",
+			"{=t78atYqH}Two Handed",
 			0f,
 			100f,
 			"0.00",
@@ -272,7 +283,7 @@ namespace AdjustableLeveling
 		public float SkillXPModifier_TwoHanded { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Polearm",
+			"{=haax8kMa}Polearm",
 			0f,
 			100f,
 			"0.00",
@@ -287,7 +298,7 @@ namespace AdjustableLeveling
 
 		#region CONTROL
 		[SettingPropertyFloatingInteger(
-			"Bow",
+			"{=5rj7xQE4}Bow",
 			0f,
 			100f,
 			"0.00",
@@ -300,7 +311,7 @@ namespace AdjustableLeveling
 		public float SkillXPModifier_Bow { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Crossbow",
+			"{=TTWL7RLe}Crossbow",
 			0f,
 			100f,
 			"0.00",
@@ -313,7 +324,7 @@ namespace AdjustableLeveling
 		public float SkillXPModifier_Crossbow { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Throwing",
+			"{=2wclahIJ}Throwing",
 			0f,
 			100f,
 			"0.00",
@@ -328,7 +339,7 @@ namespace AdjustableLeveling
 
 		#region ENDURANCE
 		[SettingPropertyFloatingInteger(
-			"Riding",
+			"{=p9i3zRm9}Riding",
 			0f,
 			100f,
 			"0.00",
@@ -341,7 +352,7 @@ namespace AdjustableLeveling
 		public float SkillXPModifier_Riding { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Athletics",
+			"{=skZS2UlW}Athletics",
 			0f,
 			100f,
 			"0.00",
@@ -354,7 +365,7 @@ namespace AdjustableLeveling
 		public float SkillXPModifier_Athletics { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Smithing",
+			"{=smithingskill}Smithing",
 			0f,
 			100f,
 			"0.00",
@@ -369,7 +380,7 @@ namespace AdjustableLeveling
 
 		#region CUNNING
 		[SettingPropertyFloatingInteger(
-			"Scouting",
+			"{=LJ6Krlbr}Scouting",
 			0f,
 			100f,
 			"0.00",
@@ -382,7 +393,7 @@ namespace AdjustableLeveling
 		public float SkillXPModifier_Scouting { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Tactics",
+			"{=m8o51fc7}Tactics",
 			0f,
 			100f,
 			"0.00",
@@ -395,7 +406,7 @@ namespace AdjustableLeveling
 		public float SkillXPModifier_Tactics { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Roguery",
+			"{=V0ZMJ0PX}Roguery",
 			0f,
 			100f,
 			"0.00",
@@ -410,7 +421,7 @@ namespace AdjustableLeveling
 
 		#region SOCIAL
 		[SettingPropertyFloatingInteger(
-			"Charm",
+			"{=EGeY1gfs}Charm",
 			0f,
 			100f,
 			"0.00",
@@ -423,7 +434,7 @@ namespace AdjustableLeveling
 		public float SkillXPModifier_Charm { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Leadership",
+			"{=HsLfmEmb}Leadership",
 			0f,
 			100f,
 			"0.00",
@@ -436,7 +447,7 @@ namespace AdjustableLeveling
 		public float SkillXPModifier_Leadership { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Trade",
+			"{=GmcgoiGy}Trade",
 			0f,
 			100f,
 			"0.00",
@@ -451,7 +462,7 @@ namespace AdjustableLeveling
 
 		#region INTELLIGENCE
 		[SettingPropertyFloatingInteger(
-			"Steward",
+			"{=stewardskill}Steward",
 			0f,
 			100f,
 			"0.00",
@@ -464,7 +475,7 @@ namespace AdjustableLeveling
 		public float SkillXPModifier_Steward { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Medicine",
+			"{=JKH59XNp}Medicine",
 			0f,
 			100f,
 			"0.00",
@@ -477,7 +488,7 @@ namespace AdjustableLeveling
 		public float SkillXPModifier_Medicine { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Engineering",
+			"{=engineeringskill}Engineering",
 			0f,
 			100f,
 			"0.00",
@@ -492,12 +503,12 @@ namespace AdjustableLeveling
 		#endregion
 
 		#region NPC SKILL MODIFIERS
-		private const string SkillLevelingNPCSkillsGroupName = "Skill Leveling/NPC Skills";
-		private const string NPCOverrideHintText = "Overrides modifiers for this specific skill for NPCs only when not 0. [Default: 0.00]";
+		private const string SkillLevelingNPCSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_NPCSkills}NPC Skills";
+		private const string NPCOverrideHintText = "{=adjlvl_hint_NPCSkillOverride}Overrides modifiers for this specific skill for NPCs only, when not 0. [Default: 0.00]";
 
 		#region VIGOR
 		[SettingPropertyFloatingInteger(
-			"One Handed (NPC)",
+			"{=PiHpR4QL}One Handed",
 			0f,
 			100f,
 			"0.00",
@@ -510,7 +521,7 @@ namespace AdjustableLeveling
 		public float NPCSkillXPModifier_OneHanded { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Two Handed (NPC)",
+			"{=t78atYqH}Two Handed",
 			0f,
 			100f,
 			"0.00",
@@ -523,7 +534,7 @@ namespace AdjustableLeveling
 		public float NPCSkillXPModifier_TwoHanded { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Polearm (NPC)",
+			"{=haax8kMa}Polearm",
 			0f,
 			100f,
 			"0.00",
@@ -538,7 +549,7 @@ namespace AdjustableLeveling
 
 		#region CONTROL
 		[SettingPropertyFloatingInteger(
-			"Bow (NPC)",
+			"{=5rj7xQE4}Bow",
 			0f,
 			100f,
 			"0.00",
@@ -551,7 +562,7 @@ namespace AdjustableLeveling
 		public float NPCSkillXPModifier_Bow { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Crossbow (NPC)",
+			"{=TTWL7RLe}Crossbow",
 			0f,
 			100f,
 			"0.00",
@@ -564,7 +575,7 @@ namespace AdjustableLeveling
 		public float NPCSkillXPModifier_Crossbow { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Throwing (NPC)",
+			"{=2wclahIJ}Throwing",
 			0f,
 			100f,
 			"0.00",
@@ -579,7 +590,7 @@ namespace AdjustableLeveling
 
 		#region ENDURANCE
 		[SettingPropertyFloatingInteger(
-			"Riding (NPC)",
+			"{=p9i3zRm9}Riding",
 			0f,
 			100f,
 			"0.00",
@@ -592,7 +603,7 @@ namespace AdjustableLeveling
 		public float NPCSkillXPModifier_Riding { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Athletics (NPC)",
+			"{=skZS2UlW}Athletics",
 			0f,
 			100f,
 			"0.00",
@@ -605,7 +616,7 @@ namespace AdjustableLeveling
 		public float NPCSkillXPModifier_Athletics { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Smithing (NPC)",
+			"{=smithingskill}Smithing",
 			0f,
 			100f,
 			"0.00",
@@ -620,7 +631,7 @@ namespace AdjustableLeveling
 
 		#region CUNNING
 		[SettingPropertyFloatingInteger(
-			"Scouting (NPC)",
+			"{=LJ6Krlbr}Scouting",
 			0f,
 			100f,
 			"0.00",
@@ -633,7 +644,7 @@ namespace AdjustableLeveling
 		public float NPCSkillXPModifier_Scouting { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Tactics (NPC)",
+			"{=m8o51fc7}Tactics",
 			0f,
 			100f,
 			"0.00",
@@ -646,7 +657,7 @@ namespace AdjustableLeveling
 		public float NPCSkillXPModifier_Tactics { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Roguery (NPC)",
+			"{=V0ZMJ0PX}Roguery",
 			0f,
 			100f,
 			"0.00",
@@ -661,7 +672,7 @@ namespace AdjustableLeveling
 
 		#region SOCIAL
 		[SettingPropertyFloatingInteger(
-			"Charm (NPC)",
+			"{=EGeY1gfs}Charm",
 			0f,
 			100f,
 			"0.00",
@@ -674,7 +685,7 @@ namespace AdjustableLeveling
 		public float NPCSkillXPModifier_Charm { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Leadership (NPC)",
+			"{=HsLfmEmb}Leadership",
 			0f,
 			100f,
 			"0.00",
@@ -687,7 +698,7 @@ namespace AdjustableLeveling
 		public float NPCSkillXPModifier_Leadership { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Trade (NPC)",
+			"{=GmcgoiGy}Trade",
 			0f,
 			100f,
 			"0.00",
@@ -702,7 +713,7 @@ namespace AdjustableLeveling
 
 		#region INTELLIGENCE
 		[SettingPropertyFloatingInteger(
-			"Steward (NPC)",
+			"{=stewardskill}Steward",
 			0f,
 			100f,
 			"0.00",
@@ -715,7 +726,7 @@ namespace AdjustableLeveling
 		public float NPCSkillXPModifier_Steward { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Medicine (NPC)",
+			"{=JKH59XNp}Medicine",
 			0f,
 			100f,
 			"0.00",
@@ -728,7 +739,7 @@ namespace AdjustableLeveling
 		public float NPCSkillXPModifier_Medicine { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"Engineering (NPC)",
+			"{=engineeringskill}Engineering",
 			0f,
 			100f,
 			"0.00",
@@ -741,19 +752,270 @@ namespace AdjustableLeveling
 		public float NPCSkillXPModifier_Engineering { get; set; } = 0f;
 		#endregion
 		#endregion
+
+		#region COMPANION SKILL MODIFIERS
+		private const string SkillLevelingCompanionSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_CompanionSkills}Companion Skills";
+		private const string CompanionOverrideHintText = "{=adjlvl_hint_CompanionSkillOverride}Overrides modifiers for this specific skill for companions only, when not 0. [Default: 0.00]";
+
+		#region VIGOR
+		[SettingPropertyFloatingInteger(
+			"{=PiHpR4QL}One Handed",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 0)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_OneHanded { get; set; } = 0f;
+
+		[SettingPropertyFloatingInteger(
+			"{=t78atYqH}Two Handed",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 1)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_TwoHanded { get; set; } = 0f;
+
+		[SettingPropertyFloatingInteger(
+			"{=haax8kMa}Polearm",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 2)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Polearm { get; set; } = 0f;
+		#endregion
+
+		#region CONTROL
+		[SettingPropertyFloatingInteger(
+			"{=5rj7xQE4}Bow",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 3)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Bow { get; set; } = 0f;
+
+		[SettingPropertyFloatingInteger(
+			"{=TTWL7RLe}Crossbow",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 4)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Crossbow { get; set; } = 0f;
+
+		[SettingPropertyFloatingInteger(
+			"{=2wclahIJ}Throwing",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 5)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Throwing { get; set; } = 0f;
+		#endregion
+
+		#region ENDURANCE
+		[SettingPropertyFloatingInteger(
+			"{=p9i3zRm9}Riding",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 6)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Riding { get; set; } = 0f;
+
+		[SettingPropertyFloatingInteger(
+			"{=skZS2UlW}Athletics",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 7)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Athletics { get; set; } = 0f;
+
+		[SettingPropertyFloatingInteger(
+			"{=smithingskill}Smithing",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 8)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Crafting { get; set; } = 0f;
+		#endregion
+
+		#region CUNNING
+		[SettingPropertyFloatingInteger(
+			"{=LJ6Krlbr}Scouting",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 9)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Scouting { get; set; } = 0f;
+
+		[SettingPropertyFloatingInteger(
+			"{=m8o51fc7}Tactics",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 10)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Tactics { get; set; } = 0f;
+
+		[SettingPropertyFloatingInteger(
+			"{=V0ZMJ0PX}Roguery",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 11)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Roguery { get; set; } = 0f;
+		#endregion
+
+		#region SOCIAL
+		[SettingPropertyFloatingInteger(
+			"{=EGeY1gfs}Charm",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 12)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Charm { get; set; } = 0f;
+
+		[SettingPropertyFloatingInteger(
+			"{=HsLfmEmb}Leadership",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 13)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Leadership { get; set; } = 0f;
+
+		[SettingPropertyFloatingInteger(
+			"{=GmcgoiGy}Trade",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 14)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Trade { get; set; } = 0f;
+		#endregion
+
+		#region INTELLIGENCE
+		[SettingPropertyFloatingInteger(
+			"{=stewardskill}Steward",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 15)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Steward { get; set; } = 0f;
+
+		[SettingPropertyFloatingInteger(
+			"{=JKH59XNp}Medicine",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 16)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Medicine { get; set; } = 0f;
+
+		[SettingPropertyFloatingInteger(
+			"{=engineeringskill}Engineering",
+			0f,
+			100f,
+			"0.00",
+			RequireRestart = false,
+			HintText = CompanionOverrideHintText,
+			Order = 17)]
+		[SettingPropertyGroup(
+			SkillLevelingCompanionSkillsGroupName,
+			GroupOrder = 2)]
+		public float CompanionSkillXPModifier_Engineering { get; set; } = 0f;
+		#endregion
+		#endregion
 		#endregion
 
 
 		#region SMITHING PART RESEARCH MODIFIERS
-		private const string SmithingResearchGroupName = "Smithing Research";
+		private const string SmithingResearchGroupName = "{=adjlvl_group_SmithingResearch}Smithing Research";
 
 		[SettingPropertyFloatingInteger(
-			"Part Research Modifier",
+			"{=adjlvl_name_PartResearch}Part Research Modifier",
 			0.01f,
 			100f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Adjust smithing part research gain rate for smithing and smelting weapons. [Default: 100%]",
+			HintText = "{=adjlvl_hint_PartResearch}Adjust smithing part research gain rate for smithing and smelting weapons. [Default: 100%]",
 			Order = 0)]
 		[SettingPropertyGroup(
 			SmithingResearchGroupName,
@@ -761,12 +1023,12 @@ namespace AdjustableLeveling
 		public float SmithingResearchModifier { get; set; } = 1f;
 
 		[SettingPropertyFloatingInteger(
-			"Free Build Part Research Modifier",
+			"{=adjlvl_name_FreeBuildPartResearch}Free Build Part Research Modifier",
 			0.01f,
 			1.0f,
 			"0%",
 			RequireRestart = false,
-			HintText = "Adjust smithing part research gain rate when in free build mode. With the default setting, unlocking parts is slow in free build mode. [Default: 10%]",
+			HintText = "{=adjlvl_hint_FreeBuildPartResearch}Adjust smithing part research gain rate when in free build mode. With the default setting, unlocking parts is slow in free build mode. [Default: 10%]",
 			Order = 1)]
 		[SettingPropertyGroup(
 			SmithingResearchGroupName,

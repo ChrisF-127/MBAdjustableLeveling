@@ -10,9 +10,16 @@ using TaleWorlds.Core;
 
 namespace AdjustableLeveling.Leveling
 {
+	internal enum SkillUserEnum
+	{
+		Default,
+		NPC,
+		Companion,
+	}
+
 	internal static class SkillHelper
 	{
-		private static Dictionary<SkillObject, Func<bool, float>> SkillModifiers = new();
+		private static readonly Dictionary<SkillObject, Func<SkillUserEnum, float>> SkillModifiers = new();
 
 		static SkillHelper()
 		{
@@ -49,28 +56,44 @@ namespace AdjustableLeveling.Leveling
 
 		internal static float GetSkillModifier(this SkillObject skill, Hero hero)
 		{
-			var isNPC = hero?.CharacterObject.IsPlayerCharacter == false;
-
 			float modifier;
-			
+
+			var skillUser = 
+				hero?.CompanionOf != null ? 
+				SkillUserEnum.Companion : 
+				hero?.CharacterObject.IsPlayerCharacter == false ? 
+				SkillUserEnum.NPC : 
+				SkillUserEnum.Default;
+
 			// check skill specific modifiers
 			if (SkillModifiers.TryGetValue(skill, out var func))
 			{
-				modifier = func(isNPC);
+				modifier = func(skillUser);
 				if (modifier > 0f)
 					return modifier;
 			}
 
-			if (isNPC)
+			switch (skillUser)
 			{
-				// overall NPC skill modifier
-				modifier = AdjustableLeveling.Settings.NPCSkillXPModifier;
-				if (modifier > 0f)
-					return modifier;
-			}
+				// overall companion skill modifier
+				case SkillUserEnum.Companion:
+					modifier = AdjustableLeveling.Settings.NPCSkillXPModifier;
+					if (modifier > 0f)
+						return modifier;
+					goto case SkillUserEnum.NPC;
 
-			// overall skill modifier
-			return AdjustableLeveling.Settings.SkillXPModifier;
+				// overall NPC skill modifier
+				case SkillUserEnum.NPC:
+					modifier = AdjustableLeveling.Settings.NPCSkillXPModifier;
+					if (modifier > 0f)
+						return modifier;
+					goto case SkillUserEnum.Default;
+
+				// overall default skill modifier
+				default:
+				case SkillUserEnum.Default:
+					return AdjustableLeveling.Settings.SkillXPModifier;
+			}
 		}
 
 		/// <summary>
@@ -84,20 +107,32 @@ namespace AdjustableLeveling.Leveling
 				var skill = (SkillObject)typeof(DefaultSkills).GetProperty(name, BindingFlags.Static | BindingFlags.Public).GetValue(null);
 				var modifierGetter = typeof(MCMSettings).GetProperty("SkillXPModifier_" + name).GetGetMethod();
 				var npcModifierGetter = typeof(MCMSettings).GetProperty("NPCSkillXPModifier_" + name).GetGetMethod();
+				var companionModifierGetter = typeof(MCMSettings).GetProperty("CompanionSkillXPModifier_" + name).GetGetMethod();
 
-				SkillModifiers[skill] = (isNPC) =>
+				SkillModifiers[skill] = (skillUser) =>
 				{
 					float modifier;
-					if (isNPC)
+					switch (skillUser)
 					{
-						// NPC skill modifier
-						modifier = (float)npcModifierGetter.Invoke(AdjustableLeveling.Settings, null);
-						if (modifier > 0f)
-							return modifier;
-					}
+						// Companion skill modifier
+						case SkillUserEnum.Companion:
+							modifier = (float)companionModifierGetter.Invoke(AdjustableLeveling.Settings, null);
+							if (modifier > 0f)
+								return modifier;
+							goto case SkillUserEnum.NPC;
 
-					// skill modifier
-					return (float)modifierGetter.Invoke(AdjustableLeveling.Settings, null);
+						// NPC skill modifier
+						case SkillUserEnum.NPC:
+							modifier = (float)npcModifierGetter.Invoke(AdjustableLeveling.Settings, null);
+							if (modifier > 0f)
+								return modifier;
+							goto case SkillUserEnum.Default;
+
+						// Default skill modifier
+						default:
+						case SkillUserEnum.Default:
+							return (float)modifierGetter.Invoke(AdjustableLeveling.Settings, null);
+					}
 				};
 			}
 			catch (Exception exc)
