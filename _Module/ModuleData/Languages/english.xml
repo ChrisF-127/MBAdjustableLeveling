@@ -133,11 +133,18 @@
 			text="Overrides 'Skill XP Modifier' for NPCs, when not 0. [Default: 0.00]" />
 		
 		<string 
-			id="adjlvl_name_CompanionSkillXPModifier" 
-			text="Companion Skill XP Modifier" />
+			id="adjlvl_name_ClanSkillXPModifier" 
+			text="Clan/Companion Skill XP Modifier" />
 		<string 
-			id="adjlvl_hint_CompanionSkillXPModifier" 
-			text="Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for companions, when not 0. [Default: 0.00]" />
+			id="adjlvl_hint_ClanSkillXPModifier" 
+			text="Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for clan members or companions, when not 0. [Default: 0.00]" />
+		
+		<string 
+			id="adjlvl_name_ClanAsCompanionOnly" 
+			text="Clan Modifiers affect Companions only" />
+		<string 
+			id="adjlvl_hint_ClanAsCompanionOnly" 
+			text="Clan modifiers only affect Companions. [Default: OFF]" />
 		
 		<!-- SKILLS -->
 		
@@ -159,15 +166,15 @@
 			id="adjlvl_hint_NPCSkillOverride" 
 			text="Overrides modifiers for this specific skill for NPCs only, when not 0. [Default: 0.00]" />
 		
-		<!-- COMPANION SKILLS -->
+		<!-- CLAN SKILLS -->
 		
 		<string 
-			id="adjlvl_group_CompanionSkills" 
-			text="Companion Skills" />
+			id="adjlvl_group_ClanSkills" 
+			text="Clan Member or Companion Skills" />
 		
 		<string 
-			id="adjlvl_hint_CompanionSkillOverride" 
-			text="Overrides modifiers for this specific skill for companions only, when not 0. [Default: 0.00]" />
+			id="adjlvl_hint_ClanSkillOverride" 
+			text="Overrides modifiers for this specific skill for clan members or companions only, when not 0. [Default: 0.00]" />
 		
 		<!-- SMITHING RESEARCH -->
 		

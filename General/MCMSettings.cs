@@ -238,17 +238,27 @@ namespace AdjustableLeveling
 		public float NPCSkillXPModifier { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
-			"{=adjlvl_name_CompanionSkillXPModifier}Companion Skill XP Modifier",
+			"{=adjlvl_name_ClanSkillXPModifier}Clan/Companion Skill XP Modifier",
 			0f,
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = "{=adjlvl_hint_CompanionSkillXPModifier}Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for companions, when not 0. [Default: 0.00]",
+			HintText = "{=adjlvl_hint_ClanSkillXPModifier}Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for clan members or companions, when not 0. [Default: 0.00]",
 			Order = 7)]
 		[SettingPropertyGroup(
 			SkillLevelingGroupName,
 			GroupOrder = 1)]
-		public float CompanionSkillXPModifier { get; set; } = 0f;
+		public float ClanSkillXPModifier { get; set; } = 0f;
+
+		[SettingPropertyBool(
+			"{=adjlvl_name_ClanAsCompanionOnly}Clan Modifiers affect Companions only",
+			RequireRestart = false,
+			HintText = "{=adjlvl_hint_ClanAsCompanionOnly}Clan modifiers only affect Companions. [Default: OFF]",
+			Order = 8)]
+		[SettingPropertyGroup(
+			SkillLevelingGroupName,
+			GroupOrder = 1)]
+		public bool ClanAsCompanionOnly { get; set; } = false;
 		#endregion
 
 		#region SKILL MODIFIERS
@@ -753,9 +763,9 @@ namespace AdjustableLeveling
 		#endregion
 		#endregion
 
-		#region COMPANION SKILL MODIFIERS
-		private const string SkillLevelingCompanionSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_CompanionSkills}Companion Skills";
-		private const string CompanionOverrideHintText = "{=adjlvl_hint_CompanionSkillOverride}Overrides modifiers for this specific skill for companions only, when not 0. [Default: 0.00]";
+		#region CLAN SKILL MODIFIERS
+		private const string SkillLevelingClanSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_ClanSkills}Clan Member or Companion Skills";
+		private const string ClanOverrideHintText = "{=adjlvl_hint_ClanSkillOverride}Overrides modifiers for this specific skill for clan members or companions only, when not 0. [Default: 0.00]";
 
 		#region VIGOR
 		[SettingPropertyFloatingInteger(
@@ -764,12 +774,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 0)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_OneHanded { get; set; } = 0f;
+		public float ClanSkillXPModifier_OneHanded { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"{=t78atYqH}Two Handed",
@@ -777,12 +787,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 1)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_TwoHanded { get; set; } = 0f;
+		public float ClanSkillXPModifier_TwoHanded { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"{=haax8kMa}Polearm",
@@ -790,12 +800,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 2)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Polearm { get; set; } = 0f;
+		public float ClanSkillXPModifier_Polearm { get; set; } = 0f;
 		#endregion
 
 		#region CONTROL
@@ -805,12 +815,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 3)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Bow { get; set; } = 0f;
+		public float ClanSkillXPModifier_Bow { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"{=TTWL7RLe}Crossbow",
@@ -818,12 +828,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 4)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Crossbow { get; set; } = 0f;
+		public float ClanSkillXPModifier_Crossbow { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"{=2wclahIJ}Throwing",
@@ -831,12 +841,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 5)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Throwing { get; set; } = 0f;
+		public float ClanSkillXPModifier_Throwing { get; set; } = 0f;
 		#endregion
 
 		#region ENDURANCE
@@ -846,12 +856,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 6)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Riding { get; set; } = 0f;
+		public float ClanSkillXPModifier_Riding { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"{=skZS2UlW}Athletics",
@@ -859,12 +869,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 7)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Athletics { get; set; } = 0f;
+		public float ClanSkillXPModifier_Athletics { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"{=smithingskill}Smithing",
@@ -872,12 +882,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 8)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Crafting { get; set; } = 0f;
+		public float ClanSkillXPModifier_Crafting { get; set; } = 0f;
 		#endregion
 
 		#region CUNNING
@@ -887,12 +897,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 9)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Scouting { get; set; } = 0f;
+		public float ClanSkillXPModifier_Scouting { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"{=m8o51fc7}Tactics",
@@ -900,12 +910,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 10)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Tactics { get; set; } = 0f;
+		public float ClanSkillXPModifier_Tactics { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"{=V0ZMJ0PX}Roguery",
@@ -913,12 +923,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 11)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Roguery { get; set; } = 0f;
+		public float ClanSkillXPModifier_Roguery { get; set; } = 0f;
 		#endregion
 
 		#region SOCIAL
@@ -928,12 +938,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 12)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Charm { get; set; } = 0f;
+		public float ClanSkillXPModifier_Charm { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"{=HsLfmEmb}Leadership",
@@ -941,12 +951,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 13)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Leadership { get; set; } = 0f;
+		public float ClanSkillXPModifier_Leadership { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"{=GmcgoiGy}Trade",
@@ -954,12 +964,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 14)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Trade { get; set; } = 0f;
+		public float ClanSkillXPModifier_Trade { get; set; } = 0f;
 		#endregion
 
 		#region INTELLIGENCE
@@ -969,12 +979,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 15)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Steward { get; set; } = 0f;
+		public float ClanSkillXPModifier_Steward { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"{=JKH59XNp}Medicine",
@@ -982,12 +992,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 16)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Medicine { get; set; } = 0f;
+		public float ClanSkillXPModifier_Medicine { get; set; } = 0f;
 
 		[SettingPropertyFloatingInteger(
 			"{=engineeringskill}Engineering",
@@ -995,12 +1005,12 @@ namespace AdjustableLeveling
 			100f,
 			"0.00",
 			RequireRestart = false,
-			HintText = CompanionOverrideHintText,
+			HintText = ClanOverrideHintText,
 			Order = 17)]
 		[SettingPropertyGroup(
-			SkillLevelingCompanionSkillsGroupName,
+			SkillLevelingClanSkillsGroupName,
 			GroupOrder = 2)]
-		public float CompanionSkillXPModifier_Engineering { get; set; } = 0f;
+		public float ClanSkillXPModifier_Engineering { get; set; } = 0f;
 		#endregion
 		#endregion
 		#endregion

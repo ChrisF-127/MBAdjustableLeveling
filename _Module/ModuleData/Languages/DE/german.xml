@@ -133,11 +133,18 @@
 			text="Überschreibt 'Fertigkeits-EP Multiplikator' für NSCs, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
 		
 		<string 
-			id="adjlvl_name_CompanionSkillXPModifier" 
-			text="Gefährten Fertigkeits-EP Multiplikator" />
+			id="adjlvl_name_ClanSkillXPModifier" 
+			text="Clan/Gefährten Fertigkeits-EP Multiplikator" />
 		<string 
-			id="adjlvl_hint_CompanionSkillXPModifier" 
-			text="Überschreibt 'Fertigkeits-EP Multiplikator' und 'NSC Fertigkeits-EP Multiplikator' für Gefährten, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
+			id="adjlvl_hint_ClanSkillXPModifier" 
+			text="Überschreibt 'Fertigkeits-EP Multiplikator' und 'NSC Fertigkeits-EP Multiplikator' für Clan Mitglieder oder Gefährten, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
+
+    <string
+			id="adjlvl_name_ClanAsCompanionOnly"
+			text="Clan Einstellungen beinflussen nur Gefährten" />
+    <string
+			id="adjlvl_hint_ClanAsCompanionOnly"
+			text="Multiplikatoren der Clan/Gefährten-Einstellungen beeinflussen nur Gefährten und nicht den gesamten Spieler-Clan. [Standard: AUS]" />
 		
 		<!-- SKILLS -->
 		
@@ -159,15 +166,15 @@
 			id="adjlvl_hint_NPCSkillOverride" 
 			text="Überschreibt Multiplikatoren für diese Fertigkeit für NSCs, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
 		
-		<!-- COMPANION SKILLS -->
+		<!-- CLAN MEMBER SKILLS -->
 		
 		<string 
-			id="adjlvl_group_CompanionSkills" 
-			text="Gefährten Fertigkeiten" />
+			id="adjlvl_group_ClanSkills" 
+			text="Clan/Gefährten Fertigkeiten" />
 		
 		<string 
-			id="adjlvl_hint_CompanionSkillOverride" 
-			text="Überschreibt Multiplikatoren für diese Fertigkeit für Gefährten, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
+			id="adjlvl_hint_ClanSkillOverride" 
+			text="Überschreibt Multiplikatoren für diese Fertigkeit für Clan Mitglieder oder Gefährten, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
 		
 		<!-- SMITHING RESEARCH -->
 		

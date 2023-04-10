@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
@@ -14,7 +15,7 @@ namespace AdjustableLeveling.Leveling
 	{
 		Default,
 		NPC,
-		Companion,
+		Clan,
 	}
 
 	internal static class SkillHelper
@@ -54,16 +55,22 @@ namespace AdjustableLeveling.Leveling
 			AddSkill(nameof(DefaultSkills.Engineering));
 		}
 
+		internal static SkillUserEnum GetSkillUser(this Hero hero)
+		{
+			if (hero?.CharacterObject.IsPlayerCharacter == false)
+			{
+				if (!AdjustableLeveling.Settings.ClanAsCompanionOnly && hero?.MapFaction == Clan.PlayerClan 
+					|| hero?.CompanionOf != null)
+					return SkillUserEnum.Clan;
+				return SkillUserEnum.NPC;
+			}
+			return SkillUserEnum.Default;
+		}
+
 		internal static float GetSkillModifier(this SkillObject skill, Hero hero)
 		{
 			float modifier;
-
-			var skillUser = 
-				hero?.CompanionOf != null ? 
-				SkillUserEnum.Companion : 
-				hero?.CharacterObject.IsPlayerCharacter == false ? 
-				SkillUserEnum.NPC : 
-				SkillUserEnum.Default;
+			var skillUser = hero.GetSkillUser();
 
 			// check skill specific modifiers
 			if (SkillModifiers.TryGetValue(skill, out var func))
@@ -75,9 +82,9 @@ namespace AdjustableLeveling.Leveling
 
 			switch (skillUser)
 			{
-				// overall companion skill modifier
-				case SkillUserEnum.Companion:
-					modifier = AdjustableLeveling.Settings.NPCSkillXPModifier;
+				// overall clan skill modifier
+				case SkillUserEnum.Clan:
+					modifier = AdjustableLeveling.Settings.ClanSkillXPModifier;
 					if (modifier > 0f)
 						return modifier;
 					goto case SkillUserEnum.NPC;
@@ -107,16 +114,16 @@ namespace AdjustableLeveling.Leveling
 				var skill = (SkillObject)typeof(DefaultSkills).GetProperty(name, BindingFlags.Static | BindingFlags.Public).GetValue(null);
 				var modifierGetter = typeof(MCMSettings).GetProperty("SkillXPModifier_" + name).GetGetMethod();
 				var npcModifierGetter = typeof(MCMSettings).GetProperty("NPCSkillXPModifier_" + name).GetGetMethod();
-				var companionModifierGetter = typeof(MCMSettings).GetProperty("CompanionSkillXPModifier_" + name).GetGetMethod();
+				var clanModifierGetter = typeof(MCMSettings).GetProperty("ClanSkillXPModifier_" + name).GetGetMethod();
 
 				SkillModifiers[skill] = (skillUser) =>
 				{
 					float modifier;
 					switch (skillUser)
 					{
-						// Companion skill modifier
-						case SkillUserEnum.Companion:
-							modifier = (float)companionModifierGetter.Invoke(AdjustableLeveling.Settings, null);
+						// Clan skill modifier
+						case SkillUserEnum.Clan:
+							modifier = (float)clanModifierGetter.Invoke(AdjustableLeveling.Settings, null);
 							if (modifier > 0f)
 								return modifier;
 							goto case SkillUserEnum.NPC;
