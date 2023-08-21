@@ -14,12 +14,12 @@
     <BaseOutputPath></BaseOutputPath>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <DebugType>none</DebugType>
-    <AssemblyVersion>1.1.2.1</AssemblyVersion>
-    <FileVersion>1.1.2.1</FileVersion>
+    <AssemblyVersion>1.1.5.0</AssemblyVersion>
+    <FileVersion>1.1.5.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Bannerlord.ReferenceAssemblies" Version="1.1.2.14580" />
-    <PackageReference Include="Bannerlord.MCM" Version="5.5.5" />
+    <PackageReference Include="Bannerlord.ReferenceAssemblies" Version="1.1.5.21456" />
+    <PackageReference Include="Bannerlord.MCM" Version="5.9.1" />
     <PackageReference Include="Lib.Harmony" Version="2.2.2" />
   </ItemGroup>
   <ItemGroup>

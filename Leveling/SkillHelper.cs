@@ -20,7 +20,7 @@ namespace AdjustableLeveling.Leveling
 
 	internal static class SkillHelper
 	{
-		private static readonly Dictionary<SkillObject, Func<SkillUserEnum, float>> SkillModifiers = new();
+		private static readonly Dictionary<int, Func<SkillUserEnum, float>> SkillModifiers = new();
 
 		static SkillHelper()
 		{
@@ -73,9 +73,10 @@ namespace AdjustableLeveling.Leveling
 			var skillUser = hero.GetSkillUser();
 
 			// check skill specific modifiers
-			if (SkillModifiers.TryGetValue(skill, out var func))
+			if (SkillModifiers.TryGetValue(skill.GetHashCode(), out var func))
 			{
 				modifier = func(skillUser);
+				//AdjustableLeveling.Message($"Specific {modifier}", false);
 				if (modifier > 0f)
 					return modifier;
 			}
@@ -85,20 +86,27 @@ namespace AdjustableLeveling.Leveling
 				// overall clan skill modifier
 				case SkillUserEnum.Clan:
 					modifier = AdjustableLeveling.Settings.ClanSkillXPModifier;
+					//AdjustableLeveling.Message($"ClanSkillXPModifier {modifier}", false);
 					if (modifier > 0f)
 						return modifier;
+
+					// fallthrough
 					goto case SkillUserEnum.NPC;
 
 				// overall NPC skill modifier
 				case SkillUserEnum.NPC:
 					modifier = AdjustableLeveling.Settings.NPCSkillXPModifier;
+					//AdjustableLeveling.Message($"NPCSkillXPModifier {modifier}", false);
 					if (modifier > 0f)
 						return modifier;
+
+					// fallthrough
 					goto case SkillUserEnum.Default;
 
 				// overall default skill modifier
 				default:
 				case SkillUserEnum.Default:
+					//AdjustableLeveling.Message($"SkillXPModifier {AdjustableLeveling.Settings.SkillXPModifier}", false);
 					return AdjustableLeveling.Settings.SkillXPModifier;
 			}
 		}
@@ -116,7 +124,7 @@ namespace AdjustableLeveling.Leveling
 				var npcModifierGetter = typeof(MCMSettings).GetProperty("NPCSkillXPModifier_" + name).GetGetMethod();
 				var clanModifierGetter = typeof(MCMSettings).GetProperty("ClanSkillXPModifier_" + name).GetGetMethod();
 
-				SkillModifiers[skill] = (skillUser) =>
+				SkillModifiers[skill.GetHashCode()] = (skillUser) =>
 				{
 					float modifier;
 					switch (skillUser)
