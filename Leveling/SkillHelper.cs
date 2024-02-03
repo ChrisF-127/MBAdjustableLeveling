@@ -57,14 +57,19 @@ namespace AdjustableLeveling.Leveling
 
 		internal static SkillUserEnum GetSkillUser(this Hero hero)
 		{
+			SkillUserEnum output;
 			if (hero?.CharacterObject.IsPlayerCharacter == false)
 			{
-				if (!AdjustableLeveling.Settings.ClanAsCompanionOnly && hero?.MapFaction == Clan.PlayerClan 
-					|| hero?.CompanionOf != null)
-					return SkillUserEnum.Clan;
-				return SkillUserEnum.NPC;
+				if (hero.Clan == Clan.PlayerClan 
+					&& !(AdjustableLeveling.Settings.ClanAsCompanionOnly && hero.CompanionOf == null))
+					output = SkillUserEnum.Clan;
+				else
+					output = SkillUserEnum.NPC;
 			}
-			return SkillUserEnum.Default;
+			else
+				output = SkillUserEnum.Default;
+			//AdjustableLeveling.Message($"'{hero}' '{hero?.Clan}' / '{hero?.MapFaction}' -> {output}", false);
+			return output;
 		}
 
 		internal static float GetSkillModifier(this SkillObject skill, Hero hero)
