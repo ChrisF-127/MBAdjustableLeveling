@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 
 namespace AdjustableLeveling.Leveling
 {
@@ -20,7 +21,7 @@ namespace AdjustableLeveling.Leveling
 
 	internal static class SkillHelper
 	{
-		private static readonly Dictionary<int, Func<SkillUserEnum, float>> SkillModifiers = new();
+		private static readonly Dictionary<int, Func<SkillUserEnum, float>> SkillModifiers = [];
 
 		static SkillHelper()
 		{
@@ -78,7 +79,7 @@ namespace AdjustableLeveling.Leveling
 			var skillUser = hero.GetSkillUser();
 
 			// check skill specific modifiers
-			if (SkillModifiers.TryGetValue(skill.GetHashCode(), out var func))
+			if (skill != null && SkillModifiers.TryGetValue(skill.GetHashCode(), out var func))
 			{
 				modifier = func(skillUser);
 				//AdjustableLeveling.Message($"Specific {modifier}", false);
