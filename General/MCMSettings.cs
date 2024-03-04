@@ -1041,9 +1041,9 @@ namespace AdjustableLeveling
 			"{=adjlvl_name_PartResearch}Part Research Modifier",
 			0.01f,
 			100f,
-			"0%",
+			"0.00",
 			RequireRestart = false,
-			HintText = "{=adjlvl_hint_PartResearch}Adjust smithing part research gain rate for smithing and smelting weapons. [Default: 100%]",
+			HintText = "{=adjlvl_hint_PartResearch}Adjust smithing part research gain rate for smithing and smelting weapons. [Default: 1.00]",
 			Order = 0)]
 		[SettingPropertyGroup(
 			SmithingResearchGroupName,

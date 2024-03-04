@@ -176,6 +176,20 @@
 			id="adjlvl_hint_ClanSkillOverride" 
 			text="Überschreibt Multiplikatoren für diese Fertigkeit für Clan Mitglieder oder Gefährten, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
 		
+		<!-- OTHER -->
+		
+		<string 
+			id="adjlvl_group_Other" 
+			text="Andere" />
+		
+		<string 
+			id="adjlvl_name_TroopXPModifier" 
+			text="Truppen EP Multiplikator" />
+		
+		<string 
+			id="adjlvl_hint_TroopXPModifier" 
+			text="Passt erhaltene EP zum Aufwerten von Truppen an. (Benötigte EP in der Truppenübersicht zeigen unmodifzierte Werte, Spenden sind auf modifizierten Wert begrenzt.) [Standard: 0.00]" />
+		
 		<!-- SMITHING RESEARCH -->
 		
 		<string 

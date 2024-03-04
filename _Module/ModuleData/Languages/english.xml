@@ -176,6 +176,20 @@
 			id="adjlvl_hint_ClanSkillOverride" 
 			text="Overrides modifiers for this specific skill for clan members or companions only, when not 0. [Default: 0.00]" />
 		
+		<!-- OTHER -->
+		
+		<string 
+			id="adjlvl_group_Other" 
+			text="Other" />
+		
+		<string 
+			id="adjlvl_name_TroopXPModifier" 
+			text="Troops XP Modifier" />
+		
+		<string 
+			id="adjlvl_hint_TroopXPModifier" 
+			text="Modifies XP gained for upgrading troops. (Required XP numbers in roster will show unmodified values, but dropping equipment is limited to modified value.) [Default 1.00]" />
+		
 		<!-- SMITHING RESEARCH -->
 		
 		<string 
