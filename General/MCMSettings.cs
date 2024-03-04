@@ -1016,6 +1016,24 @@ namespace AdjustableLeveling
 		#endregion
 
 
+		#region OTHER STUFF
+		private const string OtherGroupName = "{=adjlvl_group_Other}Other";
+
+		[SettingPropertyFloatingInteger(
+			"{=adjlvl_name_TroopXPModifier}Troop XP Modifier",
+			0.01f,
+			100f,
+			"0%",
+			RequireRestart = false,
+			HintText = "{=adjlvl_hint_TroopXPModifier}Adjust experience gain for troops from battles, equipment, etc. [Default: 100%]",
+			Order = 0)]
+		[SettingPropertyGroup(
+			OtherGroupName,
+			GroupOrder = 2)]
+		public float TroopXPModifier { get; set; } = 1f;
+		#endregion
+
+
 		#region SMITHING PART RESEARCH MODIFIERS
 		private const string SmithingResearchGroupName = "{=adjlvl_group_SmithingResearch}Smithing Research";
 
@@ -1029,7 +1047,7 @@ namespace AdjustableLeveling
 			Order = 0)]
 		[SettingPropertyGroup(
 			SmithingResearchGroupName,
-			GroupOrder = 1)]
+			GroupOrder = 3)]
 		public float SmithingResearchModifier { get; set; } = 1f;
 
 		[SettingPropertyFloatingInteger(
@@ -1042,7 +1060,7 @@ namespace AdjustableLeveling
 			Order = 1)]
 		[SettingPropertyGroup(
 			SmithingResearchGroupName,
-			GroupOrder = 1)]
+			GroupOrder = 3)]
 		public float SmithingFreeBuildResearchModifier { get; set; } = 0.1f;
 		#endregion
 	}
