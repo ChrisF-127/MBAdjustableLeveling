@@ -17,7 +17,7 @@ namespace AdjustableLeveling.Leveling
 		private static readonly TextObject _skillFocusText;
 		private static readonly TextObject _overLimitText;
 
-		private readonly int[] _skillsRequiredForLevel = new int[201];
+		private readonly int[] _skillsRequiredForLevel = new int[1025];
 
 		public override int MaxAttribute => 
 			AdjustableLeveling.Settings.MaxAttribute;
@@ -36,8 +36,8 @@ namespace AdjustableLeveling.Leveling
 		{
 			try
 			{
-				_skillFocusText = (TextObject)typeof(DefaultCharacterDevelopmentModel).GetField(nameof(_skillFocusText), BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
-				_overLimitText = (TextObject)typeof(DefaultCharacterDevelopmentModel).GetField(nameof(_overLimitText), BindingFlags.NonPublic | BindingFlags.Static).GetValue(null);
+				_skillFocusText = (TextObject)AccessTools.Field(typeof(DefaultCharacterDevelopmentModel), nameof(_skillFocusText)).GetValue(null);
+				_overLimitText = (TextObject)AccessTools.Field(typeof(DefaultCharacterDevelopmentModel), nameof(_overLimitText)).GetValue(null);
 			}
 			catch (Exception exc)
 			{
@@ -58,12 +58,12 @@ namespace AdjustableLeveling.Leveling
 			}
 		}
 
-		public void GenerateSkillsRequiredForLevel()
+		private void GenerateSkillsRequiredForLevel()
 		{
 			_skillsRequiredForLevel[0] = 0;
 			for (int i = 1; i < _skillsRequiredForLevel.Length; i++)
 				_skillsRequiredForLevel[i] = _skillsRequiredForLevel[i - 1] + (int)(AdjustableLeveling.Settings.UseFasterLevelingCurve ? 500f * MathF.Pow(i, 2f) : 25f * MathF.Pow(i, 3f));
-			typeof(DefaultCharacterDevelopmentModel).GetField(nameof(_skillsRequiredForLevel), BindingFlags.NonPublic | BindingFlags.Instance).SetValue(this, _skillsRequiredForLevel);
+			AccessTools.Field(typeof(DefaultCharacterDevelopmentModel), nameof(_skillsRequiredForLevel)).SetValue(this, _skillsRequiredForLevel);
 		}
 
 

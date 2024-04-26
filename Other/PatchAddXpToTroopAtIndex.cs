@@ -11,16 +11,16 @@ using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.Core;
 using TaleWorlds.TwoDimension;
 
-namespace AdjustableLeveling.Leveling;
+namespace AdjustableLeveling.Other;
 
 [HarmonyPatch(typeof(TroopRoster), "AddXpToTroopAtIndex")]
 internal static class PatchAddXpToTroopAtIndex
 {
-	public static void Prefix(ref int xpAmount)
-	{
-		//var oriXp = xpAmount;
-		xpAmount = (int)Mathf.Round(xpAmount * MCMSettings.Instance.TroopXPModifier);
-		//AdjustableLeveling.Message($"{nameof(PatchAddXpToTroopAtIndex)}: {oriXp} {xpAmount}", false);
-	}
+    public static void Prefix(ref int xpAmount)
+    {
+        //var oriXp = xpAmount;
+        xpAmount = (int)Mathf.Round(xpAmount * MCMSettings.Instance.TroopXPModifier);
+        //AdjustableLeveling.Message($"{nameof(PatchAddXpToTroopAtIndex)}: {oriXp} {xpAmount}", false);
+    }
 }
 

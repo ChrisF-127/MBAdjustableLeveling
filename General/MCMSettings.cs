@@ -34,7 +34,7 @@ namespace AdjustableLeveling
 		[SettingPropertyInteger(
 			"{=adjlvl_name_MaxCharacterLevel}Maximum Character Level",
 			5,
-			200,
+			1024,
 			"0",
 			RequireRestart = false,
 			HintText = "{=adjlvl_hint_MaxCharacterLevel}Adjust the maximum achievable character level. Higher levels require much more xp! [Default: 62]",
