@@ -14,13 +14,13 @@
     <BaseOutputPath></BaseOutputPath>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <DebugType>none</DebugType>
-    <AssemblyVersion>1.2.9.1</AssemblyVersion>
-    <FileVersion>1.2.9.1</FileVersion>
+    <AssemblyVersion>1.2.12.0</AssemblyVersion>
+    <FileVersion>1.2.12.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Bannerlord.ReferenceAssemblies" Version="1.2.9.34269" />
-    <PackageReference Include="Bannerlord.MCM" Version="5.9.2" />
-    <PackageReference Include="Lib.Harmony" Version="2.3.1.1" />
+    <PackageReference Include="Bannerlord.ReferenceAssemblies" Version="1.2.12.54620" />
+    <PackageReference Include="Bannerlord.MCM" Version="5.10.2" />
+    <PackageReference Include="Lib.Harmony" Version="2.3.5" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Core">
@@ -34,7 +34,7 @@
     <Publicize Include="TaleWorlds.CampaignSystem" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="call D:\0Stuff\MB2_Bannerlord\Mods\_deploy.bat $(SolutionDir) $(TargetDir) $(TargetName)" />
+    <Exec Command="call D:\0Stuff\2Games\MB2_Bannerlord\Mods\_deploy.bat $(SolutionDir) $(TargetDir) $(TargetName)" />
   </Target>
   <ItemGroup>
     <Reference Update="System">

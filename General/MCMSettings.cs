@@ -88,7 +88,7 @@ namespace AdjustableLeveling
 		[SettingPropertyInteger(
 			"{=adjlvl_name_MaxAttributePointsForAttribute}Max Attribute Points for Attribute",
 			1,
-			100,
+			1000,
 			"0",
 			RequireRestart = false,
 			HintText = "{=adjlvl_hint_MaxAttributePointsForAttribute}Attribute point limit per attribute. [Default: 10]",
@@ -101,7 +101,7 @@ namespace AdjustableLeveling
 		[SettingPropertyInteger(
 			"{=adjlvl_name_MaxFocusPointsForSkill}Max Focus Points for Skill",
 			1,
-			100,
+			1000,
 			"0",
 			RequireRestart = false,
 			HintText = "{=adjlvl_hint_MaxFocusPointsForSkill}Focus point limit per skill. (UI will at most show 5 points) [Default: 5]",
