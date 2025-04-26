@@ -25,7 +25,7 @@ internal static class PatchGetPartResearchGainForSmithingItem
 			{
 				yield return new CodeInstruction(
 					OpCodes.Call, 
-					typeof(AdjustableLeveling).GetProperty(nameof(AdjustableLeveling.Settings), BindingFlags.Static | BindingFlags.Public).GetGetMethod());
+					typeof(MCMSettings).GetProperty(nameof(MCMSettings.Settings), BindingFlags.Static | BindingFlags.Public).GetGetMethod());
 				yield return new CodeInstruction(
 					OpCodes.Callvirt, 
 					typeof(MCMSettings).GetProperty(nameof(MCMSettings.SmithingFreeBuildResearchModifier), BindingFlags.Instance | BindingFlags.Public).GetGetMethod());
@@ -37,6 +37,6 @@ internal static class PatchGetPartResearchGainForSmithingItem
 			}
 		}
 		if (!patched)
-			AdjustableLeveling.Message($"{nameof(AdjustableLeveling)}: failed to patch 'GetPartResearchGainForSmithingItem'");
+			AdjLvlUtility.Message($"{nameof(AdjustableLeveling)}: failed to patch 'GetPartResearchGainForSmithingItem'");
 	}
 }

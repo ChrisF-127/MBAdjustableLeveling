@@ -16,6 +16,6 @@ internal static class PatchAddSkillXp
 	{
 		//var oriXp = rawXp;
 		rawXp *= skill.GetSkillModifier(__instance?.Hero);
-		//AdjustableLeveling.Message($"{__instance.Hero.Name} {skill.Name} {oriXp} {rawXp}", false);
+		//AdjustableLevelingUtility.Message($"{__instance.Hero.Name} {skill.Name} {oriXp} {rawXp}", false);
 	}
 }

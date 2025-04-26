@@ -14,6 +14,6 @@ internal static class PatchGainRawXp
 {
 	public static void Prefix(ref float rawXp)
 	{
-		rawXp *= AdjustableLeveling.Settings.LevelXPModifier;
+		rawXp *= MCMSettings.Settings.LevelXPModifier;
 	}
 }

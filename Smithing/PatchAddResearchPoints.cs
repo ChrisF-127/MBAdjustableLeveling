@@ -12,6 +12,6 @@ internal static class PatchAddResearchPoints
 {
 	public static void Prefix(ref int researchPoints)
 	{
-		researchPoints = MathF.Round(researchPoints * AdjustableLeveling.Settings.SmithingResearchModifier);
+		researchPoints = MathF.Round(researchPoints * MCMSettings.Settings.SmithingResearchModifier);
 	}
 }

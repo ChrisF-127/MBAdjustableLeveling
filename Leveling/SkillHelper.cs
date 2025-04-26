@@ -62,14 +62,14 @@ namespace AdjustableLeveling.Leveling
 			if (hero?.CharacterObject.IsPlayerCharacter == false)
 			{
 				if (hero.Clan == Clan.PlayerClan 
-					&& !(AdjustableLeveling.Settings.ClanAsCompanionOnly && hero.CompanionOf == null))
+					&& !(MCMSettings.Settings.ClanAsCompanionOnly && hero.CompanionOf == null))
 					output = SkillUserEnum.Clan;
 				else
 					output = SkillUserEnum.NPC;
 			}
 			else
 				output = SkillUserEnum.Default;
-			//AdjustableLeveling.Message($"'{hero}' '{hero?.Clan}' / '{hero?.MapFaction}' -> {output}", false);
+			//AdjustableLevelingUtility.Message($"'{hero}' '{hero?.Clan}' / '{hero?.MapFaction}' -> {output}", false);
 			return output;
 		}
 
@@ -82,7 +82,7 @@ namespace AdjustableLeveling.Leveling
 			if (skill != null && SkillModifiers.TryGetValue(skill.GetHashCode(), out var func))
 			{
 				modifier = func(skillUser);
-				//AdjustableLeveling.Message($"Specific {modifier}", false);
+				//AdjustableLevelingUtility.Message($"Specific {modifier}", false);
 				if (modifier > 0f)
 					return modifier;
 			}
@@ -91,8 +91,8 @@ namespace AdjustableLeveling.Leveling
 			{
 				// overall clan skill modifier
 				case SkillUserEnum.Clan:
-					modifier = AdjustableLeveling.Settings.ClanSkillXPModifier;
-					//AdjustableLeveling.Message($"ClanSkillXPModifier {modifier}", false);
+					modifier = MCMSettings.Settings.ClanSkillXPModifier;
+					//AdjustableLevelingUtility.Message($"ClanSkillXPModifier {modifier}", false);
 					if (modifier > 0f)
 						return modifier;
 
@@ -101,8 +101,8 @@ namespace AdjustableLeveling.Leveling
 
 				// overall NPC skill modifier
 				case SkillUserEnum.NPC:
-					modifier = AdjustableLeveling.Settings.NPCSkillXPModifier;
-					//AdjustableLeveling.Message($"NPCSkillXPModifier {modifier}", false);
+					modifier = MCMSettings.Settings.NPCSkillXPModifier;
+					//AdjustableLevelingUtility.Message($"NPCSkillXPModifier {modifier}", false);
 					if (modifier > 0f)
 						return modifier;
 
@@ -112,8 +112,8 @@ namespace AdjustableLeveling.Leveling
 				// overall default skill modifier
 				default:
 				case SkillUserEnum.Default:
-					//AdjustableLeveling.Message($"SkillXPModifier {AdjustableLeveling.Settings.SkillXPModifier}", false);
-					return AdjustableLeveling.Settings.SkillXPModifier;
+					//AdjustableLevelingUtility.Message($"SkillXPModifier {MCMSettings.Settings.SkillXPModifier}", false);
+					return MCMSettings.Settings.SkillXPModifier;
 			}
 		}
 
@@ -137,14 +137,14 @@ namespace AdjustableLeveling.Leveling
 					{
 						// Clan skill modifier
 						case SkillUserEnum.Clan:
-							modifier = (float)clanModifierGetter.Invoke(AdjustableLeveling.Settings, null);
+							modifier = (float)clanModifierGetter.Invoke(MCMSettings.Settings, null);
 							if (modifier > 0f)
 								return modifier;
 							goto case SkillUserEnum.NPC;
 
 						// NPC skill modifier
 						case SkillUserEnum.NPC:
-							modifier = (float)npcModifierGetter.Invoke(AdjustableLeveling.Settings, null);
+							modifier = (float)npcModifierGetter.Invoke(MCMSettings.Settings, null);
 							if (modifier > 0f)
 								return modifier;
 							goto case SkillUserEnum.Default;
@@ -152,7 +152,7 @@ namespace AdjustableLeveling.Leveling
 						// Default skill modifier
 						default:
 						case SkillUserEnum.Default:
-							return (float)modifierGetter.Invoke(AdjustableLeveling.Settings, null);
+							return (float)modifierGetter.Invoke(MCMSettings.Settings, null);
 					}
 				};
 			}

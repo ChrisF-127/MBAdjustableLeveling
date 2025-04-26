@@ -1,36 +1,37 @@
-﻿using HarmonyLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.ComponentInterfaces;
+using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.CampaignSystem.GameComponents;
+using TaleWorlds.Core;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
+using TOR_Core.Models;
 
 namespace AdjustableLeveling.Leveling
 {
-	public class AdjustableCharacterDevelopmentModel : DefaultCharacterDevelopmentModel
+	public class TORAdjustableCharacterDevelopmentModel : TORCharacterDevelopmentModel
 	{
 		private readonly int[] _skillsRequiredForLevel;
 
-		public override int MaxAttribute => 
+		public override int MaxAttribute =>
 			MCMSettings.Settings.MaxAttribute;
-		public override int MaxFocusPerSkill => 
+		public override int MaxFocusPerSkill =>
 			MCMSettings.Settings.MaxFocusPerSkill;
-		public override int FocusPointsPerLevel => 
+		public override int FocusPointsPerLevel =>
 			MCMSettings.Settings.FocusPointsPerLevel;
-		public override int FocusPointsAtStart => 
+		public override int FocusPointsAtStart =>
 			MCMSettings.Settings.FocusPointsAtStart;
-		public override int AttributePointsAtStart => 
+		public override int AttributePointsAtStart =>
 			MCMSettings.Settings.AttributePointsAtStart;
-		public override int LevelsPerAttributePoint => 
+		public override int LevelsPerAttributePoint =>
 			MCMSettings.Settings.LevelsPerAttributePoint;
 
-		public AdjustableCharacterDevelopmentModel() : base()
+		public TORAdjustableCharacterDevelopmentModel() : base()
 		{
 			AdjCharDevModelUtility.Initialize(this, out _skillsRequiredForLevel);
 		}

@@ -12,6 +12,8 @@ namespace AdjustableLeveling
 {
 	public class MCMSettings : AttributeGlobalSettings<MCMSettings>
 	{
+		public static MCMSettings Settings { get; set; }
+
 		public override string Id => "AdjustableLeveling";
 		public override string DisplayName => "Adjustable Leveling";
 		public override string FolderName => "AdjustableLeveling";

@@ -14,7 +14,7 @@ namespace AdjustableLeveling.Other
     {
         public static void Postfix(ref int gainableMaxXp)
         {
-            gainableMaxXp = (int)Mathf.Round(gainableMaxXp / MCMSettings.Instance.TroopXPModifier);
+            gainableMaxXp = (int)Mathf.Round(gainableMaxXp / MCMSettings.Settings.TroopXPModifier);
         }
     }
 }

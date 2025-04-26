@@ -1,4 +1,5 @@
 using AdjustableLeveling.Leveling;
+using AdjustableLevelingTOR;
 using HarmonyLib;
 using MCM.Abstractions.Base.Global;
 using System;
@@ -6,16 +7,22 @@ using System.Linq;
 using System.Reflection;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.CharacterDevelopment;
+using TaleWorlds.CampaignSystem.ComponentInterfaces;
 using TaleWorlds.Core;
+using TaleWorlds.Engine;
 using TaleWorlds.Library;
+using TaleWorlds.LinQuick;
 using TaleWorlds.MountAndBlade;
 
 namespace AdjustableLeveling;
 
 public class AdjustableLeveling : MBSubModuleBase
 {
-	public static MCMSettings Settings { get; private set; }
-	public static AdjustableCharacterDevelopmentModel CharacterDevelopmentModel { get; private set; }
+	private static CharacterDevelopmentModel _characterDevelopmentModel;
+	public static CharacterDevelopmentModel CharacterDevelopmentModel => 
+		_characterDevelopmentModel; 
+
+	public static bool Compatibility_TheOldRealm { get; private set; }
 
 	private bool _isInitialized = false;
 
@@ -24,15 +31,19 @@ public class AdjustableLeveling : MBSubModuleBase
 		try
 		{
 			base.OnBeforeInitialModuleScreenSetAsRoot();
+
 			if (_isInitialized)
 				return;
 			_isInitialized = true;
 
-			Settings = GlobalSettings<MCMSettings>.Instance ?? throw new NullReferenceException("Settings is null");
+			MCMSettings.Settings = GlobalSettings<MCMSettings>.Instance ?? throw new NullReferenceException("Settings is null");
+
+			var moduleNames = Utilities.GetModulesNames();
+			Compatibility_TheOldRealm = HandleCompatibility(ref _characterDevelopmentModel, moduleNames, "TOR_Core", AdjLvlTORUtility.GetCDM);
 		}
 		catch (Exception exc)
 		{
-			Message($"ERROR: Adjustable Leveling failed to initialize ({nameof(OnBeforeInitialModuleScreenSetAsRoot)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+			AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed to initialize ({nameof(OnBeforeInitialModuleScreenSetAsRoot)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 		}
 	}
 
@@ -41,15 +52,16 @@ public class AdjustableLeveling : MBSubModuleBase
 		try
 		{
 			base.OnGameStart(game, gameStarterObject);
+
 			if (game.GameType is Campaign)
 			{
-				CharacterDevelopmentModel = new AdjustableCharacterDevelopmentModel();
+				_characterDevelopmentModel ??= new AdjustableCharacterDevelopmentModel();
 				((CampaignGameStarter)gameStarterObject).AddModel(CharacterDevelopmentModel);
 			}
 		}
 		catch (Exception exc)
 		{
-			Message($"ERROR: Adjustable Leveling failed to initialize ({nameof(OnGameStart)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+			AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed to initialize ({nameof(OnGameStart)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 		}
 	}
 
@@ -90,22 +102,25 @@ public class AdjustableLeveling : MBSubModuleBase
 		}
 		catch (Exception exc)
 		{
-			Message($"ERROR: Adjustable Leveling failed to initialize ({nameof(OnSubModuleLoad)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+			AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed to initialize ({nameof(OnSubModuleLoad)}):\n{exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 		}
 	}
 
-
-	internal static void Message(string s, bool stacktrace = true, Color? color = null, bool log = true)
+	private static bool HandleCompatibility(ref CharacterDevelopmentModel characterDevelopmentModel, string[] moduleNames, string moduleName, Func<CharacterDevelopmentModel> getCDM)
 	{
-		try
-		{
-			if (log)
-				FileLog.Log(s + (stacktrace ? $"\n{Environment.StackTrace}" : ""));
+		if (!moduleNames.Contains(moduleName))
+			return false;
 
-			InformationManager.DisplayMessage(new InformationMessage(s, color ?? new Color(1f, 0f, 0f)));
-		}
-		catch
+		if (characterDevelopmentModel != null)
 		{
+			AdjLvlUtility.Message($"ERROR: Adjustable Leveling found {moduleName}, compatibility conflict detected!", false, Colors.Red, false);
+			return false;
 		}
+
+		characterDevelopmentModel = getCDM();
+		AdjLvlUtility.Message($"INFO: Adjustable Leveling found {moduleName}, applying compatibility", false, Colors.White, false);
+
+#warning TODO add settings
+		return true;
 	}
 }
