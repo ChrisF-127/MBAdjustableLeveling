@@ -36,7 +36,7 @@ public class AdjustableLeveling : MBSubModuleBase
 				return;
 			_isInitialized = true;
 
-			MCMSettings.Settings = GlobalSettings<MCMSettings>.Instance ?? throw new NullReferenceException("Settings is null");
+			MCMSettings.Settings = new MCMSettings();
 
 			var moduleNames = Utilities.GetModulesNames();
 			Compatibility_TheOldRealm = HandleCompatibility(ref _characterDevelopmentModel, moduleNames, "TOR_Core", AdjLvlTORUtility.GetCDM);
