@@ -39,11 +39,11 @@ public class AdjustableLeveling : MBSubModuleBase
 			MCMSettings.Settings = new MCMSettings();
 
 			var moduleNames = Utilities.GetModulesNames();
-			Compatibility_TheOldRealm = HandleCompatibility(ref _characterDevelopmentModel, moduleNames, "TOR_Core", AdjLvlTORUtility.GetCDM);
+			Compatibility_TheOldRealm = HandleCompatibility(ref _characterDevelopmentModel, moduleNames, "TOR_Core", AdjLvlTORUtility.CreateCDM);
 		}
 		catch (Exception exc)
 		{
-			AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed to initialize ({nameof(OnBeforeInitialModuleScreenSetAsRoot)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+			AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnBeforeInitialModuleScreenSetAsRoot)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 		}
 	}
 
@@ -55,13 +55,32 @@ public class AdjustableLeveling : MBSubModuleBase
 
 			if (game.GameType is Campaign)
 			{
+				MCMSettings.Settings.RegisterPerCampaign();
+
 				_characterDevelopmentModel ??= new AdjustableCharacterDevelopmentModel();
 				((CampaignGameStarter)gameStarterObject).AddModel(CharacterDevelopmentModel);
 			}
 		}
 		catch (Exception exc)
 		{
-			AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed to initialize ({nameof(OnGameStart)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+			AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnGameStart)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+		}
+	}
+
+	public override void OnGameEnd(Game game)
+	{
+		try
+		{
+			base.OnGameEnd(game);
+
+			if (game.GameType is Campaign)
+			{
+				MCMSettings.Settings.RegisterGlobal();
+			}
+		}
+		catch (Exception exc)
+		{
+			AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnGameEnd)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 		}
 	}
 
@@ -102,11 +121,11 @@ public class AdjustableLeveling : MBSubModuleBase
 		}
 		catch (Exception exc)
 		{
-			AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed to initialize ({nameof(OnSubModuleLoad)}):\n{exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+			AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnSubModuleLoad)}):\n{exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 		}
 	}
 
-	private static bool HandleCompatibility(ref CharacterDevelopmentModel characterDevelopmentModel, string[] moduleNames, string moduleName, Func<CharacterDevelopmentModel> getCDM)
+	private static bool HandleCompatibility(ref CharacterDevelopmentModel characterDevelopmentModel, string[] moduleNames, string moduleName, Func<CharacterDevelopmentModel> createCDM)
 	{
 		if (!moduleNames.Contains(moduleName))
 			return false;
@@ -117,10 +136,8 @@ public class AdjustableLeveling : MBSubModuleBase
 			return false;
 		}
 
-		characterDevelopmentModel = getCDM();
+		characterDevelopmentModel = createCDM();
 		AdjLvlUtility.Message($"INFO: Adjustable Leveling found {moduleName}, applying compatibility", false, Colors.White, false);
-
-#warning TODO add settings
 		return true;
 	}
 }

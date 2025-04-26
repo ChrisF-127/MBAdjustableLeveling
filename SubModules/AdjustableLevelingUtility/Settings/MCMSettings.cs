@@ -1,4 +1,6 @@
-﻿using MCM.Abstractions.FluentBuilder;
+﻿using MCM.Abstractions.Base.Global;
+using MCM.Abstractions.Base.PerCampaign;
+using MCM.Abstractions.FluentBuilder;
 using MCM.Common;
 
 namespace AdjustableLeveling
@@ -9,6 +11,8 @@ namespace AdjustableLeveling
 		public static MCMSettings Settings { get; set; }
 
 		public ISettingsBuilder SettingsBuilder { get; }
+		public FluentGlobalSettings GlobalSettings { get; private set; }
+		public FluentPerCampaignSettings PerCampaignSettings { get; private set; }
 
 		public string Id => "AdjustableLeveling";
 		public string DisplayName => "Adjustable Leveling";
@@ -184,14 +188,15 @@ namespace AdjustableLeveling
 		#region CONSTRUCTORS
 		public MCMSettings()
 		{
+			#region SETTINGS
 			const string SkillLevelingSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_Skills}Skills";
-			const string OverrideHintText = "{=adjlvl_hint_SkillOverride}HINT_TEXT";
+			const string OverrideHintText = "{=adjlvl_hint_SkillOverride}Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for this specific skill, when not 0. [Default: 0.00]";
 			
 			const string SkillLevelingNPCSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_NPCSkills}NPC Skills";
-			const string NPCOverrideHintText = "{=adjlvl_hint_NPCSkillOverride}HINT_TEXT";
+			const string NPCOverrideHintText = "{=adjlvl_hint_NPCSkillOverride}Overrides modifiers for this specific skill for NPCs only, when not 0. [Default: 0.00]";
 
 			const string SkillLevelingClanSkillsGroupName = "{=adjlvl_group_SkillLeveling}Skill Leveling/{=adjlvl_group_ClanSkills}Clan Member or Companion Skills";
-			const string ClanOverrideHintText = "{=adjlvl_hint_ClanSkillOverride}HINT_TEXT";
+			const string ClanOverrideHintText = "{=adjlvl_hint_ClanSkillOverride}Overrides modifiers for this specific skill for clan members or companions only, when not 0. [Default: 0.00]";
 
 			SettingsBuilder = BaseSettingsBuilder.Create(Id, DisplayName)
 				.SetFormat(FormatType)
@@ -204,7 +209,7 @@ namespace AdjustableLeveling
 						nameof(UseFasterLevelingCurve),
 						"{=adjlvl_name_FasterLevelingCurve}Faster Leveling Curve",
 						new ProxyRef<bool>(() => UseFasterLevelingCurve, v => UseFasterLevelingCurve = v), b => b
-						.SetHintText("{=adjlvl_hint_FasterLevelingCurve}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_FasterLevelingCurve}Slower earlier but faster later levels, level 62 total: 40.7m [ON] vs 95.4m [OFF]. [Default: OFF]\n-WARNING: Backup save recommended, changing this in an ongoing save will reset the level xp to half-way to the next level (if total xp is out of bounds for the current level after conversion)!")
 						.SetOrder(PropertyOrderCharacterLeveling++))
 
 					.AddInteger(
@@ -213,7 +218,7 @@ namespace AdjustableLeveling
 						5,
 						1024,
 						new ProxyRef<int>(() => MaxCharacterLevel, v => MaxCharacterLevel = v), b => b
-						.SetHintText("{=adjlvl_hint_MaxCharacterLevel}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_MaxCharacterLevel}Adjust the maximum achievable character level. Higher levels require much more xp! [Default: 62]")
 						.SetOrder(PropertyOrderCharacterLeveling++)
 						.AddValueFormat("0"))
 					.AddFloatingInteger(
@@ -222,7 +227,7 @@ namespace AdjustableLeveling
 						0.01f,
 						100f,
 						new ProxyRef<float>(() => LevelXPModifier, v => LevelXPModifier = v), b => b
-						.SetHintText("{=adjlvl_hint_CharacterLevelXPModifier}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_CharacterLevelXPModifier}Adjust how skill xp is converted into level xp, default is 1-to-1 at 1.00. [Default: 1.00]")
 						.SetOrder(PropertyOrderCharacterLeveling++)
 						.AddValueFormat("0.00"))
 
@@ -232,7 +237,7 @@ namespace AdjustableLeveling
 						1,
 						10,
 						new ProxyRef<int>(() => LevelsPerAttributePoint, v => LevelsPerAttributePoint = v), b => b
-						.SetHintText("{=adjlvl_hint_LevelsPerAttributePoint}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_LevelsPerAttributePoint}Number of level ups required to gain an attribute point. Only affects future level ups, so it should be changed before starting a new campaign to take full effect! [Default: 4]")
 						.SetOrder(PropertyOrderCharacterLeveling++)
 						.AddValueFormat("0"))
 					.AddInteger(
@@ -241,7 +246,7 @@ namespace AdjustableLeveling
 						1,
 						10,
 						new ProxyRef<int>(() => FocusPointsPerLevel, v => FocusPointsPerLevel = v), b => b
-						.SetHintText("{=adjlvl_hint_FocusPointsPerLevel}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_FocusPointsPerLevel}Focus points gained per level. [Default: 1]")
 						.SetOrder(PropertyOrderCharacterLeveling++)
 						.AddValueFormat("0"))
 
@@ -251,7 +256,7 @@ namespace AdjustableLeveling
 						1,
 						1000,
 						new ProxyRef<int>(() => MaxAttribute, v => MaxAttribute = v), b => b
-						.SetHintText("{=adjlvl_hint_MaxAttributePointsForAttribute}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_MaxAttributePointsForAttribute}Attribute point limit per attribute. [Default: 10]")
 						.SetOrder(PropertyOrderCharacterLeveling++)
 						.AddValueFormat("0"))
 					.AddInteger(
@@ -260,7 +265,7 @@ namespace AdjustableLeveling
 						1,
 						1000,
 						new ProxyRef<int>(() => MaxFocusPerSkill, v => MaxFocusPerSkill = v), b => b
-						.SetHintText("{=adjlvl_hint_MaxFocusPointsForSkill}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_MaxFocusPointsForSkill}Focus point limit per skill. (UI will at most show 5 points) [Default: 5]")
 						.SetOrder(PropertyOrderCharacterLeveling++)
 						.AddValueFormat("0"))
 
@@ -270,7 +275,7 @@ namespace AdjustableLeveling
 						1,
 						100,
 						new ProxyRef<int>(() => AttributePointsAtStart, v => AttributePointsAtStart = v), b => b
-						.SetHintText("{=adjlvl_hint_AttributePointsAtStart}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_AttributePointsAtStart}Apparently affects the attribute points with which NPCs start, but not the player. [Default: 15]")
 						.SetOrder(PropertyOrderCharacterLeveling++)
 						.AddValueFormat("0"))
 					.AddInteger(
@@ -279,7 +284,7 @@ namespace AdjustableLeveling
 						1,
 						100,
 						new ProxyRef<int>(() => FocusPointsAtStart, v => FocusPointsAtStart = v), b => b
-						.SetHintText("{=adjlvl_hint_FocusPointsAtStart}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_FocusPointsAtStart}Apparently affects the focus points with which NPCs start, but not the player. [Default: 5]")
 						.SetOrder(PropertyOrderCharacterLeveling++)
 						.AddValueFormat("0"))
 					)
@@ -295,7 +300,7 @@ namespace AdjustableLeveling
 						0,
 						50,
 						new ProxyRef<int>(() => LearningLimitIncreasePerAttributePoint, v => LearningLimitIncreasePerAttributePoint = v), b => b
-						.SetHintText("{=adjlvl_hint_LearningLimitAttributePoint}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_LearningLimitAttributePoint}E.g. at 3 and with 10 AP an additional 30 skill points can be gained at reducing learning rate; at 5 an additional 50 can be gained. [Default: 3]")
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0"))
 					.AddInteger(
@@ -304,7 +309,7 @@ namespace AdjustableLeveling
 						0,
 						100,
 						new ProxyRef<int>(() => LearningLimitIncreasePerFocusPoint, v => LearningLimitIncreasePerFocusPoint = v), b => b
-						.SetHintText("{=adjlvl_hint_LearningLimitFocusPoint}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_LearningLimitFocusPoint}Adjust the learning limit increase per focus point. [Default: 50]")
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0"))
 					.AddInteger(
@@ -313,7 +318,7 @@ namespace AdjustableLeveling
 						0,
 						100,
 						new ProxyRef<int>(() => BaseLearningLimit, v => BaseLearningLimit = v), b => b
-						.SetHintText("{=adjlvl_hint_BaseLearningLimit}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_BaseLearningLimit}The base learning limit. [Default: 50]")
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0"))
 
@@ -323,7 +328,7 @@ namespace AdjustableLeveling
 						0f,
 						100f,
 						new ProxyRef<float>(() => MinLearningRate, v => MinLearningRate = v), b => b
-						.SetHintText("{=adjlvl_hint_MinLearningRate}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_MinLearningRate}Set a minimum learning rate. [Default: 0.00]")
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
@@ -332,7 +337,7 @@ namespace AdjustableLeveling
 						0f,
 						100f,
 						new ProxyRef<float>(() => MaxLearningRate, v => MaxLearningRate = v), b => b
-						.SetHintText("{=adjlvl_hint_MaxLearningRate}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_MaxLearningRate}Set a maximum learning rate, zero disables it. [Default: 0.00]")
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 
@@ -342,7 +347,7 @@ namespace AdjustableLeveling
 						0.01f,
 						100f,
 						new ProxyRef<float>(() => SkillXPModifier, v => SkillXPModifier = v), b => b
-						.SetHintText("{=adjlvl_hint_SkillXPModifier}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_SkillXPModifier}Adjust the overall skill learning rate. [Default: 1.00]")
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
@@ -351,7 +356,7 @@ namespace AdjustableLeveling
 						0f,
 						100f,
 						new ProxyRef<float>(() => NPCSkillXPModifier, v => NPCSkillXPModifier = v), b => b
-						.SetHintText("{=adjlvl_hint_NPCSkillXPModifier}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_NPCSkillXPModifier}Overrides 'Skill XP Modifier' for NPCs, when not 0. [Default: 0.00]")
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
@@ -360,14 +365,14 @@ namespace AdjustableLeveling
 						0f,
 						100f,
 						new ProxyRef<float>(() => ClanSkillXPModifier, v => ClanSkillXPModifier = v), b => b
-						.SetHintText("{=adjlvl_hint_ClanSkillXPModifier}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_ClanSkillXPModifier}Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for clan members or companions, when not 0. [Default: 0.00]")
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddBool(
 						nameof(ClanAsCompanionOnly),
 						"{=adjlvl_name_ClanAsCompanionOnly}Clan Modifiers affect Companions only",
 						new ProxyRef<bool>(() => ClanAsCompanionOnly, v => ClanAsCompanionOnly = v), b => b
-						.SetHintText("{=adjlvl_hint_ClanAsCompanionOnly}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_ClanAsCompanionOnly}Clan modifiers only affect Companions. [Default: OFF]")
 						.SetOrder(PropertyOrderSkillLeveling++))
 					)
 			#endregion
@@ -964,7 +969,7 @@ namespace AdjustableLeveling
 						0.01f,
 						100f,
 						new ProxyRef<float>(() => TroopXPModifier, v => TroopXPModifier = v), b => b
-						.SetHintText("{=adjlvl_hint_TroopXPModifier}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_TroopXPModifier}Modifies XP gained for upgrading troops. (Required XP numbers in roster will show unmodified values, but dropping equipment is limited to modified value.) [Default 1.00]")
 						.SetOrder(PropertyOrderOther++)
 						.AddValueFormat("0.00"))
 					)
@@ -979,7 +984,7 @@ namespace AdjustableLeveling
 						0.01f,
 						100f,
 						new ProxyRef<float>(() => SmithingResearchModifier, v => SmithingResearchModifier = v), b => b
-						.SetHintText("{=adjlvl_hint_PartResearch}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_PartResearch}Adjust smithing part research gain rate for smithing and smelting weapons. [Default: 100%]")
 						.SetOrder(PropertyOrderSmithing++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
@@ -988,15 +993,30 @@ namespace AdjustableLeveling
 						0.01f,
 						100f,
 						new ProxyRef<float>(() => SmithingFreeBuildResearchModifier, v => SmithingFreeBuildResearchModifier = v), b => b
-						.SetHintText("{=adjlvl_hint_FreeBuildPartResearch}HINT_TEXT")
+						.SetHintText("{=adjlvl_hint_FreeBuildPartResearch}Adjust smithing part research gain rate when in free build mode. With the default setting, unlocking parts is slow in free build mode. [Default: 10%]")
 						.SetOrder(PropertyOrderSmithing++)
 						.AddValueFormat("0.00"))
 					);
 			#endregion
+			#endregion
 
-			var globalSettings = SettingsBuilder.BuildAsGlobal();
-			globalSettings.Register();
-			//globalSettings.Unregister();
+			GlobalSettings = SettingsBuilder.BuildAsGlobal();
+			PerCampaignSettings = SettingsBuilder.BuildAsPerCampaign();
+
+			GlobalSettings.Register();
+		}
+		#endregion
+
+		#region METHODS
+		public void RegisterGlobal()
+		{
+			PerCampaignSettings.Unregister();
+			GlobalSettings.Register();
+		}
+		public void RegisterPerCampaign()
+		{
+			GlobalSettings.Unregister();
+			PerCampaignSettings.Register();
 		}
 		#endregion
 	}
