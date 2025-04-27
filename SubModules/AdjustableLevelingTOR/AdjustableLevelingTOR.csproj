@@ -10,16 +10,18 @@
     <LangVersion>Preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Bannerlord.MCM">
-      <Version>5.10.2</Version>
-    </PackageReference>
+    <Reference Include="TOR_Core">
+      <HintPath>F:\Steam\SteamApps\workshop\content\261550\3025574678\bin\Win64_Shipping_Client\TOR_Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Bannerlord.ReferenceAssemblies">
       <Version>1.2.12.66233</Version>
     </PackageReference>
-    <PackageReference Include="Lib.Harmony">
-      <Version>2.3.6</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AdjustableLevelingUtility\AdjustableLevelingUtility.csproj" />
   </ItemGroup>
 </Project>

@@ -16,6 +16,7 @@
     <DebugType>none</DebugType>
     <AssemblyVersion>1.2.12.1</AssemblyVersion>
     <FileVersion>1.2.12.1</FileVersion>
+    <RootNamespace>AdjustableLeveling</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="SubModules\**" />
@@ -28,8 +29,8 @@
     <PackageReference Include="Lib.Harmony" Version="2.3.6" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="SubModules\AdjustableLevelingTOR\AdjustableLevelingTOR.csproj" />
     <ProjectReference Include="SubModules\AdjustableLevelingUtility\AdjustableLevelingUtility.csproj" />
-    <ProjectReference Include="SubModules\TORCompatibility\AdjustableLevelingTOR.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Core">
