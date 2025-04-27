@@ -384,19 +384,20 @@ namespace AdjustableLeveling.Settings
 			// register global settings
 			GlobalSettings.Register();
 		}
+
+		public void OnGameLoaded()
+		{
+			InitializeSkillModifierGetters();
+
+			GlobalSettings.Unregister();
+			PerCampaignSettings.Register();
+		}
 		public void OnGameEnd()
 		{
 			SkillModifierGetters.Clear();
 
 			PerCampaignSettings.Unregister();
 			GlobalSettings.Register();
-		}
-		public void OnGameInitializationFinished()
-		{
-			InitializeSkillModifierGetters();
-
-			GlobalSettings.Unregister();
-			PerCampaignSettings.Register();
 		}
 
 		public void AddSkill(string id, string name, Func<SkillObject> getSkillObject)

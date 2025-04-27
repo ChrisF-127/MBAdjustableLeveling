@@ -17,13 +17,32 @@ namespace AdjustableLeveling.General;
 
 public class AdjustableLeveling : MBSubModuleBase
 {
+	#region PROPERTIES
 	private static CharacterDevelopmentModel _characterDevelopmentModel;
 	public static CharacterDevelopmentModel CharacterDevelopmentModel => 
 		_characterDevelopmentModel; 
 
 	public static bool Compatibility_TheOldRealm { get; private set; }
+	#endregion
 
+	#region FIELDS
 	private bool _isInitialized = false;
+	#endregion
+
+	#region OVERRIDES
+	protected override void OnSubModuleLoad()
+	{
+		try
+		{
+			base.OnSubModuleLoad();
+			var harmony = new Harmony("sy.adjustableleveling");
+			harmony.PatchAll(Assembly.GetExecutingAssembly());
+		}
+		catch (Exception exc)
+		{
+			GeneralUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnSubModuleLoad)}):\n{exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+		}
+	}
 
 	protected override void OnBeforeInitialModuleScreenSetAsRoot()
 	{
@@ -66,18 +85,33 @@ public class AdjustableLeveling : MBSubModuleBase
 		}
 	}
 
-	public override void OnGameInitializationFinished(Game game)
+	public override void OnNewGameCreated(Game game, object initializerObject)
 	{
 		try
 		{
-			base.OnGameInitializationFinished(game);
+			base.OnNewGameCreated(game, initializerObject);
 
 			if (game.GameType is Campaign)
-				MCMSettings.Settings.OnGameInitializationFinished();
+				GameCreatedOrLoaded(game);
 		}
 		catch (Exception exc)
 		{
-			GeneralUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnGameInitializationFinished)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+			GeneralUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnNewGameCreated)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+		}
+	}
+
+	public override void OnGameLoaded(Game game, object initializerObject)
+	{
+		try
+		{
+			base.OnGameLoaded(game, initializerObject);
+
+			if (game.GameType is Campaign)
+				GameCreatedOrLoaded(game);
+		}
+		catch (Exception exc)
+		{
+			GeneralUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnGameLoaded)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 		}
 	}
 
@@ -97,16 +131,18 @@ public class AdjustableLeveling : MBSubModuleBase
 			GeneralUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnGameEnd)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 		}
 	}
+	#endregion
 
-	public override void OnGameLoaded(Game game, object initializerObject)
+	#region PRIVATE METHODS
+	private void GameCreatedOrLoaded(Game game)
 	{
-		base.OnGameLoaded(game, initializerObject);
+		MCMSettings.Settings.OnGameLoaded();
 
 		var _totalXp = typeof(HeroDeveloper).GetField("_totalXp", BindingFlags.NonPublic | BindingFlags.Instance);
 		var characters = game.ObjectManager.GetObjectTypeList<CharacterObject>();
 		foreach (var character in characters)
 		{
-			if (character.IsHero 
+			if (character.IsHero
 				&& character.HeroObject is Hero hero
 				&& hero.HeroDeveloper is IHeroDeveloper heroDeveloper)
 			{
@@ -125,20 +161,6 @@ public class AdjustableLeveling : MBSubModuleBase
 		}
 	}
 
-	protected override void OnSubModuleLoad()
-	{
-		try
-		{
-			base.OnSubModuleLoad();
-			var harmony = new Harmony("sy.adjustableleveling");
-			harmony.PatchAll(Assembly.GetExecutingAssembly());
-		}
-		catch (Exception exc)
-		{
-			GeneralUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnSubModuleLoad)}):\n{exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
-		}
-	}
-
 	private static bool HandleCompatibility(ref CharacterDevelopmentModel characterDevelopmentModel, string[] moduleNames, string moduleName, Func<CharacterDevelopmentModel> initialize)
 	{
 		if (!moduleNames.Contains(moduleName))
@@ -154,4 +176,5 @@ public class AdjustableLeveling : MBSubModuleBase
 		GeneralUtility.Message($"INFO: Adjustable Leveling found {moduleName}, applying compatibility", false, Colors.White, false);
 		return true;
 	}
+	#endregion
 }
