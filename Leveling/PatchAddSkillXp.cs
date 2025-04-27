@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using AdjustableLeveling.Settings;
+using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ internal static class PatchAddSkillXp
 	public static void Prefix(HeroDeveloper __instance, SkillObject skill, ref float rawXp)
 	{
 		//var oriXp = rawXp;
-		rawXp *= skill.GetSkillModifier(__instance?.Hero);
+		rawXp *= MCMSettings.Settings.GetSkillModifier(skill, __instance?.Hero);
 		//AdjustableLevelingUtility.Message($"{__instance.Hero.Name} {skill.Name} {oriXp} {rawXp}", false);
 	}
 }

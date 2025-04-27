@@ -38,7 +38,9 @@ public class AdjustableLeveling : MBSubModuleBase
 			MCMSettings.Settings = new MCMSettings();
 
 			var moduleNames = Utilities.GetModulesNames();
-			Compatibility_TheOldRealm = HandleCompatibility(ref _characterDevelopmentModel, moduleNames, "TOR_Core", TORUtility.SetCDM);
+			Compatibility_TheOldRealm = HandleCompatibility(ref _characterDevelopmentModel, moduleNames, "TOR_Core", TORUtility.InitializeCompatibility);
+
+			MCMSettings.Settings.Build();
 		}
 		catch (Exception exc)
 		{
@@ -54,8 +56,6 @@ public class AdjustableLeveling : MBSubModuleBase
 
 			if (game.GameType is Campaign)
 			{
-				MCMSettings.Settings.RegisterPerCampaign();
-
 				_characterDevelopmentModel ??= new AdjustableCharacterDevelopmentModel();
 				((CampaignGameStarter)gameStarterObject).AddModel(CharacterDevelopmentModel);
 			}
@@ -63,6 +63,21 @@ public class AdjustableLeveling : MBSubModuleBase
 		catch (Exception exc)
 		{
 			GeneralUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnGameStart)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+		}
+	}
+
+	public override void OnGameInitializationFinished(Game game)
+	{
+		try
+		{
+			base.OnGameInitializationFinished(game);
+
+			if (game.GameType is Campaign)
+				MCMSettings.Settings.OnGameInitializationFinished();
+		}
+		catch (Exception exc)
+		{
+			GeneralUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnGameInitializationFinished)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 		}
 	}
 
@@ -74,7 +89,7 @@ public class AdjustableLeveling : MBSubModuleBase
 
 			if (game.GameType is Campaign)
 			{
-				MCMSettings.Settings.RegisterGlobal();
+				MCMSettings.Settings.OnGameEnd();
 			}
 		}
 		catch (Exception exc)
@@ -124,7 +139,7 @@ public class AdjustableLeveling : MBSubModuleBase
 		}
 	}
 
-	private static bool HandleCompatibility(ref CharacterDevelopmentModel characterDevelopmentModel, string[] moduleNames, string moduleName, Func<CharacterDevelopmentModel> createCDM)
+	private static bool HandleCompatibility(ref CharacterDevelopmentModel characterDevelopmentModel, string[] moduleNames, string moduleName, Func<CharacterDevelopmentModel> initialize)
 	{
 		if (!moduleNames.Contains(moduleName))
 			return false;
@@ -135,7 +150,7 @@ public class AdjustableLeveling : MBSubModuleBase
 			return false;
 		}
 
-		characterDevelopmentModel = createCDM();
+		characterDevelopmentModel = initialize();
 		GeneralUtility.Message($"INFO: Adjustable Leveling found {moduleName}, applying compatibility", false, Colors.White, false);
 		return true;
 	}

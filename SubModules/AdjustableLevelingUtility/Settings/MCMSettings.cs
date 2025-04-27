@@ -1,16 +1,31 @@
-﻿using AdjustableLeveling.Leveling;
+﻿using AdjustableLeveling.Utility;
 using MCM.Abstractions.Base.Global;
 using MCM.Abstractions.Base.PerCampaign;
 using MCM.Abstractions.FluentBuilder;
 using MCM.Common;
+using System;
 using System.Collections.Generic;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.Core;
+using TaleWorlds.Library;
 
 namespace AdjustableLeveling.Settings
 {
+	public enum SkillUserEnum
+	{
+		Default,
+		NPC,
+		Clan,
+	}
+
 	public class MCMSettings
 	{
 		#region CONSTANTS
+		public const string Id = "AdjustableLeveling";
+		public const string DisplayName = "Adjustable Leveling";
+		public const string FolderName = "Global/AdjustableLeveling";
+		public const string FormatType = "json";
+
 		public const string BaseTag = "Base_";
 		public const string NPCTag = "NPC_";
 		public const string ClanTag = "Clan_";
@@ -28,26 +43,12 @@ namespace AdjustableLeveling.Settings
 		#region PROPERTIES
 		public static MCMSettings Settings { get; set; }
 
-		public ISettingsBuilder SettingsBuilder { get; }
 		public FluentGlobalSettings GlobalSettings { get; private set; }
 		public FluentPerCampaignSettings PerCampaignSettings { get; private set; }
 
-		public string Id => "AdjustableLeveling";
-		public string DisplayName => "Adjustable Leveling";
-		public string FolderName => "Global/AdjustableLeveling";
-		public string FormatType => "json";
-
-		private ISettingsPropertyGroupBuilder BaseSkillsGroupBuilder { get; set; }
-		private ISettingsPropertyGroupBuilder NPCSkillsGroupBuilder { get; set; }
-		private ISettingsPropertyGroupBuilder ClanSkillsGroupBuilder { get; set; }
-
-		private int GroupOrder { get; set; } = 0;
-		private int PropertyOrderCharacterLeveling { get; set; } = 0;
-		private int BaseSkillLevelingPropertyOrder { get; set; } = 0;
-		private int NPCSkillLevelingPropertyOrder { get; set; } = 0;
-		private int ClanSkillLevelingPropertyOrder { get; set; } = 0;
-		private int PropertyOrderOther { get; set; } = 0;
-		private int PropertyOrderSmithing { get; set; } = 0;
+		private Dictionary<string, Func<SkillObject>> SkillObjectGetters { get; } = [];
+		private Dictionary<int, Func<SkillUserEnum, float>> SkillModifierGetters { get; } = [];
+		private List<int> WarnOnceList { get; } = [];
 
 		#region SETTINGS PROPERTIES
 		#region CHARACTER LEVELING MODIFIERS
@@ -97,24 +98,39 @@ namespace AdjustableLeveling.Settings
 		#endregion
 		#endregion
 
+		#region FIELDS
+		private readonly ISettingsBuilder _settingsBuilder;
+		private ISettingsPropertyGroupBuilder _baseSkillsGroupBuilder;
+		private ISettingsPropertyGroupBuilder _npcSkillsGroupBuilder;
+		private ISettingsPropertyGroupBuilder _clanSkillsGroupBuilder;
+
+		private int _groupOrder = 0;
+		private int _characterLevelingPropertyOrder = 0;
+		private int _baseSkillLevelingPropertyOrder = 0;
+		private int _npcSkillLevelingPropertyOrder = 0;
+		private int _clanSkillLevelingPropertyOrder = 0;
+		private int _otherPropertyOrder = 0;
+		private int _smithingPropertyOrder = 0;
+		#endregion
+
 		#region CONSTRUCTORS
 		public MCMSettings()
 		{
 			#region SETTINGS
-			SettingsBuilder = BaseSettingsBuilder.Create(Id, DisplayName)
+			_settingsBuilder = BaseSettingsBuilder.Create(Id, DisplayName)
 				.SetFormat(FormatType)
 				.SetFolderName(FolderName)
 				.SetSubFolder(string.Empty)
 
 			#region CHARACTER LEVELING MODIFIERS
 				.CreateGroup("{=adjlvl_group_CharacterLeveling}Character Leveling", g => g
-					.SetGroupOrder(GroupOrder++)
+					.SetGroupOrder(_groupOrder++)
 					.AddBool(
 						nameof(UseFasterLevelingCurve),
 						"{=adjlvl_name_FasterLevelingCurve}Faster Leveling Curve",
 						new ProxyRef<bool>(() => UseFasterLevelingCurve, v => UseFasterLevelingCurve = v), b => b
 						.SetHintText("{=adjlvl_hint_FasterLevelingCurve}Slower earlier but faster later levels, level 62 total: 40.7m [ON] vs 95.4m [OFF]. [Default: OFF]\n-WARNING: Backup save recommended, changing this in an ongoing save will reset the level xp to half-way to the next level (if total xp is out of bounds for the current level after conversion)!")
-						.SetOrder(PropertyOrderCharacterLeveling++))
+						.SetOrder(_characterLevelingPropertyOrder++))
 
 					.AddInteger(
 						nameof(MaxCharacterLevel),
@@ -123,7 +139,7 @@ namespace AdjustableLeveling.Settings
 						1024,
 						new ProxyRef<int>(() => MaxCharacterLevel, v => MaxCharacterLevel = v), b => b
 						.SetHintText("{=adjlvl_hint_MaxCharacterLevel}Adjust the maximum achievable character level. Higher levels require much more xp! [Default: 62]")
-						.SetOrder(PropertyOrderCharacterLeveling++)
+						.SetOrder(_characterLevelingPropertyOrder++)
 						.AddValueFormat("0"))
 					.AddFloatingInteger(
 						nameof(LevelXPModifier),
@@ -132,7 +148,7 @@ namespace AdjustableLeveling.Settings
 						100f,
 						new ProxyRef<float>(() => LevelXPModifier, v => LevelXPModifier = v), b => b
 						.SetHintText("{=adjlvl_hint_CharacterLevelXPModifier}Adjust how skill xp is converted into level xp, default is 1-to-1 at 1.00. [Default: 1.00]")
-						.SetOrder(PropertyOrderCharacterLeveling++)
+						.SetOrder(_characterLevelingPropertyOrder++)
 						.AddValueFormat("0.00"))
 
 					.AddInteger(
@@ -142,7 +158,7 @@ namespace AdjustableLeveling.Settings
 						10,
 						new ProxyRef<int>(() => LevelsPerAttributePoint, v => LevelsPerAttributePoint = v), b => b
 						.SetHintText("{=adjlvl_hint_LevelsPerAttributePoint}Number of level ups required to gain an attribute point. Only affects future level ups, so it should be changed before starting a new campaign to take full effect! [Default: 4]")
-						.SetOrder(PropertyOrderCharacterLeveling++)
+						.SetOrder(_characterLevelingPropertyOrder++)
 						.AddValueFormat("0"))
 					.AddInteger(
 						nameof(FocusPointsPerLevel),
@@ -151,7 +167,7 @@ namespace AdjustableLeveling.Settings
 						10,
 						new ProxyRef<int>(() => FocusPointsPerLevel, v => FocusPointsPerLevel = v), b => b
 						.SetHintText("{=adjlvl_hint_FocusPointsPerLevel}Focus points gained per level. [Default: 1]")
-						.SetOrder(PropertyOrderCharacterLeveling++)
+						.SetOrder(_characterLevelingPropertyOrder++)
 						.AddValueFormat("0"))
 
 					.AddInteger(
@@ -161,7 +177,7 @@ namespace AdjustableLeveling.Settings
 						1000,
 						new ProxyRef<int>(() => MaxAttribute, v => MaxAttribute = v), b => b
 						.SetHintText("{=adjlvl_hint_MaxAttributePointsForAttribute}Attribute point limit per attribute. [Default: 10]")
-						.SetOrder(PropertyOrderCharacterLeveling++)
+						.SetOrder(_characterLevelingPropertyOrder++)
 						.AddValueFormat("0"))
 					.AddInteger(
 						nameof(MaxFocusPerSkill),
@@ -170,7 +186,7 @@ namespace AdjustableLeveling.Settings
 						1000,
 						new ProxyRef<int>(() => MaxFocusPerSkill, v => MaxFocusPerSkill = v), b => b
 						.SetHintText("{=adjlvl_hint_MaxFocusPointsForSkill}Focus point limit per skill. (UI will at most show 5 points) [Default: 5]")
-						.SetOrder(PropertyOrderCharacterLeveling++)
+						.SetOrder(_characterLevelingPropertyOrder++)
 						.AddValueFormat("0"))
 
 					.AddInteger(
@@ -180,7 +196,7 @@ namespace AdjustableLeveling.Settings
 						100,
 						new ProxyRef<int>(() => AttributePointsAtStart, v => AttributePointsAtStart = v), b => b
 						.SetHintText("{=adjlvl_hint_AttributePointsAtStart}Apparently affects the attribute points with which NPCs start, but not the player. [Default: 15]")
-						.SetOrder(PropertyOrderCharacterLeveling++)
+						.SetOrder(_characterLevelingPropertyOrder++)
 						.AddValueFormat("0"))
 					.AddInteger(
 						nameof(FocusPointsAtStart),
@@ -189,14 +205,14 @@ namespace AdjustableLeveling.Settings
 						100,
 						new ProxyRef<int>(() => FocusPointsAtStart, v => FocusPointsAtStart = v), b => b
 						.SetHintText("{=adjlvl_hint_FocusPointsAtStart}Apparently affects the focus points with which NPCs start, but not the player. [Default: 5]")
-						.SetOrder(PropertyOrderCharacterLeveling++)
+						.SetOrder(_characterLevelingPropertyOrder++)
 						.AddValueFormat("0"))
 					)
 			#endregion
 
 			#region SKILL LEVELING SETTINGS
 				.CreateGroup("{=adjlvl_group_SkillLeveling}Skill Leveling", g => g
-					.SetGroupOrder(GroupOrder++)
+					.SetGroupOrder(_groupOrder++)
 					.AddInteger(
 						nameof(LearningLimitIncreasePerAttributePoint),
 						"{=adjlvl_name_LearningLimitAttributePoint}Learning Limit Increase per Attribute Point",
@@ -204,7 +220,7 @@ namespace AdjustableLeveling.Settings
 						50,
 						new ProxyRef<int>(() => LearningLimitIncreasePerAttributePoint, v => LearningLimitIncreasePerAttributePoint = v), b => b
 						.SetHintText("{=adjlvl_hint_LearningLimitAttributePoint}E.g. at 3 and with 10 AP an additional 30 skill points can be gained at reducing learning rate; at 5 an additional 50 can be gained. [Default: 3]")
-						.SetOrder(BaseSkillLevelingPropertyOrder++)
+						.SetOrder(_baseSkillLevelingPropertyOrder++)
 						.AddValueFormat("0"))
 					.AddInteger(
 						nameof(LearningLimitIncreasePerFocusPoint),
@@ -213,7 +229,7 @@ namespace AdjustableLeveling.Settings
 						100,
 						new ProxyRef<int>(() => LearningLimitIncreasePerFocusPoint, v => LearningLimitIncreasePerFocusPoint = v), b => b
 						.SetHintText("{=adjlvl_hint_LearningLimitFocusPoint}Adjust the learning limit increase per focus point. [Default: 50]")
-						.SetOrder(BaseSkillLevelingPropertyOrder++)
+						.SetOrder(_baseSkillLevelingPropertyOrder++)
 						.AddValueFormat("0"))
 					.AddInteger(
 						nameof(BaseLearningLimit),
@@ -222,7 +238,7 @@ namespace AdjustableLeveling.Settings
 						100,
 						new ProxyRef<int>(() => BaseLearningLimit, v => BaseLearningLimit = v), b => b
 						.SetHintText("{=adjlvl_hint_BaseLearningLimit}The base learning limit. [Default: 50]")
-						.SetOrder(BaseSkillLevelingPropertyOrder++)
+						.SetOrder(_baseSkillLevelingPropertyOrder++)
 						.AddValueFormat("0"))
 
 					.AddFloatingInteger(
@@ -232,7 +248,7 @@ namespace AdjustableLeveling.Settings
 						100f,
 						new ProxyRef<float>(() => MinLearningRate, v => MinLearningRate = v), b => b
 						.SetHintText("{=adjlvl_hint_MinLearningRate}Set a minimum learning rate. [Default: 0.00]")
-						.SetOrder(BaseSkillLevelingPropertyOrder++)
+						.SetOrder(_baseSkillLevelingPropertyOrder++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
 						nameof(MaxLearningRate),
@@ -241,7 +257,7 @@ namespace AdjustableLeveling.Settings
 						100f,
 						new ProxyRef<float>(() => MaxLearningRate, v => MaxLearningRate = v), b => b
 						.SetHintText("{=adjlvl_hint_MaxLearningRate}Set a maximum learning rate, zero disables it. [Default: 0.00]")
-						.SetOrder(BaseSkillLevelingPropertyOrder++)
+						.SetOrder(_baseSkillLevelingPropertyOrder++)
 						.AddValueFormat("0.00"))
 
 					.AddFloatingInteger(
@@ -251,7 +267,7 @@ namespace AdjustableLeveling.Settings
 						100f,
 						new ProxyRef<float>(() => SkillXPModifier, v => SkillXPModifier = v), b => b
 						.SetHintText("{=adjlvl_hint_SkillXPModifier}Adjust the overall skill learning rate. [Default: 1.00]")
-						.SetOrder(BaseSkillLevelingPropertyOrder++)
+						.SetOrder(_baseSkillLevelingPropertyOrder++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
 						nameof(NPCSkillXPModifier),
@@ -260,7 +276,7 @@ namespace AdjustableLeveling.Settings
 						100f,
 						new ProxyRef<float>(() => NPCSkillXPModifier, v => NPCSkillXPModifier = v), b => b
 						.SetHintText("{=adjlvl_hint_NPCSkillXPModifier}Overrides 'Skill XP Modifier' for NPCs, when not 0. [Default: 0.00]")
-						.SetOrder(BaseSkillLevelingPropertyOrder++)
+						.SetOrder(_baseSkillLevelingPropertyOrder++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
 						nameof(ClanSkillXPModifier),
@@ -269,28 +285,28 @@ namespace AdjustableLeveling.Settings
 						100f,
 						new ProxyRef<float>(() => ClanSkillXPModifier, v => ClanSkillXPModifier = v), b => b
 						.SetHintText("{=adjlvl_hint_ClanSkillXPModifier}Overrides 'Skill XP Modifier' and 'NPC Skill XP Modifier' for clan members or companions, when not 0. [Default: 0.00]")
-						.SetOrder(BaseSkillLevelingPropertyOrder++)
+						.SetOrder(_baseSkillLevelingPropertyOrder++)
 						.AddValueFormat("0.00"))
 					.AddBool(
 						nameof(ClanAsCompanionOnly),
 						"{=adjlvl_name_ClanAsCompanionOnly}Clan Modifiers affect Companions only",
 						new ProxyRef<bool>(() => ClanAsCompanionOnly, v => ClanAsCompanionOnly = v), b => b
 						.SetHintText("{=adjlvl_hint_ClanAsCompanionOnly}Clan modifiers only affect Companions. [Default: OFF]")
-						.SetOrder(BaseSkillLevelingPropertyOrder++))
+						.SetOrder(_baseSkillLevelingPropertyOrder++))
 					)
 
-				// Skill Leveling Modifier Sub-Groups
-				.CreateGroup(SkillLevelingSkillsGroupName, g => 
-					BaseSkillsGroupBuilder = g.SetGroupOrder(GroupOrder++))
-				.CreateGroup(SkillLevelingNPCSkillsGroupName, g => 
-					NPCSkillsGroupBuilder = g.SetGroupOrder(GroupOrder++))
-				.CreateGroup(SkillLevelingClanSkillsGroupName, g => 
-					ClanSkillsGroupBuilder = g.SetGroupOrder(GroupOrder++))
+				 // Skill Leveling Modifier Sub-Groups
+				.CreateGroup(SkillLevelingSkillsGroupName, g =>
+					_baseSkillsGroupBuilder = g.SetGroupOrder(_groupOrder++))
+				.CreateGroup(SkillLevelingNPCSkillsGroupName, g =>
+					_npcSkillsGroupBuilder = g.SetGroupOrder(_groupOrder++))
+				.CreateGroup(SkillLevelingClanSkillsGroupName, g =>
+					_clanSkillsGroupBuilder = g.SetGroupOrder(_groupOrder++))
 			#endregion
 
 			#region OTHER STUFF
 				.CreateGroup("{=adjlvl_group_Other}Other", g => g
-					.SetGroupOrder(GroupOrder++)
+					.SetGroupOrder(_groupOrder++)
 					.AddFloatingInteger(
 						nameof(TroopXPModifier),
 						"{=adjlvl_name_TroopXPModifier}Troop XP Modifier",
@@ -298,14 +314,14 @@ namespace AdjustableLeveling.Settings
 						100f,
 						new ProxyRef<float>(() => TroopXPModifier, v => TroopXPModifier = v), b => b
 						.SetHintText("{=adjlvl_hint_TroopXPModifier}Modifies XP gained for upgrading troops. (Required XP numbers in roster will show unmodified values, but dropping equipment is limited to modified value.) [Default 1.00]")
-						.SetOrder(PropertyOrderOther++)
+						.SetOrder(_otherPropertyOrder++)
 						.AddValueFormat("0.00"))
 					)
 			#endregion
 
 			#region SMITHING PART RESEARCH MODIFIERS
 				.CreateGroup("{=adjlvl_group_SmithingResearch}Smithing Research", g => g
-					.SetGroupOrder(GroupOrder++)
+					.SetGroupOrder(_groupOrder++)
 					.AddFloatingInteger(
 						nameof(SmithingResearchModifier),
 						"{=adjlvl_name_PartResearch}Part Research Modifier",
@@ -313,7 +329,7 @@ namespace AdjustableLeveling.Settings
 						100f,
 						new ProxyRef<float>(() => SmithingResearchModifier, v => SmithingResearchModifier = v), b => b
 						.SetHintText("{=adjlvl_hint_PartResearch}Adjust smithing part research gain rate for smithing and smelting weapons. [Default: 100%]")
-						.SetOrder(PropertyOrderSmithing++)
+						.SetOrder(_smithingPropertyOrder++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
 						nameof(SmithingFreeBuildResearchModifier),
@@ -322,104 +338,234 @@ namespace AdjustableLeveling.Settings
 						100f,
 						new ProxyRef<float>(() => SmithingFreeBuildResearchModifier, v => SmithingFreeBuildResearchModifier = v), b => b
 						.SetHintText("{=adjlvl_hint_FreeBuildPartResearch}Adjust smithing part research gain rate when in free build mode. With the default setting, unlocking parts is slow in free build mode. [Default: 10%]")
-						.SetOrder(PropertyOrderSmithing++)
+						.SetOrder(_smithingPropertyOrder++)
 						.AddValueFormat("0.00"))
-					);
+				);
 			#endregion
 
 			#region SKILL LEVELING MODIFIERS
 			// VIGOR
-			AddSkill(DefaultSkills.OneHanded, "OneHanded", "{=PiHpR4QL}One Handed");
-			AddSkill(DefaultSkills.TwoHanded, "TwoHanded", "{=t78atYqH}Two Handed");
-			AddSkill(DefaultSkills.Polearm, "Polearm", "{=haax8kMa}Polearm");
+			AddSkill("OneHanded", "{=PiHpR4QL}One Handed", () => DefaultSkills.OneHanded);
+			AddSkill("TwoHanded", "{=t78atYqH}Two Handed", () => DefaultSkills.TwoHanded);
+			AddSkill("Polearm", "{=haax8kMa}Polearm", () => DefaultSkills.Polearm);
 			// CONTROL
-			AddSkill(DefaultSkills.Bow, "Bow", "{=5rj7xQE4}Bow");
-			AddSkill(DefaultSkills.Crossbow, "Crossbow", "{=TTWL7RLe}Crossbow");
-			AddSkill(DefaultSkills.Throwing, "Throwing", "{=2wclahIJ}Throwing");
+			AddSkill("Bow", "{=5rj7xQE4}Bow", () => DefaultSkills.Bow);
+			AddSkill("Crossbow", "{=TTWL7RLe}Crossbow", () => DefaultSkills.Crossbow);
+			AddSkill("Throwing", "{=2wclahIJ}Throwing", () => DefaultSkills.Throwing);
 			// ENDURANCE
-			AddSkill(DefaultSkills.Riding, "Riding", "{=p9i3zRm9}Riding");
-			AddSkill(DefaultSkills.Athletics, "Athletics", "{=skZS2UlW}Athletics");
-			AddSkill(DefaultSkills.Crafting, "Crafting", "{=smithingskill}Smithing");
+			AddSkill("Riding", "{=p9i3zRm9}Riding", () => DefaultSkills.Riding);
+			AddSkill("Athletics", "{=skZS2UlW}Athletics", () => DefaultSkills.Athletics);
+			AddSkill("Crafting", "{=smithingskill}Smithing", () => DefaultSkills.Crafting);
 			// CUNNING
-			AddSkill(DefaultSkills.Scouting, "Scouting", "{=LJ6Krlbr}Scouting");
-			AddSkill(DefaultSkills.Tactics, "Tactics", "{=m8o51fc7}Tactics");
-			AddSkill(DefaultSkills.Roguery, "Roguery", "{=V0ZMJ0PX}Roguery");
+			AddSkill("Scouting", "{=LJ6Krlbr}Scouting", () => DefaultSkills.Scouting);
+			AddSkill("Tactics", "{=m8o51fc7}Tactics", () => DefaultSkills.Tactics);
+			AddSkill("Roguery", "{=V0ZMJ0PX}Roguery", () => DefaultSkills.Roguery);
 			// SOCIAL
-			AddSkill(DefaultSkills.Charm, "Charm", "{=EGeY1gfs}Charm");
-			AddSkill(DefaultSkills.Leadership, "Leadership", "{=HsLfmEmb}Leadership");
-			AddSkill(DefaultSkills.Trade, "Trade", "{=GmcgoiGy}Trade");
+			AddSkill("Charm", "{=EGeY1gfs}Charm", () => DefaultSkills.Charm);
+			AddSkill("Leadership", "{=HsLfmEmb}Leadership", () => DefaultSkills.Leadership);
+			AddSkill("Trade", "{=GmcgoiGy}Trade", () => DefaultSkills.Trade);
 			// INTELLIGENCE
-			AddSkill(DefaultSkills.Steward, "Steward", "{=stewardskill}Steward");
-			AddSkill(DefaultSkills.Medicine, "Medicine", "{=JKH59XNp}Medicine");
-			AddSkill(DefaultSkills.Engineering, "Engineering", "{=engineeringskill}Engineering");
+			AddSkill("Steward", "{=stewardskill}Steward", () => DefaultSkills.Steward);
+			AddSkill("Medicine", "{=JKH59XNp}Medicine", () => DefaultSkills.Medicine);
+			AddSkill("Engineering", "{=engineeringskill}Engineering", () => DefaultSkills.Engineering);
 			#endregion
 			#endregion
+		}
+		#endregion
 
+		#region PUBLIC METHODS
+		public void Build()
+		{
 			// create global settings
-			GlobalSettings = SettingsBuilder.BuildAsGlobal();
+			GlobalSettings = _settingsBuilder.BuildAsGlobal();
 			// create per campaign settings
-			PerCampaignSettings = SettingsBuilder.BuildAsPerCampaign();
+			PerCampaignSettings = _settingsBuilder.BuildAsPerCampaign();
 
 			// register global settings
 			GlobalSettings.Register();
 		}
-		#endregion
-
-		#region METHODS
-		public void RegisterGlobal()
+		public void OnGameEnd()
 		{
+			SkillModifierGetters.Clear();
+
 			PerCampaignSettings.Unregister();
 			GlobalSettings.Register();
 		}
-		public void RegisterPerCampaign()
+		public void OnGameInitializationFinished()
 		{
+			InitializeSkillModifierGetters();
+
 			GlobalSettings.Unregister();
 			PerCampaignSettings.Register();
 		}
 
-		public void AddSkill(SkillObject skill, string id, string name)
+		public void AddSkill(string id, string name, Func<SkillObject> getSkillObject)
 		{
-			// Base settings
-			SkillXPModifiers.Add(BaseTag + id, 1f);
-			BaseSkillsGroupBuilder.AddFloatingInteger(
-				"SkillXPModifier_" + id,
-				name,
-				0f,
-				100f,
-				CreateSkillProxy(BaseTag + id), b => b
-				.SetHintText(BaseOverrideHintText)
-				.SetOrder(BaseSkillLevelingPropertyOrder++)
-				.AddValueFormat("0.00"));
+			try
+			{
+				// Base settings
+				SkillXPModifiers.Add(BaseTag + id, 0f);
+				_baseSkillsGroupBuilder.AddFloatingInteger(
+					"SkillXPModifier_" + id,
+					name,
+					0f,
+					100f,
+					createSkillProxy(BaseTag + id), b => b
+					.SetHintText(BaseOverrideHintText)
+					.SetOrder(_baseSkillLevelingPropertyOrder++)
+					.AddValueFormat("0.00"));
 
-			// NPC settings
-			SkillXPModifiers.Add(NPCTag + id, 0f);
-			NPCSkillsGroupBuilder.AddFloatingInteger(
-				"NPCSkillXPModifier_" + id,
-				name,
-				0f,
-				100f,
-				CreateSkillProxy(NPCTag + id), b => b
-				.SetHintText(NPCOverrideHintText)
-				.SetOrder(NPCSkillLevelingPropertyOrder++)
-				.AddValueFormat("0.00"));
+				// NPC settings
+				SkillXPModifiers.Add(NPCTag + id, 0f);
+				_npcSkillsGroupBuilder.AddFloatingInteger(
+					"NPCSkillXPModifier_" + id,
+					name,
+					0f,
+					100f,
+					createSkillProxy(NPCTag + id), b => b
+					.SetHintText(NPCOverrideHintText)
+					.SetOrder(_npcSkillLevelingPropertyOrder++)
+					.AddValueFormat("0.00"));
 
-			// Clan settings
-			SkillXPModifiers.Add(ClanTag + id, 0f);
-			ClanSkillsGroupBuilder.AddFloatingInteger(
-				"ClanSkillXPModifier_" + id,
-				name,
-				0f,
-				100f,
-				CreateSkillProxy(ClanTag + id), b => b
-				.SetHintText(ClanOverrideHintText)
-				.SetOrder(ClanSkillLevelingPropertyOrder++)
-				.AddValueFormat("0.00"));
+				// Clan settings
+				SkillXPModifiers.Add(ClanTag + id, 0f);
+				_clanSkillsGroupBuilder.AddFloatingInteger(
+					"ClanSkillXPModifier_" + id,
+					name,
+					0f,
+					100f,
+					createSkillProxy(ClanTag + id), b => b
+					.SetHintText(ClanOverrideHintText)
+					.SetOrder(_clanSkillLevelingPropertyOrder++)
+					.AddValueFormat("0.00"));
 
-			// Add to SkillHelper
-			SkillHelper.AddSkill(id, skill);
+				// Intialize SkillObject-Getter for SkillHelper
+				SkillObjectGetters.Add(id, getSkillObject);
+			}
+			catch (Exception exc)
+			{
+				GeneralUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(MCMSettings)}.{nameof(AddSkill)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+			}
 
-			ProxyRef<float> CreateSkillProxy(string name) =>
+			ProxyRef<float> createSkillProxy(string name) =>
 				new(() => SkillXPModifiers[name], v => SkillXPModifiers[name] = v);
+		}
+
+		public float GetSkillModifier(SkillObject skill, Hero hero)
+		{
+			float modifier;
+			var skillUser = GetSkillUser(hero);
+
+			// check skill specific modifiers
+			if (skill != null && SkillModifierGetters.TryGetValue(skill.GetHashCode(), out var func))
+			{
+				modifier = func(skillUser);
+				//AdjustableLevelingUtility.Message($"Specific {modifier}", false);
+				if (modifier > 0f)
+					return modifier;
+			}
+
+			switch (skillUser)
+			{
+				// overall clan skill modifier
+				case SkillUserEnum.Clan:
+					modifier = ClanSkillXPModifier;
+					//AdjustableLevelingUtility.Message($"ClanSkillXPModifier {modifier}", false);
+					if (modifier > 0f)
+						return modifier;
+
+					// fallthrough
+					goto case SkillUserEnum.NPC;
+
+				// overall NPC skill modifier
+				case SkillUserEnum.NPC:
+					modifier = NPCSkillXPModifier;
+					//AdjustableLevelingUtility.Message($"NPCSkillXPModifier {modifier}", false);
+					if (modifier > 0f)
+						return modifier;
+
+					// fallthrough
+					goto case SkillUserEnum.Default;
+
+				// overall default skill modifier
+				default:
+				case SkillUserEnum.Default:
+					//AdjustableLevelingUtility.Message($"SkillXPModifier {Settings.SkillXPModifier}", false);
+					return SkillXPModifier;
+			}
+		}
+		#endregion
+
+		#region PRIVATE METHODS
+		private SkillUserEnum GetSkillUser(Hero hero)
+		{
+			SkillUserEnum output;
+			if (hero?.CharacterObject.IsPlayerCharacter == false)
+			{
+				if (hero.Clan == Clan.PlayerClan
+					&& !(ClanAsCompanionOnly && hero.CompanionOf == null))
+					output = SkillUserEnum.Clan;
+				else
+					output = SkillUserEnum.NPC;
+			}
+			else
+				output = SkillUserEnum.Default;
+			//AdjustableLevelingUtility.Message($"'{hero}' '{hero?.Clan}' / '{hero?.MapFaction}' -> {output}", false);
+			return output;
+		}
+
+		private void InitializeSkillModifierGetters()
+		{
+			// clear previous skill modifier getters just in case
+			SkillModifierGetters.Clear();
+
+			// initialize skill modifier getters from skill object getters
+			foreach (var item in SkillObjectGetters)
+			{
+				var id = item.Key;
+				try
+				{
+					var skill = item.Value();
+					var hashCode = skill.GetHashCode();
+					SkillModifierGetters[hashCode] = skillUser =>
+					{
+						float modifier;
+						switch (skillUser)
+						{
+							// Clan skill modifier
+							case SkillUserEnum.Clan:
+								if (SkillXPModifiers.TryGetValue(ClanTag + id, out modifier) && modifier > 0f)
+									return modifier;
+								goto case SkillUserEnum.NPC;
+
+							// NPC skill modifier
+							case SkillUserEnum.NPC:
+								if (SkillXPModifiers.TryGetValue(NPCTag + id, out modifier) && modifier > 0f)
+									return modifier;
+								goto case SkillUserEnum.Default;
+
+							// Default skill modifier
+							default:
+							case SkillUserEnum.Default:
+								if (SkillXPModifiers.TryGetValue(BaseTag + id, out modifier))
+									return modifier;
+
+								// skill not found, show warning and return 1
+								if (!WarnOnceList.Contains(hashCode))
+								{
+									GeneralUtility.Message($"WARNING: Adjustable Leveling could not find skill '{id}' ({skill?.Name}) for '{skillUser}' in dictionary, defaulting 1x [will only warn once]", false, Colors.Yellow);
+									WarnOnceList.Add(hashCode);
+								}
+								return 1f;
+						}
+					};
+				}
+				catch (Exception exception)
+				{
+					GeneralUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(InitializeSkillModifierGetters)}): id: {id}" +
+						$"\n{exception.GetType()}: {exception.Message}\n{exception.StackTrace}");
+				}
+			}
 		}
 		#endregion
 	}

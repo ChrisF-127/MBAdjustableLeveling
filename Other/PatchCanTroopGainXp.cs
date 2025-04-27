@@ -8,14 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.TwoDimension;
 
-namespace AdjustableLeveling.Other
+namespace AdjustableLeveling.Other;
+
+[HarmonyPatch(typeof(MobilePartyHelper), "CanTroopGainXp")]
+internal static class PatchCanTroopGainXp
 {
-    [HarmonyPatch(typeof(MobilePartyHelper), "CanTroopGainXp")]
-    internal static class PatchCanTroopGainXp
+    public static void Postfix(ref int gainableMaxXp)
     {
-        public static void Postfix(ref int gainableMaxXp)
-        {
-            gainableMaxXp = (int)Mathf.Round(gainableMaxXp / MCMSettings.Settings.TroopXPModifier);
-        }
+        gainableMaxXp = (int)Mathf.Round(gainableMaxXp / MCMSettings.Settings.TroopXPModifier);
     }
 }
