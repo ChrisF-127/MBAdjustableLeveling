@@ -13,7 +13,13 @@ namespace AdjustableLevelingTOR
 {
 	public static class AdjLvlTORUtility
 	{
-		public static CharacterDevelopmentModel GetCDM() =>
-			new TORAdjustableCharacterDevelopmentModel();
+		public static CharacterDevelopmentModel CreateCDM()
+		{
+			var cdm = new TORAdjustableCharacterDevelopmentModel();
+
+#warning TODO settings
+
+			return cdm;
+		}
 	}
 }

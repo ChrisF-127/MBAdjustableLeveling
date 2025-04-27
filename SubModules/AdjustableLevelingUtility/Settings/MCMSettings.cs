@@ -2,6 +2,7 @@
 using MCM.Abstractions.Base.PerCampaign;
 using MCM.Abstractions.FluentBuilder;
 using MCM.Common;
+using System.Collections.Generic;
 
 namespace AdjustableLeveling
 {
@@ -60,117 +61,86 @@ namespace AdjustableLeveling
 		#endregion
 
 		#region SKILL MODIFIERS
-		#region VIGOR
-		public float SkillXPModifier_OneHanded { get; set; } = 0f;
-		public float SkillXPModifier_TwoHanded { get; set; } = 0f;
-		public float SkillXPModifier_Polearm { get; set; } = 0f;
-		#endregion
+		public Dictionary<string, float> SkillXPModifiers { get; } = new Dictionary<string, float>
+		{
+			// BASE SKILL MODIFIERS
+			// VIGOR
+			["Base_OneHanded"] = 0f,
+			["Base_TwoHanded"] = 0f,
+			["Base_Polearm"] = 0f,
+			// CONTROL
+			["Base_Bow"] = 0f,
+			["Base_Crossbow"] = 0f,
+			["Base_Throwing"] = 0f,
+			// ENDURANCE
+			["Base_Riding"] = 0f,
+			["Base_Athletics"] = 0f,
+			["Base_Crafting"] = 0f,
+			// CUNNING
+			["Base_Scouting"] = 0f,
+			["Base_Tactics"] = 0f,
+			["Base_Roguery"] = 0f,
+			// SOCIAL
+			["Base_Charm"] = 0f,
+			["Base_Leadership"] = 0f,
+			["Base_Trade"] = 0f,
+			// INTELLIGENCE
+			["Base_Steward"] = 0f,
+			["Base_Medicine"] = 0f,
+			["Base_Engineering"] = 0f,
 
-		#region CONTROL
-		public float SkillXPModifier_Bow { get; set; } = 0f;
-		public float SkillXPModifier_Crossbow { get; set; } = 0f;
-		public float SkillXPModifier_Throwing { get; set; } = 0f;
-		#endregion
+			// NPC SKILL MODIFIERS
+			// VIGOR
+			["NPC_OneHanded"] = 0f,
+			["NPC_TwoHanded"] = 0f,
+			["NPC_Polearm"] = 0f,
+			// CONTROL
+			["NPC_Bow"] = 0f,
+			["NPC_Crossbow"] = 0f,
+			["NPC_Throwing"] = 0f,
+			// ENDURANCE
+			["NPC_Riding"] = 0f,
+			["NPC_Athletics"] = 0f,
+			["NPC_Crafting"] = 0f,
+			// CUNNING
+			["NPC_Scouting"] = 0f,
+			["NPC_Tactics"] = 0f,
+			["NPC_Roguery"] = 0f,
+			// SOCIAL
+			["NPC_Charm"] = 0f,
+			["NPC_Leadership"] = 0f,
+			["NPC_Trade"] = 0f,
+			// INTELLIGENCE
+			["NPC_Steward"] = 0f,
+			["NPC_Medicine"] = 0f,
+			["NPC_Engineering"] = 0f,
 
-		#region ENDURANCE
-		public float SkillXPModifier_Riding { get; set; } = 0f;
-		public float SkillXPModifier_Athletics { get; set; } = 0f;
-		public float SkillXPModifier_Crafting { get; set; } = 0f;
-		#endregion
-
-		#region CUNNING
-		public float SkillXPModifier_Scouting { get; set; } = 0f;
-		public float SkillXPModifier_Tactics { get; set; } = 0f;
-		public float SkillXPModifier_Roguery { get; set; } = 0f;
-		#endregion
-
-		#region SOCIAL
-		public float SkillXPModifier_Charm { get; set; } = 0f;
-		public float SkillXPModifier_Leadership { get; set; } = 0f;
-		public float SkillXPModifier_Trade { get; set; } = 0f;
-		#endregion
-
-		#region INTELLIGENCE
-		public float SkillXPModifier_Steward { get; set; } = 0f;
-		public float SkillXPModifier_Medicine { get; set; } = 0f;
-		public float SkillXPModifier_Engineering { get; set; } = 0f;
-		#endregion
-		#endregion
-
-		#region NPC SKILL MODIFIERS
-		#region VIGOR
-		public float NPCSkillXPModifier_OneHanded { get; set; } = 0f;
-		public float NPCSkillXPModifier_TwoHanded { get; set; } = 0f;
-		public float NPCSkillXPModifier_Polearm { get; set; } = 0f;
-		#endregion
-
-		#region CONTROL
-		public float NPCSkillXPModifier_Bow { get; set; } = 0f;
-		public float NPCSkillXPModifier_Crossbow { get; set; } = 0f;
-		public float NPCSkillXPModifier_Throwing { get; set; } = 0f;
-		#endregion
-
-		#region ENDURANCE
-		public float NPCSkillXPModifier_Riding { get; set; } = 0f;
-		public float NPCSkillXPModifier_Athletics { get; set; } = 0f;
-		public float NPCSkillXPModifier_Crafting { get; set; } = 0f;
-		#endregion
-
-		#region CUNNING
-		public float NPCSkillXPModifier_Scouting { get; set; } = 0f;
-		public float NPCSkillXPModifier_Tactics { get; set; } = 0f;
-		public float NPCSkillXPModifier_Roguery { get; set; } = 0f;
-		#endregion
-
-		#region SOCIAL
-		public float NPCSkillXPModifier_Charm { get; set; } = 0f;
-		public float NPCSkillXPModifier_Leadership { get; set; } = 0f;
-		public float NPCSkillXPModifier_Trade { get; set; } = 0f;
-		#endregion
-
-		#region INTELLIGENCE
-		public float NPCSkillXPModifier_Steward { get; set; } = 0f;
-		public float NPCSkillXPModifier_Medicine { get; set; } = 0f;
-		public float NPCSkillXPModifier_Engineering { get; set; } = 0f;
-		#endregion
-		#endregion
-
-		#region CLAN SKILL MODIFIERS
-		#region VIGOR
-		public float ClanSkillXPModifier_OneHanded { get; set; } = 0f;
-		public float ClanSkillXPModifier_TwoHanded { get; set; } = 0f;
-		public float ClanSkillXPModifier_Polearm { get; set; } = 0f;
-		#endregion
-
-		#region CONTROL
-		public float ClanSkillXPModifier_Bow { get; set; } = 0f;
-		public float ClanSkillXPModifier_Crossbow { get; set; } = 0f;
-		public float ClanSkillXPModifier_Throwing { get; set; } = 0f;
-		#endregion
-
-		#region ENDURANCE
-		public float ClanSkillXPModifier_Riding { get; set; } = 0f;
-		public float ClanSkillXPModifier_Athletics { get; set; } = 0f;
-		public float ClanSkillXPModifier_Crafting { get; set; } = 0f;
-		#endregion
-
-		#region CUNNING
-		public float ClanSkillXPModifier_Scouting { get; set; } = 0f;
-		public float ClanSkillXPModifier_Tactics { get; set; } = 0f;
-		public float ClanSkillXPModifier_Roguery { get; set; } = 0f;
-		#endregion
-
-		#region SOCIAL
-		public float ClanSkillXPModifier_Charm { get; set; } = 0f;
-		public float ClanSkillXPModifier_Leadership { get; set; } = 0f;
-		public float ClanSkillXPModifier_Trade { get; set; } = 0f;
-		#endregion
-
-		#region INTELLIGENCE
-		public float ClanSkillXPModifier_Steward { get; set; } = 0f;
-		public float ClanSkillXPModifier_Medicine { get; set; } = 0f;
-		public float ClanSkillXPModifier_Engineering { get; set; } = 0f;
-		#endregion
+			// CLAN SKILL MODIFIERS
+			// VIGOR
+			["Clan_OneHanded"] = 0f,
+			["Clan_TwoHanded"] = 0f,
+			["Clan_Polearm"] = 0f,
+			// CONTROL
+			["Clan_Bow"] = 0f,
+			["Clan_Crossbow"] = 0f,
+			["Clan_Throwing"] = 0f,
+			// ENDURANCE
+			["Clan_Riding"] = 0f,
+			["Clan_Athletics"] = 0f,
+			["Clan_Crafting"] = 0f,
+			// CUNNING
+			["Clan_Scouting"] = 0f,
+			["Clan_Tactics"] = 0f,
+			["Clan_Roguery"] = 0f,
+			// SOCIAL
+			["Clan_Charm"] = 0f,
+			["Clan_Leadership"] = 0f,
+			["Clan_Trade"] = 0f,
+			// INTELLIGENCE
+			["Clan_Steward"] = 0f,
+			["Clan_Medicine"] = 0f,
+			["Clan_Engineering"] = 0f,
+		};
 		#endregion
 		#endregion
 
@@ -380,29 +350,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_OneHanded),
+						"SkillXPModifier_OneHanded",
 						"{=PiHpR4QL}One Handed",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_OneHanded, v => SkillXPModifier_OneHanded = v), b => b
+						CreateSkillProxy("Base_OneHanded"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_TwoHanded),
+						"SkillXPModifier_TwoHanded",
 						"{=t78atYqH}Two Handed",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_TwoHanded, v => SkillXPModifier_TwoHanded = v), b => b
+						CreateSkillProxy("Base_TwoHanded"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Polearm),
+						"SkillXPModifier_Polearm",
 						"{=haax8kMa}Polearm",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Polearm, v => SkillXPModifier_Polearm = v), b => b
+						CreateSkillProxy("Base_Polearm"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -412,29 +382,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Bow),
+						"SkillXPModifier_Bow",
 						"{=5rj7xQE4}Bow",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Bow, v => SkillXPModifier_Bow = v), b => b
+						CreateSkillProxy("Base_Bow"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Crossbow),
+						"SkillXPModifier_Crossbow",
 						"{=TTWL7RLe}Crossbow",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Crossbow, v => SkillXPModifier_Crossbow = v), b => b
+						CreateSkillProxy("Base_Crossbow"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Throwing),
+						"SkillXPModifier_Throwing",
 						"{=2wclahIJ}Throwing",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Throwing, v => SkillXPModifier_Throwing = v), b => b
+						CreateSkillProxy("Base_Throwing"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -444,29 +414,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Riding),
+						"SkillXPModifier_Riding",
 						"{=p9i3zRm9}Riding",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Riding, v => SkillXPModifier_Riding = v), b => b
+						CreateSkillProxy("Base_Riding"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Athletics),
+						"SkillXPModifier_Athletics",
 						"{=skZS2UlW}Athletics",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Athletics, v => SkillXPModifier_Athletics = v), b => b
+						CreateSkillProxy("Base_Athletics"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Crafting),
+						"SkillXPModifier_Crafting",
 						"{=smithingskill}Smithing",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Crafting, v => SkillXPModifier_Crafting = v), b => b
+						CreateSkillProxy("Base_Crafting"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -476,29 +446,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Scouting),
+						"SkillXPModifier_Scouting",
 						"{=LJ6Krlbr}Scouting",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Scouting, v => SkillXPModifier_Scouting = v), b => b
+						CreateSkillProxy("Base_Scouting"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Tactics),
+						"SkillXPModifier_Tactics",
 						"{=m8o51fc7}Tactics",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Tactics, v => SkillXPModifier_Tactics = v), b => b
+						CreateSkillProxy("Base_Tactics"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Roguery),
+						"SkillXPModifier_Roguery",
 						"{=V0ZMJ0PX}Roguery",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Roguery, v => SkillXPModifier_Roguery = v), b => b
+						CreateSkillProxy("Base_Roguery"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -508,29 +478,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Charm),
+						"SkillXPModifier_Charm",
 						"{=EGeY1gfs}Charm",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Charm, v => SkillXPModifier_Charm = v), b => b
+						CreateSkillProxy("Base_Charm"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Leadership),
+						"SkillXPModifier_Leadership",
 						"{=HsLfmEmb}Leadership",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Leadership, v => SkillXPModifier_Leadership = v), b => b
+						CreateSkillProxy("Base_Leadership"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Trade),
+						"SkillXPModifier_Trade",
 						"{=GmcgoiGy}Trade",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Trade, v => SkillXPModifier_Trade = v), b => b
+						CreateSkillProxy("Base_Trade"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -540,29 +510,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Steward),
+						"SkillXPModifier_Steward",
 						"{=stewardskill}Steward",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Steward, v => SkillXPModifier_Steward = v), b => b
+						CreateSkillProxy("Base_Steward"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Medicine),
+						"SkillXPModifier_Medicine",
 						"{=JKH59XNp}Medicine",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Medicine, v => SkillXPModifier_Medicine = v), b => b
+						CreateSkillProxy("Base_Medicine"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(SkillXPModifier_Engineering),
+						"SkillXPModifier_Engineering",
 						"{=engineeringskill}Engineering",
 						0f,
 						100f,
-						new ProxyRef<float>(() => SkillXPModifier_Engineering, v => SkillXPModifier_Engineering = v), b => b
+						CreateSkillProxy("Base_Engineering"), b => b
 						.SetHintText(OverrideHintText)
 						.SetOrder(PropertyOrderSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -575,29 +545,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingNPCSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_OneHanded),
+						"NPCSkillXPModifier_OneHanded",
 						"{=PiHpR4QL}One Handed",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_OneHanded, v => NPCSkillXPModifier_OneHanded = v), b => b
+						CreateSkillProxy("NPC_OneHanded"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_TwoHanded),
+						"NPCSkillXPModifier_TwoHanded",
 						"{=t78atYqH}Two Handed",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_TwoHanded, v => NPCSkillXPModifier_TwoHanded = v), b => b
+						CreateSkillProxy("NPC_TwoHanded"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Polearm),
+						"NPCSkillXPModifier_Polearm",
 						"{=haax8kMa}Polearm",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Polearm, v => NPCSkillXPModifier_Polearm = v), b => b
+						CreateSkillProxy("NPC_Polearm"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -607,29 +577,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingNPCSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Bow),
+						"NPCSkillXPModifier_Bow",
 						"{=5rj7xQE4}Bow",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Bow, v => NPCSkillXPModifier_Bow = v), b => b
+						CreateSkillProxy("NPC_Bow"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Crossbow),
+						"NPCSkillXPModifier_Crossbow",
 						"{=TTWL7RLe}Crossbow",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Crossbow, v => NPCSkillXPModifier_Crossbow = v), b => b
+						CreateSkillProxy("NPC_Crossbow"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Throwing),
+						"NPCSkillXPModifier_Throwing",
 						"{=2wclahIJ}Throwing",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Throwing, v => NPCSkillXPModifier_Throwing = v), b => b
+						CreateSkillProxy("NPC_Throwing"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -639,29 +609,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingNPCSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Riding),
+						"NPCSkillXPModifier_Riding",
 						"{=p9i3zRm9}Riding",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Riding, v => NPCSkillXPModifier_Riding = v), b => b
+						CreateSkillProxy("NPC_Riding"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Athletics),
+						"NPCSkillXPModifier_Athletics",
 						"{=skZS2UlW}Athletics",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Athletics, v => NPCSkillXPModifier_Athletics = v), b => b
+						CreateSkillProxy("NPC_Athletics"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Crafting),
+						"NPCSkillXPModifier_Crafting",
 						"{=smithingskill}Smithing",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Crafting, v => NPCSkillXPModifier_Crafting = v), b => b
+						CreateSkillProxy("NPC_Crafting"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -671,29 +641,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingNPCSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Scouting),
+						"NPCSkillXPModifier_Scouting",
 						"{=LJ6Krlbr}Scouting",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Scouting, v => NPCSkillXPModifier_Scouting = v), b => b
+						CreateSkillProxy("NPC_Scouting"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Tactics),
+						"NPCSkillXPModifier_Tactics",
 						"{=m8o51fc7}Tactics",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Tactics, v => NPCSkillXPModifier_Tactics = v), b => b
+						CreateSkillProxy("NPC_Tactics"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Roguery),
+						"NPCSkillXPModifier_Roguery",
 						"{=V0ZMJ0PX}Roguery",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Roguery, v => NPCSkillXPModifier_Roguery = v), b => b
+						CreateSkillProxy("NPC_Roguery"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -703,29 +673,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingNPCSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Charm),
+						"NPCSkillXPModifier_Charm",
 						"{=EGeY1gfs}Charm",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Charm, v => NPCSkillXPModifier_Charm = v), b => b
+						CreateSkillProxy("NPC_Charm"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Leadership),
+						"NPCSkillXPModifier_Leadership",
 						"{=HsLfmEmb}Leadership",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Leadership, v => NPCSkillXPModifier_Leadership = v), b => b
+						CreateSkillProxy("NPC_Leadership"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Trade),
+						"NPCSkillXPModifier_Trade",
 						"{=GmcgoiGy}Trade",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Trade, v => NPCSkillXPModifier_Trade = v), b => b
+						CreateSkillProxy("NPC_Trade"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -735,29 +705,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingNPCSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Steward),
+						"NPCSkillXPModifier_Steward",
 						"{=stewardskill}Steward",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Steward, v => NPCSkillXPModifier_Steward = v), b => b
+						CreateSkillProxy("NPC_Steward"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Medicine),
+						"NPCSkillXPModifier_Medicine",
 						"{=JKH59XNp}Medicine",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Medicine, v => NPCSkillXPModifier_Medicine = v), b => b
+						CreateSkillProxy("NPC_Medicine"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderNPCSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(NPCSkillXPModifier_Engineering),
+						"NPCSkillXPModifier_Engineering",
 						"{=engineeringskill}Engineering",
 						0f,
 						100f,
-						new ProxyRef<float>(() => NPCSkillXPModifier_Engineering, v => NPCSkillXPModifier_Engineering = v), b => b
+						CreateSkillProxy("NPC_Engineering"), b => b
 						.SetHintText(NPCOverrideHintText)
 						.SetOrder(PropertyOrderCharacterLeveling++)
 						.AddValueFormat("0.00"))
@@ -770,29 +740,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingClanSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_OneHanded),
+						"ClanSkillXPModifier_OneHanded",
 						"{=PiHpR4QL}One Handed",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_OneHanded, v => ClanSkillXPModifier_OneHanded = v), b => b
+						CreateSkillProxy("Clan_OneHanded"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_TwoHanded),
+						"ClanSkillXPModifier_TwoHanded",
 						"{=t78atYqH}Two Handed",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_TwoHanded, v => ClanSkillXPModifier_TwoHanded = v), b => b
+						CreateSkillProxy("Clan_TwoHanded"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Polearm),
+						"ClanSkillXPModifier_Polearm",
 						"{=haax8kMa}Polearm",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Polearm, v => ClanSkillXPModifier_Polearm = v), b => b
+						CreateSkillProxy("Clan_Polearm"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -802,29 +772,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingClanSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Bow),
+						"ClanSkillXPModifier_Bow",
 						"{=5rj7xQE4}Bow",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Bow, v => ClanSkillXPModifier_Bow = v), b => b
+						CreateSkillProxy("Clan_Bow"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Crossbow),
+						"ClanSkillXPModifier_Crossbow",
 						"{=TTWL7RLe}Crossbow",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Crossbow, v => ClanSkillXPModifier_Crossbow = v), b => b
+						CreateSkillProxy("Clan_Crossbow"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Throwing),
+						"ClanSkillXPModifier_Throwing",
 						"{=2wclahIJ}Throwing",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Throwing, v => ClanSkillXPModifier_Throwing = v), b => b
+						CreateSkillProxy("Clan_Throwing"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -834,29 +804,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingClanSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Riding),
+						"ClanSkillXPModifier_Riding",
 						"{=p9i3zRm9}Riding",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Riding, v => ClanSkillXPModifier_Riding = v), b => b
+						CreateSkillProxy("Clan_Riding"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Athletics),
+						"ClanSkillXPModifier_Athletics",
 						"{=skZS2UlW}Athletics",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Athletics, v => ClanSkillXPModifier_Athletics = v), b => b
+						CreateSkillProxy("Clan_Athletics"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Crafting),
+						"ClanSkillXPModifier_Crafting",
 						"{=smithingskill}Smithing",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Crafting, v => ClanSkillXPModifier_Crafting = v), b => b
+						CreateSkillProxy("Clan_Crafting"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -866,29 +836,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingClanSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Scouting),
+						"ClanSkillXPModifier_Scouting",
 						"{=LJ6Krlbr}Scouting",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Scouting, v => ClanSkillXPModifier_Scouting = v), b => b
+						CreateSkillProxy("Clan_Scouting"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Tactics),
+						"ClanSkillXPModifier_Tactics",
 						"{=m8o51fc7}Tactics",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Tactics, v => ClanSkillXPModifier_Tactics = v), b => b
+						CreateSkillProxy("Clan_Tactics"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Roguery),
+						"ClanSkillXPModifier_Roguery",
 						"{=V0ZMJ0PX}Roguery",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Roguery, v => ClanSkillXPModifier_Roguery = v), b => b
+						CreateSkillProxy("Clan_Roguery"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -898,29 +868,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingClanSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Charm),
+						"ClanSkillXPModifier_Charm",
 						"{=EGeY1gfs}Charm",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Charm, v => ClanSkillXPModifier_Charm = v), b => b
+						CreateSkillProxy("Clan_Charm"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Leadership),
+						"ClanSkillXPModifier_Leadership",
 						"{=HsLfmEmb}Leadership",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Leadership, v => ClanSkillXPModifier_Leadership = v), b => b
+						CreateSkillProxy("Clan_Leadership"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Trade),
+						"ClanSkillXPModifier_Trade",
 						"{=GmcgoiGy}Trade",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Trade, v => ClanSkillXPModifier_Trade = v), b => b
+						CreateSkillProxy("Clan_Trade"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -930,29 +900,29 @@ namespace AdjustableLeveling
 				.CreateGroup(SkillLevelingClanSkillsGroupName, g => g
 					.SetGroupOrder(GroupOrder++)
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Steward),
+						"ClanSkillXPModifier_Steward",
 						"{=stewardskill}Steward",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Steward, v => ClanSkillXPModifier_Steward = v), b => b
+						CreateSkillProxy("Clan_Steward"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Medicine),
+						"ClanSkillXPModifier_Medicine",
 						"{=JKH59XNp}Medicine",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Medicine, v => ClanSkillXPModifier_Medicine = v), b => b
+						CreateSkillProxy("Clan_Medicine"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
-						nameof(ClanSkillXPModifier_Engineering),
+						"ClanSkillXPModifier_Engineering",
 						"{=engineeringskill}Engineering",
 						0f,
 						100f,
-						new ProxyRef<float>(() => ClanSkillXPModifier_Engineering, v => ClanSkillXPModifier_Engineering = v), b => b
+						CreateSkillProxy("Clan_Engineering"), b => b
 						.SetHintText(ClanOverrideHintText)
 						.SetOrder(PropertyOrderClanSkillLeveling++)
 						.AddValueFormat("0.00"))
@@ -1018,6 +988,9 @@ namespace AdjustableLeveling
 			GlobalSettings.Unregister();
 			PerCampaignSettings.Register();
 		}
+
+		public ProxyRef<float> CreateSkillProxy(string name) =>
+			new ProxyRef<float>(() => SkillXPModifiers[name], v => SkillXPModifiers[name] = v);
 		#endregion
 	}
 }

@@ -12,51 +12,47 @@ using TaleWorlds.Library;
 
 namespace AdjustableLeveling.Leveling
 {
-	internal enum SkillUserEnum
+	public enum SkillUserEnum
 	{
 		Default,
 		NPC,
 		Clan,
 	}
 
-	internal static class SkillHelper
+	public static class SkillHelper
 	{
-		private static readonly Dictionary<int, Func<SkillUserEnum, float>> SkillModifiers = [];
+		public static Dictionary<int, Func<SkillUserEnum, float>> SkillModifierGetters { get; } = [];
+		public static List<int> WarnOnceList { get; } = [];
 
 		static SkillHelper()
 		{
 			// Vigor
-			AddSkill(nameof(DefaultSkills.OneHanded));
-			AddSkill(nameof(DefaultSkills.TwoHanded));
-			AddSkill(nameof(DefaultSkills.Polearm));
-
+			AddSkill("OneHanded", DefaultSkills.OneHanded);
+			AddSkill("TwoHanded", DefaultSkills.TwoHanded);
+			AddSkill("Polearm", DefaultSkills.Polearm);
 			// Control
-			AddSkill(nameof(DefaultSkills.Bow));
-			AddSkill(nameof(DefaultSkills.Crossbow));
-			AddSkill(nameof(DefaultSkills.Throwing));
-
+			AddSkill("Bow", DefaultSkills.Bow);
+			AddSkill("Crossbow", DefaultSkills.Crossbow);
+			AddSkill("Throwing", DefaultSkills.Throwing);
 			// Endurance
-			AddSkill(nameof(DefaultSkills.Riding));
-			AddSkill(nameof(DefaultSkills.Athletics));
-			AddSkill(nameof(DefaultSkills.Crafting));
-
+			AddSkill("Riding", DefaultSkills.Riding);
+			AddSkill("Athletics", DefaultSkills.Athletics);
+			AddSkill("Crafting", DefaultSkills.Crafting);
 			// Cunning
-			AddSkill(nameof(DefaultSkills.Scouting));
-			AddSkill(nameof(DefaultSkills.Tactics));
-			AddSkill(nameof(DefaultSkills.Roguery));
-
+			AddSkill("Scouting", DefaultSkills.Scouting);
+			AddSkill("Tactics", DefaultSkills.Tactics);
+			AddSkill("Roguery", DefaultSkills.Roguery);
 			// Social
-			AddSkill(nameof(DefaultSkills.Charm));
-			AddSkill(nameof(DefaultSkills.Leadership));
-			AddSkill(nameof(DefaultSkills.Trade));
-
+			AddSkill("Charm", DefaultSkills.Charm);
+			AddSkill("Leadership", DefaultSkills.Leadership);
+			AddSkill("Trade", DefaultSkills.Trade);
 			// Intelligence
-			AddSkill(nameof(DefaultSkills.Steward));
-			AddSkill(nameof(DefaultSkills.Medicine));
-			AddSkill(nameof(DefaultSkills.Engineering));
+			AddSkill("Steward", DefaultSkills.Steward);
+			AddSkill("Medicine", DefaultSkills.Medicine);
+			AddSkill("Engineering", DefaultSkills.Engineering);
 		}
 
-		internal static SkillUserEnum GetSkillUser(this Hero hero)
+		public static SkillUserEnum GetSkillUser(this Hero hero)
 		{
 			SkillUserEnum output;
 			if (hero?.CharacterObject.IsPlayerCharacter == false)
@@ -73,13 +69,13 @@ namespace AdjustableLeveling.Leveling
 			return output;
 		}
 
-		internal static float GetSkillModifier(this SkillObject skill, Hero hero)
+		public static float GetSkillModifier(this SkillObject skill, Hero hero)
 		{
 			float modifier;
 			var skillUser = hero.GetSkillUser();
 
 			// check skill specific modifiers
-			if (skill != null && SkillModifiers.TryGetValue(skill.GetHashCode(), out var func))
+			if (skill != null && SkillModifierGetters.TryGetValue(skill.GetHashCode(), out var func))
 			{
 				modifier = func(skillUser);
 				//AdjustableLevelingUtility.Message($"Specific {modifier}", false);
@@ -117,48 +113,47 @@ namespace AdjustableLeveling.Leveling
 			}
 		}
 
-		/// <summary>
-		/// Disgusting method that makes me wish C# had C/C++-macros, which would make this so much easier to handle.
-		/// </summary>
-		/// <param name="name"></param>
-		private static void AddSkill(string name)
+		public static void AddSkill(string name, SkillObject skill)
 		{
 			try
 			{
-				var skill = (SkillObject)typeof(DefaultSkills).GetProperty(name, BindingFlags.Static | BindingFlags.Public).GetValue(null);
-				var modifierGetter = typeof(MCMSettings).GetProperty("SkillXPModifier_" + name).GetGetMethod();
-				var npcModifierGetter = typeof(MCMSettings).GetProperty("NPCSkillXPModifier_" + name).GetGetMethod();
-				var clanModifierGetter = typeof(MCMSettings).GetProperty("ClanSkillXPModifier_" + name).GetGetMethod();
-
-				SkillModifiers[skill.GetHashCode()] = (skillUser) =>
+				var hashCode = skill.GetHashCode();
+				SkillModifierGetters[hashCode] = (skillUser) =>
 				{
 					float modifier;
 					switch (skillUser)
 					{
 						// Clan skill modifier
 						case SkillUserEnum.Clan:
-							modifier = (float)clanModifierGetter.Invoke(MCMSettings.Settings, null);
-							if (modifier > 0f)
+							if (MCMSettings.Settings.SkillXPModifiers.TryGetValue("Clan_" + name, out modifier) && modifier > 0f)
 								return modifier;
 							goto case SkillUserEnum.NPC;
 
 						// NPC skill modifier
 						case SkillUserEnum.NPC:
-							modifier = (float)npcModifierGetter.Invoke(MCMSettings.Settings, null);
-							if (modifier > 0f)
+							if (MCMSettings.Settings.SkillXPModifiers.TryGetValue("NPC_" + name, out modifier) && modifier > 0f)
 								return modifier;
 							goto case SkillUserEnum.Default;
 
 						// Default skill modifier
 						default:
 						case SkillUserEnum.Default:
-							return (float)modifierGetter.Invoke(MCMSettings.Settings, null);
+							if (MCMSettings.Settings.SkillXPModifiers.TryGetValue("Base_" + name, out modifier))
+								return MCMSettings.Settings.SkillXPModifiers["Base_" + name];
+
+							// skill not found, show warning and return 1
+							if (!WarnOnceList.Contains(hashCode))
+							{
+								AdjLvlUtility.Message($"WARNING: {nameof(SkillHelper)} could not find skill '{name}' ({skill?.Name}) for '{skillUser}' in dictionary, defaulting skill modifier to 1x", false, Colors.Yellow);
+								WarnOnceList.Add(hashCode);
+							}
+							return 1f;
 					}
 				};
 			}
 			catch (Exception exc)
 			{
-				FileLog.Log(exc.ToString());
+				AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(SkillHelper)}.{nameof(AddSkill)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 			}
 		}
 	}
