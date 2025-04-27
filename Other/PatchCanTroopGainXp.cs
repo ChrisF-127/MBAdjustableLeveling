@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using AdjustableLeveling.Settings;
+using HarmonyLib;
 using Helpers;
 using System;
 using System.Collections.Generic;

@@ -1,16 +1,16 @@
-﻿using HarmonyLib;
+﻿using AdjustableLeveling.Settings;
+using HarmonyLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.ComponentInterfaces;
 using TaleWorlds.CampaignSystem.GameComponents;
 using TaleWorlds.Library;
 using TaleWorlds.Localization;
 
-namespace AdjustableLeveling
+namespace AdjustableLeveling.Utility
 {
 	public static class AdjCharDevModelUtility
 	{
@@ -49,7 +49,7 @@ namespace AdjustableLeveling
 		}
 
 		public static int SkillsRequiredForLevel(int level, int[] skillsRequiredForLevel) =>
-			(level > MCMSettings.Settings.MaxCharacterLevel || level >= skillsRequiredForLevel.Length) ? int.MaxValue : skillsRequiredForLevel[level];
+			level > MCMSettings.Settings.MaxCharacterLevel || level >= skillsRequiredForLevel.Length ? int.MaxValue : skillsRequiredForLevel[level];
 
 		public static ExplainedNumber CalculateLearningLimit(
 			int attributeValue,

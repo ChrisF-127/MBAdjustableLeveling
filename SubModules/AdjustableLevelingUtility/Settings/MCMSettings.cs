@@ -4,7 +4,7 @@ using MCM.Abstractions.FluentBuilder;
 using MCM.Common;
 using System.Collections.Generic;
 
-namespace AdjustableLeveling
+namespace AdjustableLeveling.Settings
 {
 	public class MCMSettings
 	{
@@ -990,7 +990,7 @@ namespace AdjustableLeveling
 		}
 
 		public ProxyRef<float> CreateSkillProxy(string name) =>
-			new ProxyRef<float>(() => SkillXPModifiers[name], v => SkillXPModifiers[name] = v);
+			new(() => SkillXPModifiers[name], v => SkillXPModifiers[name] = v);
 		#endregion
 	}
 }

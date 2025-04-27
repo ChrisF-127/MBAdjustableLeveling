@@ -1,7 +1,7 @@
 using AdjustableLeveling.Leveling;
-using AdjustableLevelingTOR;
+using AdjustableLeveling.Settings;
+using AdjustableLeveling.Utility;
 using HarmonyLib;
-using MCM.Abstractions.Base.Global;
 using System;
 using System.Linq;
 using System.Reflection;
@@ -11,10 +11,9 @@ using TaleWorlds.CampaignSystem.ComponentInterfaces;
 using TaleWorlds.Core;
 using TaleWorlds.Engine;
 using TaleWorlds.Library;
-using TaleWorlds.LinQuick;
 using TaleWorlds.MountAndBlade;
 
-namespace AdjustableLeveling;
+namespace AdjustableLeveling.General;
 
 public class AdjustableLeveling : MBSubModuleBase
 {

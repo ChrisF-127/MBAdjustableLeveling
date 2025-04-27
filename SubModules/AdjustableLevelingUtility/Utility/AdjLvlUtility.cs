@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.Library;
 
-namespace AdjustableLeveling
+namespace AdjustableLeveling.Utility
 {
 	public class AdjLvlUtility
 	{

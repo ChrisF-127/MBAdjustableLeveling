@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Reflection.Emit;
+using AdjustableLeveling.Settings;
+using AdjustableLeveling.Utility;
 using HarmonyLib;
-using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.CharacterDevelopment;
 using TaleWorlds.CampaignSystem.GameComponents;
-using TaleWorlds.Core;
 
 namespace AdjustableLeveling.Smithing;
 
