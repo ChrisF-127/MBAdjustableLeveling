@@ -114,7 +114,7 @@ namespace AdjustableLeveling.Leveling
 			}
 		}
 
-		public static void AddSkill(string name, SkillObject skill)
+		public static void AddSkill(string id, SkillObject skill)
 		{
 			try
 			{
@@ -126,26 +126,26 @@ namespace AdjustableLeveling.Leveling
 					{
 						// Clan skill modifier
 						case SkillUserEnum.Clan:
-							if (MCMSettings.Settings.SkillXPModifiers.TryGetValue("Clan_" + name, out modifier) && modifier > 0f)
+							if (MCMSettings.Settings.SkillXPModifiers.TryGetValue(MCMSettings.ClanTag + id, out modifier) && modifier > 0f)
 								return modifier;
 							goto case SkillUserEnum.NPC;
 
 						// NPC skill modifier
 						case SkillUserEnum.NPC:
-							if (MCMSettings.Settings.SkillXPModifiers.TryGetValue("NPC_" + name, out modifier) && modifier > 0f)
+							if (MCMSettings.Settings.SkillXPModifiers.TryGetValue(MCMSettings.NPCTag + id, out modifier) && modifier > 0f)
 								return modifier;
 							goto case SkillUserEnum.Default;
 
 						// Default skill modifier
 						default:
 						case SkillUserEnum.Default:
-							if (MCMSettings.Settings.SkillXPModifiers.TryGetValue("Base_" + name, out modifier))
-								return MCMSettings.Settings.SkillXPModifiers["Base_" + name];
+							if (MCMSettings.Settings.SkillXPModifiers.TryGetValue(MCMSettings.BaseTag + id, out modifier))
+								return modifier;
 
 							// skill not found, show warning and return 1
 							if (!WarnOnceList.Contains(hashCode))
 							{
-								GeneralUtility.Message($"WARNING: {nameof(SkillHelper)} could not find skill '{name}' ({skill?.Name}) for '{skillUser}' in dictionary, defaulting skill modifier to 1x", false, Colors.Yellow);
+								GeneralUtility.Message($"WARNING: {nameof(SkillHelper)} could not find skill '{id}' ({skill?.Name}) for '{skillUser}' in dictionary, defaulting skill modifier to 1x", false, Colors.Yellow);
 								WarnOnceList.Add(hashCode);
 							}
 							return 1f;

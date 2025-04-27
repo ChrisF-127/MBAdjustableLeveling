@@ -10,13 +10,11 @@ namespace AdjustableLeveling.Utility
 {
 	public static class TORUtility
 	{
-		public static CharacterDevelopmentModel CreateCDM()
+		public static CharacterDevelopmentModel SetCDM()
 		{
-			var cdm = new TORAdjustableCharacterDevelopmentModel();
+#warning TODO add settings
 
-#warning TODO settings
-
-			return cdm;
+			return new TORAdjustableCharacterDevelopmentModel();
 		}
 	}
 }

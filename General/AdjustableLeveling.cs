@@ -38,7 +38,7 @@ public class AdjustableLeveling : MBSubModuleBase
 			MCMSettings.Settings = new MCMSettings();
 
 			var moduleNames = Utilities.GetModulesNames();
-			Compatibility_TheOldRealm = HandleCompatibility(ref _characterDevelopmentModel, moduleNames, "TOR_Core", TORUtility.CreateCDM);
+			Compatibility_TheOldRealm = HandleCompatibility(ref _characterDevelopmentModel, moduleNames, "TOR_Core", TORUtility.SetCDM);
 		}
 		catch (Exception exc)
 		{
