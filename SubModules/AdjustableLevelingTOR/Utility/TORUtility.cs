@@ -8,7 +8,7 @@ using TaleWorlds.CampaignSystem.ComponentInterfaces;
 
 namespace AdjustableLeveling.Utility
 {
-	public static class AdjLvlTORUtility
+	public static class TORUtility
 	{
 		public static CharacterDevelopmentModel CreateCDM()
 		{

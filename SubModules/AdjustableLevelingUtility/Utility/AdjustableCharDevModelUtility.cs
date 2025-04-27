@@ -12,12 +12,12 @@ using TaleWorlds.Localization;
 
 namespace AdjustableLeveling.Utility
 {
-	public static class AdjCharDevModelUtility
+	public static class AdjustableCharDevModelUtility
 	{
 		private static readonly TextObject _skillFocusText;
 		private static readonly TextObject _overLimitText;
 
-		static AdjCharDevModelUtility()
+		static AdjustableCharDevModelUtility()
 		{
 			try
 			{
@@ -26,7 +26,7 @@ namespace AdjustableLeveling.Utility
 			}
 			catch (Exception exc)
 			{
-				AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed to initialize (static {nameof(AdjCharDevModelUtility)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+				GeneralUtility.Message($"ERROR: Adjustable Leveling failed to initialize (static {nameof(AdjustableCharDevModelUtility)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 			}
 		}
 
@@ -44,7 +44,7 @@ namespace AdjustableLeveling.Utility
 			}
 			catch (Exception exc)
 			{
-				AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed to initialize (public {nameof(AdjCharDevModelUtility)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+				GeneralUtility.Message($"ERROR: Adjustable Leveling failed to initialize (public {nameof(AdjustableCharDevModelUtility)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 			}
 		}
 

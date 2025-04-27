@@ -36,6 +36,6 @@ internal static class PatchGetPartResearchGainForSmithingItem
 			}
 		}
 		if (!patched)
-			AdjLvlUtility.Message($"{nameof(AdjustableLeveling)}: failed to patch 'GetPartResearchGainForSmithingItem'");
+			GeneralUtility.Message($"{nameof(AdjustableLeveling)}: failed to patch 'GetPartResearchGainForSmithingItem'");
 	}
 }

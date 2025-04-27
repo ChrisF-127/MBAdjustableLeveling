@@ -30,14 +30,14 @@ namespace AdjustableLeveling.Leveling
 
 		public AdjustableCharacterDevelopmentModel() : base()
 		{
-			AdjCharDevModelUtility.Initialize(this, out _skillsRequiredForLevel);
+			AdjustableCharDevModelUtility.Initialize(this, out _skillsRequiredForLevel);
 		}
 
 		public override int SkillsRequiredForLevel(int level) =>
-			AdjCharDevModelUtility.SkillsRequiredForLevel(level, _skillsRequiredForLevel);
+			AdjustableCharDevModelUtility.SkillsRequiredForLevel(level, _skillsRequiredForLevel);
 		public override ExplainedNumber CalculateLearningLimit(int attributeValue, int focusValue, TextObject attributeName, bool includeDescriptions = false) =>
-			AdjCharDevModelUtility.CalculateLearningLimit(attributeValue, focusValue, attributeName, includeDescriptions);
+			AdjustableCharDevModelUtility.CalculateLearningLimit(attributeValue, focusValue, attributeName, includeDescriptions);
 		public override ExplainedNumber CalculateLearningRate(int attributeValue, int focusValue, int skillValue, int characterLevel, TextObject attributeName, bool includeDescriptions = false) =>
-			AdjCharDevModelUtility.CalculateLearningRate(attributeValue, focusValue, skillValue, characterLevel, attributeName, includeDescriptions);
+			AdjustableCharDevModelUtility.CalculateLearningRate(attributeValue, focusValue, skillValue, characterLevel, attributeName, includeDescriptions);
 	}
 }

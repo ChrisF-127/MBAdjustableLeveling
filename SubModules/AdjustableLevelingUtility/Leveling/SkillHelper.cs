@@ -145,7 +145,7 @@ namespace AdjustableLeveling.Leveling
 							// skill not found, show warning and return 1
 							if (!WarnOnceList.Contains(hashCode))
 							{
-								AdjLvlUtility.Message($"WARNING: {nameof(SkillHelper)} could not find skill '{name}' ({skill?.Name}) for '{skillUser}' in dictionary, defaulting skill modifier to 1x", false, Colors.Yellow);
+								GeneralUtility.Message($"WARNING: {nameof(SkillHelper)} could not find skill '{name}' ({skill?.Name}) for '{skillUser}' in dictionary, defaulting skill modifier to 1x", false, Colors.Yellow);
 								WarnOnceList.Add(hashCode);
 							}
 							return 1f;
@@ -154,7 +154,7 @@ namespace AdjustableLeveling.Leveling
 			}
 			catch (Exception exc)
 			{
-				AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(SkillHelper)}.{nameof(AddSkill)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+				GeneralUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(SkillHelper)}.{nameof(AddSkill)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 			}
 		}
 	}

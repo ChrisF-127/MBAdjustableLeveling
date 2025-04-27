@@ -8,7 +8,7 @@ using TaleWorlds.Library;
 
 namespace AdjustableLeveling.Utility
 {
-	public class AdjLvlUtility
+	public static class GeneralUtility
 	{
 		public static void Message(string s, bool stacktrace = true, Color? color = null, bool log = true)
 		{

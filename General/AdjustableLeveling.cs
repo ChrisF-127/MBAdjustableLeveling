@@ -38,11 +38,11 @@ public class AdjustableLeveling : MBSubModuleBase
 			MCMSettings.Settings = new MCMSettings();
 
 			var moduleNames = Utilities.GetModulesNames();
-			Compatibility_TheOldRealm = HandleCompatibility(ref _characterDevelopmentModel, moduleNames, "TOR_Core", AdjLvlTORUtility.CreateCDM);
+			Compatibility_TheOldRealm = HandleCompatibility(ref _characterDevelopmentModel, moduleNames, "TOR_Core", TORUtility.CreateCDM);
 		}
 		catch (Exception exc)
 		{
-			AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnBeforeInitialModuleScreenSetAsRoot)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+			GeneralUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnBeforeInitialModuleScreenSetAsRoot)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 		}
 	}
 
@@ -62,7 +62,7 @@ public class AdjustableLeveling : MBSubModuleBase
 		}
 		catch (Exception exc)
 		{
-			AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnGameStart)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+			GeneralUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnGameStart)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 		}
 	}
 
@@ -79,7 +79,7 @@ public class AdjustableLeveling : MBSubModuleBase
 		}
 		catch (Exception exc)
 		{
-			AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnGameEnd)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+			GeneralUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnGameEnd)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 		}
 	}
 
@@ -120,7 +120,7 @@ public class AdjustableLeveling : MBSubModuleBase
 		}
 		catch (Exception exc)
 		{
-			AdjLvlUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnSubModuleLoad)}):\n{exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+			GeneralUtility.Message($"ERROR: Adjustable Leveling failed at ({nameof(OnSubModuleLoad)}):\n{exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 		}
 	}
 
@@ -131,12 +131,12 @@ public class AdjustableLeveling : MBSubModuleBase
 
 		if (characterDevelopmentModel != null)
 		{
-			AdjLvlUtility.Message($"ERROR: Adjustable Leveling found {moduleName}, compatibility conflict detected!", false, Colors.Red, false);
+			GeneralUtility.Message($"ERROR: Adjustable Leveling found {moduleName}, compatibility conflict detected!", false, Colors.Red, false);
 			return false;
 		}
 
 		characterDevelopmentModel = createCDM();
-		AdjLvlUtility.Message($"INFO: Adjustable Leveling found {moduleName}, applying compatibility", false, Colors.White, false);
+		GeneralUtility.Message($"INFO: Adjustable Leveling found {moduleName}, applying compatibility", false, Colors.White, false);
 		return true;
 	}
 }
