@@ -130,6 +130,7 @@ namespace AdjustableLeveling.Settings
 						"{=adjlvl_name_FasterLevelingCurve}Faster Leveling Curve",
 						new ProxyRef<bool>(() => UseFasterLevelingCurve, v => UseFasterLevelingCurve = v), b => b
 						.SetHintText("{=adjlvl_hint_FasterLevelingCurve}Slower earlier but faster later levels, level 62 total: 40.7m [ON] vs 95.4m [OFF]. [Default: OFF]\n-WARNING: Backup save recommended, changing this in an ongoing save will reset the level xp to half-way to the next level (if total xp is out of bounds for the current level after conversion)!")
+						.SetRequireRestart(true)
 						.SetOrder(_characterLevelingPropertyOrder++))
 
 					.AddInteger(
