@@ -12,15 +12,16 @@ namespace AdjustableLeveling.Utility
 {
 	public static class TORUtility
 	{
-		public static CharacterDevelopmentModel InitializeCompatibility()
+		public static Func<CharacterDevelopmentModel> InitializeCompatibility()
 		{
+			// Initialize skills
 			// DISCIPLINE
 			MCMSettings.Settings.AddSkill("Faith", "{=tor_skill_faith_str}Faith", () => TORSkills.Faith);
 			MCMSettings.Settings.AddSkill("GunPowder", "{=tor_skill_gunpowder_str}Gunpowder", () => TORSkills.GunPowder);
 			MCMSettings.Settings.AddSkill("SpellCraft", "{=tor_skill_spellcraft_str}Spellcraft", () => TORSkills.SpellCraft);
 
 			// create TOR character development model
-			return new TORAdjustableCharacterDevelopmentModel();
+			return () => new TORAdjustableCharacterDevelopmentModel();
 		}
 	}
 }

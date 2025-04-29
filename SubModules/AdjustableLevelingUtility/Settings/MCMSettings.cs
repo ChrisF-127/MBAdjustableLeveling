@@ -48,7 +48,8 @@ namespace AdjustableLeveling.Settings
 
 		private Dictionary<string, Func<SkillObject>> SkillObjectGetters { get; } = [];
 		private Dictionary<int, Func<SkillUserEnum, float>> SkillModifierGetters { get; } = [];
-		private List<int> WarnOnceList { get; } = [];
+		private List<int> WarnMissingSkillGetterOnceList { get; } = [];
+		private List<int> WarnMissingSkillModifierOnceList { get; } = [];
 
 		#region SETTINGS PROPERTIES
 		#region CHARACTER LEVELING MODIFIERS
@@ -386,12 +387,21 @@ namespace AdjustableLeveling.Settings
 			GlobalSettings.Register();
 		}
 
-		public void OnGameLoaded()
+		public void OnGameStart()
+		{
+			GlobalSettings.Unregister();
+			PerCampaignSettings.Register();
+		}
+		public void OnNewGameCreated()
 		{
 			InitializeSkillModifierGetters();
 
-			GlobalSettings.Unregister();
+			// For some reason MCM removes the settings between OnGameStart and here, so register it *AGAIN*
 			PerCampaignSettings.Register();
+		}
+		public void OnGameLoaded()
+		{
+			InitializeSkillModifierGetters();
 		}
 		public void OnGameEnd()
 		{
@@ -459,12 +469,25 @@ namespace AdjustableLeveling.Settings
 			var skillUser = GetSkillUser(hero);
 
 			// check skill specific modifiers
-			if (skill != null && SkillModifierGetters.TryGetValue(skill.GetHashCode(), out var func))
+			if (skill != null)
 			{
-				modifier = func(skillUser);
-				//AdjustableLevelingUtility.Message($"Specific {modifier}", false);
-				if (modifier > 0f)
-					return modifier;
+				var hashCode = skill.GetHashCode();
+				if (SkillModifierGetters.TryGetValue(hashCode, out var func))
+				{
+					modifier = func(skillUser);
+					//AdjustableLevelingUtility.Message($"Specific {modifier}", false);
+					if (modifier > 0f)
+						return modifier;
+				}
+				else
+				{
+					// getter not found
+					if (!WarnMissingSkillGetterOnceList.Contains(hashCode))
+					{
+						GeneralUtility.Message($"WARNING: Adjustable Leveling could not find skill getter for '{skill?.Name}' in {nameof(SkillModifierGetters)}, defaulting to '{skillUser}'-modifier [will only warn once]", false, Colors.Yellow);
+						WarnMissingSkillGetterOnceList.Add(hashCode);
+					}
+				}
 			}
 
 			switch (skillUser)
@@ -553,10 +576,10 @@ namespace AdjustableLeveling.Settings
 									return modifier;
 
 								// skill not found, show warning and return 1
-								if (!WarnOnceList.Contains(hashCode))
+								if (!WarnMissingSkillModifierOnceList.Contains(hashCode))
 								{
-									GeneralUtility.Message($"WARNING: Adjustable Leveling could not find skill '{id}' ({skill?.Name}) for '{skillUser}' in dictionary, defaulting 1x [will only warn once]", false, Colors.Yellow);
-									WarnOnceList.Add(hashCode);
+									GeneralUtility.Message($"WARNING: Adjustable Leveling could not find skill xp modifier '{id}' ({skill?.Name}) for '{skillUser}' in {nameof(SkillXPModifiers)}, defaulting 1x [will only warn once]", false, Colors.Yellow);
+									WarnMissingSkillModifierOnceList.Add(hashCode);
 								}
 								return 1f;
 						}

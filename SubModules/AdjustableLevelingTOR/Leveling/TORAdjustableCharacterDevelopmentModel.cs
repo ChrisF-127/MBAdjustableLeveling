@@ -31,7 +31,7 @@ namespace AdjustableLeveling.Leveling
 
 		public TORAdjustableCharacterDevelopmentModel() : base()
 		{
-			AdjustableCharDevModelUtility.Initialize(this, out _skillsRequiredForLevel);
+			this.Initialize(out _skillsRequiredForLevel);
 		}
 
 		public override int SkillsRequiredForLevel(int level) =>

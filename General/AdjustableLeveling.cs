@@ -21,20 +21,21 @@ public class AdjustableLeveling : MBSubModuleBase
 	private static CharacterDevelopmentModel _characterDevelopmentModel;
 	public static CharacterDevelopmentModel CharacterDevelopmentModel => 
 		_characterDevelopmentModel; 
-
-	public static bool Compatibility_TheOldRealm { get; private set; }
 	#endregion
 
 	#region FIELDS
 	private bool _isInitialized = false;
+
+	private Func<CharacterDevelopmentModel> _cdmInitializer = null;
 	#endregion
 
 	#region OVERRIDES
 	protected override void OnSubModuleLoad()
 	{
+		base.OnSubModuleLoad();
+
 		try
 		{
-			base.OnSubModuleLoad();
 			var harmony = new Harmony("sy.adjustableleveling");
 			harmony.PatchAll(Assembly.GetExecutingAssembly());
 		}
@@ -46,10 +47,10 @@ public class AdjustableLeveling : MBSubModuleBase
 
 	protected override void OnBeforeInitialModuleScreenSetAsRoot()
 	{
+		base.OnBeforeInitialModuleScreenSetAsRoot();
+
 		try
 		{
-			base.OnBeforeInitialModuleScreenSetAsRoot();
-
 			if (_isInitialized)
 				return;
 			_isInitialized = true;
@@ -57,7 +58,7 @@ public class AdjustableLeveling : MBSubModuleBase
 			MCMSettings.Settings = new MCMSettings();
 
 			var moduleNames = Utilities.GetModulesNames();
-			Compatibility_TheOldRealm = HandleCompatibility(ref _characterDevelopmentModel, moduleNames, "TOR_Core", TORUtility.InitializeCompatibility);
+			CheckCompatibilityRequired(moduleNames, "TOR_Core", TORUtility.InitializeCompatibility);
 
 			MCMSettings.Settings.Build();
 		}
@@ -69,13 +70,16 @@ public class AdjustableLeveling : MBSubModuleBase
 
 	protected override void OnGameStart(Game game, IGameStarter gameStarterObject)
 	{
+		base.OnGameStart(game, gameStarterObject);
+
 		try
 		{
-			base.OnGameStart(game, gameStarterObject);
-
 			if (game.GameType is Campaign)
 			{
-				_characterDevelopmentModel ??= new AdjustableCharacterDevelopmentModel();
+				//GeneralUtility.Message("OnGameStart", false, Colors.Magenta);
+				MCMSettings.Settings.OnGameStart();
+
+				_characterDevelopmentModel = _cdmInitializer?.Invoke() ?? new AdjustableCharacterDevelopmentModel();
 				((CampaignGameStarter)gameStarterObject).AddModel(CharacterDevelopmentModel);
 			}
 		}
@@ -87,12 +91,16 @@ public class AdjustableLeveling : MBSubModuleBase
 
 	public override void OnNewGameCreated(Game game, object initializerObject)
 	{
+		base.OnNewGameCreated(game, initializerObject);
+
 		try
 		{
-			base.OnNewGameCreated(game, initializerObject);
-
 			if (game.GameType is Campaign)
+			{
+				//GeneralUtility.Message("OnNewGameCreated", false, Colors.Magenta);
+				MCMSettings.Settings.OnNewGameCreated();
 				GameCreatedOrLoaded(game);
+			}
 		}
 		catch (Exception exc)
 		{
@@ -102,12 +110,16 @@ public class AdjustableLeveling : MBSubModuleBase
 
 	public override void OnGameLoaded(Game game, object initializerObject)
 	{
+		base.OnGameLoaded(game, initializerObject);
+
 		try
 		{
-			base.OnGameLoaded(game, initializerObject);
-
 			if (game.GameType is Campaign)
+			{
+				//GeneralUtility.Message("OnGameLoaded", false, Colors.Magenta);
+				MCMSettings.Settings.OnGameLoaded();
 				GameCreatedOrLoaded(game);
+			}
 		}
 		catch (Exception exc)
 		{
@@ -117,12 +129,13 @@ public class AdjustableLeveling : MBSubModuleBase
 
 	public override void OnGameEnd(Game game)
 	{
+		base.OnGameEnd(game);
+
 		try
 		{
-			base.OnGameEnd(game);
-
 			if (game.GameType is Campaign)
 			{
+				//GeneralUtility.Message("OnGameEnd", false, Colors.Magenta);
 				MCMSettings.Settings.OnGameEnd();
 			}
 		}
@@ -136,8 +149,6 @@ public class AdjustableLeveling : MBSubModuleBase
 	#region PRIVATE METHODS
 	private void GameCreatedOrLoaded(Game game)
 	{
-		MCMSettings.Settings.OnGameLoaded();
-
 		var _totalXp = typeof(HeroDeveloper).GetField("_totalXp", BindingFlags.NonPublic | BindingFlags.Instance);
 		var characters = game.ObjectManager.GetObjectTypeList<CharacterObject>();
 		foreach (var character in characters)
@@ -161,20 +172,19 @@ public class AdjustableLeveling : MBSubModuleBase
 		}
 	}
 
-	private static bool HandleCompatibility(ref CharacterDevelopmentModel characterDevelopmentModel, string[] moduleNames, string moduleName, Func<CharacterDevelopmentModel> initialize)
+	private void CheckCompatibilityRequired(string[] moduleNames, string moduleName, Func<Func<CharacterDevelopmentModel>> initializeCompatibility)
 	{
 		if (!moduleNames.Contains(moduleName))
-			return false;
+			return;
 
-		if (characterDevelopmentModel != null)
+		if (_cdmInitializer != null)
 		{
-			GeneralUtility.Message($"ERROR: Adjustable Leveling found {moduleName}, compatibility conflict detected!", false, Colors.Red, false);
-			return false;
+			GeneralUtility.Message($"ERROR: Adjustable Leveling found '{moduleName}', compatibility conflict detected!", false, Colors.Red, false);
+			return;
 		}
 
-		characterDevelopmentModel = initialize();
-		GeneralUtility.Message($"INFO: Adjustable Leveling found {moduleName}, applying compatibility", false, Colors.White, false);
-		return true;
+		_cdmInitializer = initializeCompatibility();
+		GeneralUtility.Message($"INFO: Adjustable Leveling found '{moduleName}', applying compatibility", false, Colors.White, false);
 	}
 	#endregion
 }

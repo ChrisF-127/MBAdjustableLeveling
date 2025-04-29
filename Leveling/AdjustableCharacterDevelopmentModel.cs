@@ -30,7 +30,7 @@ namespace AdjustableLeveling.Leveling
 
 		public AdjustableCharacterDevelopmentModel() : base()
 		{
-			AdjustableCharDevModelUtility.Initialize(this, out _skillsRequiredForLevel);
+			this.Initialize(out _skillsRequiredForLevel);
 		}
 
 		public override int SkillsRequiredForLevel(int level) =>

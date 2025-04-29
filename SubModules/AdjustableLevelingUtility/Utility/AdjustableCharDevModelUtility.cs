@@ -26,11 +26,11 @@ namespace AdjustableLeveling.Utility
 			}
 			catch (Exception exc)
 			{
-				GeneralUtility.Message($"ERROR: Adjustable Leveling failed to initialize (static {nameof(AdjustableCharDevModelUtility)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+				GeneralUtility.Message($"ERROR: Adjustable Leveling failed to initialize ({nameof(AdjustableCharDevModelUtility)} static constructor): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 			}
 		}
 
-		public static void Initialize(DefaultCharacterDevelopmentModel cdm, out int[] skillsRequiredForLevel)
+		public static void Initialize(this DefaultCharacterDevelopmentModel cdm, out int[] skillsRequiredForLevel)
 		{
 			skillsRequiredForLevel = new int[1025];
 			try
@@ -44,7 +44,7 @@ namespace AdjustableLeveling.Utility
 			}
 			catch (Exception exc)
 			{
-				GeneralUtility.Message($"ERROR: Adjustable Leveling failed to initialize (public {nameof(AdjustableCharDevModelUtility)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
+				GeneralUtility.Message($"ERROR: Adjustable Leveling failed to initialize ({nameof(AdjustableCharDevModelUtility)}.{nameof(Initialize)}): {exc.GetType()}: {exc.Message}\n{exc.StackTrace}");
 			}
 		}
 
