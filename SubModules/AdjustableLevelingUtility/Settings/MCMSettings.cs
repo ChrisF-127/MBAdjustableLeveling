@@ -23,7 +23,7 @@ namespace AdjustableLeveling.Settings
 		#region CONSTANTS
 		public const string Id = "AdjustableLeveling";
 		public const string DisplayName = "Adjustable Leveling";
-		public const string FolderName = "Global/AdjustableLeveling";
+		public const string FolderName = "AdjustableLeveling";
 		public const string FormatType = "json";
 
 		public const string BaseTag = "Base_";
@@ -120,7 +120,6 @@ namespace AdjustableLeveling.Settings
 			#region SETTINGS
 			_settingsBuilder = BaseSettingsBuilder.Create(Id, DisplayName)
 				.SetFormat(FormatType)
-				.SetFolderName(FolderName)
 				.SetSubFolder(string.Empty)
 
 			#region CHARACTER LEVELING MODIFIERS
@@ -379,8 +378,11 @@ namespace AdjustableLeveling.Settings
 		public void Build()
 		{
 			// create global settings
+			_settingsBuilder.SetFolderName("Global\\" + FolderName);
 			GlobalSettings = _settingsBuilder.BuildAsGlobal();
+
 			// create per campaign settings
+			_settingsBuilder.SetFolderName(FolderName);
 			PerCampaignSettings = _settingsBuilder.BuildAsPerCampaign();
 
 			// register global settings
