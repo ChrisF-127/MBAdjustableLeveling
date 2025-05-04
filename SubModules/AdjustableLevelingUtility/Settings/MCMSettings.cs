@@ -251,7 +251,7 @@ namespace AdjustableLeveling.Settings
 						0,
 						100,
 						new ProxyRef<int>(() => BaseLearningLimit, v => BaseLearningLimit = v), b => b
-						.SetHintText("{=adjlvl_hint_BaseLearningLimit}The base learning limit. [Default: 50]")
+						.SetHintText("{=adjlvl_hint_BaseLearningLimit}The base learning limit achievable without focus points. [Default: 50]")
 						.SetOrder(_skillLevelingPropertyOrder++)
 						.AddValueFormat("0"))
 
@@ -261,7 +261,7 @@ namespace AdjustableLeveling.Settings
 						0f,
 						100f,
 						new ProxyRef<float>(() => MinLearningRate, v => MinLearningRate = v), b => b
-						.SetHintText("{=adjlvl_hint_MinLearningRate}Set a minimum learning rate. [Default: 0.00]")
+						.SetHintText("{=adjlvl_hint_MinLearningRate}Set a minimum learning rate, so that no learning limit exists. [Default: 0.00]")
 						.SetOrder(_skillLevelingPropertyOrder++)
 						.AddValueFormat("0.00"))
 					.AddFloatingInteger(
@@ -338,9 +338,9 @@ namespace AdjustableLeveling.Settings
 
 					.AddBool(
 						nameof(WarningShown_1_2_12_2),
-						"Uncheck to show version warning on startup again",
+						"{=adjlvl_name_DisableStartUpWarning}Uncheck to show version warning on startup again",
 						new ProxyRef<bool>(() => WarningShown_1_2_12_2, v => WarningShown_1_2_12_2 = v), b => b
-						.SetHintText("Show the version warning again on starting the game")
+						.SetHintText("{=adjlvl_hint_DisableStartUpWarning}Show the version warning again on starting the game")
 						.SetOrder(_otherPropertyOrder++))
 					)
 			#endregion
@@ -415,8 +415,8 @@ namespace AdjustableLeveling.Settings
 			if (!WarningShown_1_2_12_2)
 			{
 				InformationManager.ShowInquiry(new InquiryData(
-					"ADJUSTABLE LEVELING CHANGES",
-					">> ATTENTION !!" +
+					"{=adjlvl_title_ChangesPopup}ADJUSTABLE LEVELING CHANGES",
+					"{=adjlvl_title_ChangesPopupText_1_2_12_2}>> ATTENTION !!" +
 					"\nAdjustable Leveling has been updated and its skill modifier settings have been reworked:" +
 					"\n" +
 					"\n- General skill user modifiers no longer override each other and instead apply depending on skill user." +
@@ -429,7 +429,7 @@ namespace AdjustableLeveling.Settings
 					"\nClick 'ATTENTION' to continue",
 					true,
 					false,
-					"ATTENTION",
+					"{=adjlvl_title_ChangesAttention}ATTENTION",
 					"",
 					() => WarningShown_1_2_12_2 = true,
 					() => { }));

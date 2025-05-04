@@ -164,7 +164,7 @@
 		
 		<string 
 			id="adjlvl_hint_NPCSkillSpecific" 
-			text="Zusätzlicher Faktor für diese NSC Fertigkeit. Ausschließlich Clan Mitgliedern und Gefährten, [Standard: 1.00]" />
+			text="Zusätzlicher Faktor für diese NSC Fertigkeit. Ausgenommen Clan Mitgliedern und Gefährten, [Standard: 1.00]" />
 		
 		<!-- CLAN MEMBER SKILLS -->
 		
@@ -200,6 +200,13 @@
 			id="adjlvl_hint_TroopXPModifier" 
 			text="Passt erhaltene EP zum Aufwerten von Truppen an. (Benötigte EP in der Truppenübersicht zeigen unmodifzierte Werte, Spenden sind auf modifizierten Wert begrenzt.) [Standard: 0.00]" />
 		
+		<string 
+			id="adjlvl_name_DisableStartUpWarning" 
+			text="Zeige Versionswarnung bei Spielstart erneut" />
+		<string 
+			id="adjlvl_hint_DisableStartUpWarning" 
+			text="Zeigt die Versionswarnung beim Spielstart" />
+		
 		<!-- SMITHING RESEARCH -->
 		
 		<string 
@@ -219,6 +226,29 @@
 		<string 
 			id="adjlvl_hint_FreeBuildPartResearch" 
 			text="Passt den erhaltenen Forschungsfortschritt für Waffenteile im freien Bauen an. Mit der Standard-Einstellung ist das Freischalten von Teilen in diesem Modus sehr langsam. [Standard: 10%]" />
+			
+			
+		<!-- OTHER TEXTS -->
+		
+		<string 
+			id="adjlvl_title_ChangesPopup" 
+			text="ADJUSTABLE LEVELING ÄNDERUNGEN" />
+		<string 
+			id="adjlvl_title_ChangesPopupText_1_2_12_2" 
+			text=">> ACHTUNG !!
+			Adjustable Leveling wurde aktualisiert und die Fertigkeits Multiplikator Einstellungen überarbeitet.
+			
+			- Generelle benutzerabhängige Fertigkeits-Multiplikatoren überschreiben einander nicht länger und werden stattdessen je nach Benutzer angewendet.
+			- Spezielle Fertigkeits-Multiplikatoren werden als Faktor zu diesen hinzugerechnet.
+			Gesamte Fertigkeitspunkte = (erhaltene Fertigkeitspunkte * genereller Multi. * spezieller Multi.)
+			WARNUNG: ein Multiplikator mit Wert 0 setzt weitere Fertigkeitssteigerung aus!
+			
+			>> Überprüfe die Einstellungen bevor eine Kampagne forgesetzt wird!
+			
+			Klicke 'ACHTUNG' um fortzufahren" />
+		<string 
+			id="adjlvl_title_ChangesAttention" 
+			text="ACHTUNG" />
 			
 	</strings>
 </base>

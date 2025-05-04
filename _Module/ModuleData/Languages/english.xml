@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<base xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" type="string">
+	<tags>
+		<tag language="English" />
+	</tags>
+	<strings>
+		
+		<!-- CHARACTER LEVELING -->
+		
+		<string 
+			id="adjlvl_group_CharacterLeveling" 
+			text="Character Leveling" />
+		
+		<string 
+			id="adjlvl_name_FasterLevelingCurve" 
+			text="Faster Leveling Curve" />
+		<string 
+			id="adjlvl_hint_FasterLevelingCurve" 
+			text="Slower earlier but faster later levels, level 62 total: 40.7m [ON] vs 95.4m [OFF]. [Default: OFF]
+			WARNING: Backup save recommended, changing this in an ongoing save will reset the level xp to half-way to the next level (if total xp is out of bounds for the current level after conversion)!" />
+		
+		<string 
+			id="adjlvl_name_MaxCharacterLevel" 
+			text="Maximum Character Level" />
+		<string 
+			id="adjlvl_hint_MaxCharacterLevel" 
+			text="Adjust the maximum achievable character level. Higher levels require much more xp! [Default: 62]" />
+		
+		<string 
+			id="adjlvl_name_CharacterLevelXPModifier" 
+			text="Character Level XP Modifier" />
+		<string 
+			id="adjlvl_hint_CharacterLevelXPModifier" 
+			text="Adjust how skill xp is converted into level xp, default is 1-to-1 at 1.00. [Default: 1.00]" />
+		
+		<string 
+			id="adjlvl_name_LevelsPerAttributePoint" 
+			text="Levels per Attribute Point" />
+		<string 
+			id="adjlvl_hint_LevelsPerAttributePoint" 
+			text="Number of level ups required to gain an attribute point. Only affects future level ups, so it should be changed before starting a new campaign to take full effect! [Default: 4]" />
+		
+		<string 
+			id="adjlvl_name_FocusPointsPerLevel" 
+			text="Focus Points per Level" />
+		<string 
+			id="adjlvl_hint_FocusPointsPerLevel" 
+			text="Focus points gained per level. [Default: 1]" />
+		
+		<string 
+			id="adjlvl_name_MaxAttributePointsForAttribute" 
+			text="Max Attribute Points for Attribute" />
+		<string 
+			id="adjlvl_hint_MaxAttributePointsForAttribute" 
+			text="Attribute point limit per attribute. [Default: 10]" />
+		
+		<string 
+			id="adjlvl_name_MaxFocusPointsForSkill" 
+			text="Max Focus Points for Skill" />
+		<string 
+			id="adjlvl_hint_MaxFocusPointsForSkill" 
+			text="Focus point limit per skill. (UI will at most show 5 points) [Default: 5]" />
+		
+		<string 
+			id="adjlvl_name_AttributePointsAtStart" 
+			text="Attribute Points at Start" />
+		<string 
+			id="adjlvl_hint_AttributePointsAtStart" 
+			text="Apparently affects the attribute points with which NPCs start, but not the player. [Default: 15]" />
+		
+		<string 
+			id="adjlvl_name_FocusPointsAtStart" 
+			text="Focus Points at Start" />
+		<string 
+			id="adjlvl_hint_FocusPointsAtStart" 
+			text="Apparently affects the focus points with which NPCs start, but not the player. [Default: 5]" />
+		
+		<!-- SKILL LEVELING -->
+		
+		<string 
+			id="adjlvl_group_SkillLeveling" 
+			text="Skill Leveling" />
+			
+		<!-- GENERAL -->
+		
+		<string 
+			id="adjlvl_name_LearningLimitAttributePoint" 
+			text="Learning Limit Increase per Attribute Point" />
+		<string 
+			id="adjlvl_hint_LearningLimitAttributePoint" 
+			text="E.g. at 3 and with 10 AP an additional 30 skill points can be gained at reducing learning rate; at 5 an additional 50 can be gained. [Default: 3]" />
+		
+		<string 
+			id="adjlvl_name_LearningLimitFocusPoint" 
+			text="Learning Limit Increase per Focus Point" />
+		<string 
+			id="adjlvl_hint_LearningLimitFocusPoint" 
+			text="Adjust the learning limit increase per focus point. [Default: 50]" />
+		
+		<string 
+			id="adjlvl_name_BaseLearningLimit" 
+			text="Base Learning Limit" />
+		<string 
+			id="adjlvl_hint_BaseLearningLimit" 
+			text="The base learning limit achievable without focus points. [Default: 50]" />
+		
+		<string 
+			id="adjlvl_name_MinLearningRate" 
+			text="Minimum Learning Rate" />
+		<string 
+			id="adjlvl_hint_MinLearningRate" 
+			text="Set a minimum learning rate, so that no learning limit exists. [Default: 0.00]" />
+		
+		<string 
+			id="adjlvl_name_MaxLearningRate" 
+			text="Maximum Learning Rate" />
+		<string 
+			id="adjlvl_hint_MaxLearningRate" 
+			text="Set a maximum learning rate, zero disables it. [Default: 0.00]" />
+		
+		<string 
+			id="adjlvl_name_PlayerSkillXPModifier" 
+			text="Player Skill XP Modifier" />
+		<string 
+			id="adjlvl_hint_PlayerSkillXPModifier" 
+			text="Sets the skill learning rate for the player character. [Default: 1.00]" />
+		
+		<string 
+			id="adjlvl_name_NPCSkillXPModifier" 
+			text="NPC Skill XP Modifier" />
+		<string 
+			id="adjlvl_hint_NPCSkillXPModifier" 
+			text="Sets the skill learning rate for all NPCs, except clan members and companions. [Default: 1.00]" />
+		
+		<string 
+			id="adjlvl_name_ClanSkillXPModifier" 
+			text="Clan Skill XP Modifier" />
+		<string 
+			id="adjlvl_hint_ClanSkillXPModifier" 
+			text="Sets the skill learning rate for clan members. [Default: 1.00]" />
+		
+		<string 
+			id="adjlvl_name_CompanionSkillXPModifier" 
+			text="Companion Skill XP Modifier" />
+		<string 
+			id="adjlvl_hint_CompanionSkillXPModifier" 
+			text="Sets the skill learning rate for companions. [Default: 1.00]" />
+		
+		<!-- SKILLS -->
+		
+		<string 
+			id="adjlvl_group_PlayerSkills" 
+			text="Player Skills" />
+		
+		<string 
+			id="adjlvl_hint_PlayerSkillSpecific" 
+			text="Further modifies Player skills with a factor. [Default: 1.00]" />
+		
+		<!-- NPC SKILLS -->
+		
+		<string 
+			id="adjlvl_group_NPCSkills" 
+			text="NPC Skills" />
+		
+		<string 
+			id="adjlvl_hint_NPCSkillSpecific" 
+			text="Further modifies NPC skills with a factor. Does not modify Clan Member or Companion skills. [Default: 1.00]" />
+		
+		<!-- CLAN MEMBER SKILLS -->
+		
+		<string 
+			id="adjlvl_group_ClanSkills" 
+			text="Clan Member Skills" />
+		
+		<string 
+			id="adjlvl_hint_ClanSkillSpecific" 
+			text="Further modifies Clan Member skills with a factor. [Default: 1.00]" />
+		
+		<!-- COMPANION MEMBER SKILLS -->
+		
+		<string 
+			id="adjlvl_group_CompanionSkills" 
+			text="Companion Skills" />
+		
+		<string 
+			id="adjlvl_hint_CompanionSkillSpecific" 
+			text="Further modifies Companion skills with a factor. [Default: 1.00]" />
+		
+		<!-- OTHER -->
+		
+		<string 
+			id="adjlvl_group_Other" 
+			text="Other" />
+		
+		<string 
+			id="adjlvl_name_TroopXPModifier" 
+			text="Troop XP Modifier" />
+		<string 
+			id="adjlvl_hint_TroopXPModifier" 
+			text="Modifies XP gained for upgrading troops. (Required XP numbers in roster will show unmodified values, but dropping equipment is limited to modified value.) [Default 1.00]" />
+		
+		<string 
+			id="adjlvl_name_DisableStartUpWarning" 
+			text="Uncheck to show version warning on startup again" />
+		<string 
+			id="adjlvl_hint_DisableStartUpWarning" 
+			text="Show the version warning again on starting the game" />
+		
+		<!-- SMITHING RESEARCH -->
+		
+		<string 
+			id="adjlvl_group_SmithingResearch" 
+			text="Smithing Research" />
+		
+		<string 
+			id="adjlvl_name_PartResearch" 
+			text="Part Research Modifier" />
+		<string 
+			id="adjlvl_hint_PartResearch" 
+			text="Adjust smithing part research gain rate for smithing and smelting weapons. [Default: 100%]" />
+		
+		<string 
+			id="adjlvl_name_FreeBuildPartResearch" 
+			text="Free Build Part Research Modifier" />
+		<string 
+			id="adjlvl_hint_FreeBuildPartResearch" 
+			text="Adjust smithing part research gain rate when in free build mode. With the default setting, unlocking parts is slow in free build mode. [Default: 10%]" />
+			
+			
+		<!-- OTHER TEXTS -->
+		
+		<string 
+			id="adjlvl_title_ChangesPopup" 
+			text="ADJUSTABLE LEVELING CHANGES" />
+		<string 
+			id="adjlvl_title_ChangesPopupText_1_2_12_2" 
+			text=">> ATTENTION !!
+			Adjustable Leveling has been updated and its skill modifier settings have been reworked:
+			
+			- General skill user modifiers no longer override each other and instead apply depending on skill user.
+			- Specific skill modifiers are treated as factors further modifying the result.
+			Total skill gain = (skill gain * skill user modifier * specific skill modifier)
+			WARNING: modifiers which are set to 0 will cause the skill not to progress!
+			
+			>> Check the settings before continuing a campaign!
+			
+			Click 'ATTENTION' to continue" />
+		<string 
+			id="adjlvl_title_ChangesAttention" 
+			text="ATTENTION" />
+			
+	</strings>
+</base>
