@@ -119,42 +119,42 @@
 			text="Erlaubt das Setzen einer maximalen Lernrate. Die Lernrate ist unlimitiert beim Wert 0.00. [Standard: 0.00]" />
 		
 		<string 
-			id="adjlvl_name_SkillXPModifier" 
-			text="Fertigkeits-EP Multiplikator" />
+			id="adjlvl_name_PlayerSkillXPModifier" 
+			text="Spieler Fertigkeits-EP Multiplikator" />
 		<string 
-			id="adjlvl_hint_SkillXPModifier" 
-			text="Passt die generelle Lernrate für Fertigkeits-Erfahrungspunkte an. [Standard: 1.00]" />
+			id="adjlvl_hint_PlayerSkillXPModifier" 
+			text="Passt die generelle Lernrate für Fertigkeits-Erfahrungspunkte des Spieler Charakters an. [Standard: 1.00]" />
 		
 		<string 
 			id="adjlvl_name_NPCSkillXPModifier" 
 			text="NSC Fertigkeits-EP Multiplikator" />
 		<string 
 			id="adjlvl_hint_NPCSkillXPModifier" 
-			text="Überschreibt 'Fertigkeits-EP Multiplikator' für NSCs, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
+			text="Passt die generelle Lernrate für Fertigkeits-Erfahrungspunkte für NSC, außer Clan Mitglieder und Gefährten, an. [Standard: 1.00]" />
 		
 		<string 
 			id="adjlvl_name_ClanSkillXPModifier" 
-			text="Clan/Gefährten Fertigkeits-EP Multiplikator" />
+			text="Clan Fertigkeits-EP Multiplikator" />
 		<string 
 			id="adjlvl_hint_ClanSkillXPModifier" 
-			text="Überschreibt 'Fertigkeits-EP Multiplikator' und 'NSC Fertigkeits-EP Multiplikator' für Clan Mitglieder oder Gefährten, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
-
-    <string
-			id="adjlvl_name_ClanAsCompanionOnly"
-			text="Clan Einstellungen beinflussen nur Gefährten" />
-    <string
-			id="adjlvl_hint_ClanAsCompanionOnly"
-			text="Multiplikatoren der Clan/Gefährten-Einstellungen beeinflussen nur Gefährten und nicht den gesamten Spieler-Clan. [Standard: AUS]" />
+			text="Passt die generelle Lernrate für Fertigkeits-Erfahrungspunkte für Clan Mitglieder an. [Standard: 1.00]" />
+		
+		<string 
+			id="adjlvl_name_CompanionSkillXPModifier" 
+			text="Gefährten Fertigkeits-EP Multiplikator" />
+		<string 
+			id="adjlvl_hint_CompanionSkillXPModifier" 
+			text="Passt die generelle Lernrate für Fertigkeits-Erfahrungspunkte für Gefährten an. [Standard: 1.00]" />
 		
 		<!-- SKILLS -->
 		
 		<string 
-			id="adjlvl_group_Skills" 
-			text="Fertigkeiten" />
+			id="adjlvl_group_PlayerSkills" 
+			text="Spieler Fertigkeiten" />
 		
 		<string 
-			id="adjlvl_hint_SkillOverride" 
-			text="Überschreibt 'Fertigkeits-EP Multiplikator' und 'NSC Fertigkeits-EP Multiplikator' für diese Fertigkeit, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
+			id="adjlvl_hint_PlayerSkillSpecific" 
+			text="Zusätzlicher Faktor für diese Spieler Fertigkeit. [Standard: 1.00]" />
 		
 		<!-- NPC SKILLS -->
 		
@@ -163,18 +163,28 @@
 			text="NSC Fertigkeiten" />
 		
 		<string 
-			id="adjlvl_hint_NPCSkillOverride" 
-			text="Überschreibt Multiplikatoren für diese Fertigkeit für NSCs, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
+			id="adjlvl_hint_NPCSkillSpecific" 
+			text="Zusätzlicher Faktor für diese NSC Fertigkeit. Ausschließlich Clan Mitgliedern und Gefährten, [Standard: 1.00]" />
 		
 		<!-- CLAN MEMBER SKILLS -->
 		
 		<string 
 			id="adjlvl_group_ClanSkills" 
-			text="Clan/Gefährten Fertigkeiten" />
+			text="Clan Fertigkeiten" />
 		
 		<string 
-			id="adjlvl_hint_ClanSkillOverride" 
-			text="Überschreibt Multiplikatoren für diese Fertigkeit für Clan Mitglieder oder Gefährten, wenn der Wert nicht 0 ist. [Standard: 0.00]" />
+			id="adjlvl_hint_ClanSkillSpecific" 
+			text="Zusätzlicher Faktor für diese Clan Mitglied Fertigkeit. [Standard: 1.00]" />
+		
+		<!-- COMPANION MEMBER SKILLS -->
+		
+		<string 
+			id="adjlvl_group_CompanionSkills" 
+			text="Gefährten Fertigkeiten" />
+		
+		<string 
+			id="adjlvl_hint_CompanionSkillSpecific" 
+			text="Zusätzlicher Faktor für diese Gefährten Fertigkeit. [Standard: 1.00]" />
 		
 		<!-- OTHER -->
 		
