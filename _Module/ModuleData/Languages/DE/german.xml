@@ -240,14 +240,13 @@
 			
 			- Generelle benutzerabhängige Fertigkeits-Multiplikatoren überschreiben einander nicht länger und werden stattdessen je nach Benutzer angewendet.
 			- Spezielle Fertigkeits-Multiplikatoren werden als Faktor zu diesen hinzugerechnet.
-			Gesamte Fertigkeitspunkte = (erhaltene Fertigkeitspunkte * genereller Multi. * spezieller Multi.)
+			
+			Gesamte Fertigkeitspunkte = (Erhaltene * genereller Multi. * spezieller Multi.)
 			WARNUNG: ein Multiplikator mit Wert 0 setzt weitere Fertigkeitssteigerung aus!
 			
-			>> Überprüfe die Einstellungen bevor eine Kampagne forgesetzt wird!
-			
-			Klicke 'ACHTUNG' um fortzufahren" />
+			>> Überprüfe die Einstellungen bevor eine Kampagne forgesetzt wird!" />
 		<string 
-			id="adjlvl_title_ChangesAttention" 
+			id="adjlvl_title_PopupAttention" 
 			text="ACHTUNG" />
 			
 	</strings>

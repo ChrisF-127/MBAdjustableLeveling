@@ -14,8 +14,8 @@
     <BaseOutputPath></BaseOutputPath>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
     <DebugType>none</DebugType>
-    <AssemblyVersion>1.2.12.2</AssemblyVersion>
-    <FileVersion>1.2.12.2</FileVersion>
+    <AssemblyVersion>1.2.12.3</AssemblyVersion>
+    <FileVersion>1.2.12.3</FileVersion>
     <RootNamespace>AdjustableLeveling</RootNamespace>
   </PropertyGroup>
   <ItemGroup>

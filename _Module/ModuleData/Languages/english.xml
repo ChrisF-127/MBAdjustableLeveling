@@ -239,14 +239,13 @@
 			
 			- General skill user modifiers no longer override each other and instead apply depending on skill user.
 			- Specific skill modifiers are treated as factors further modifying the result.
-			Total skill gain = (skill gain * skill user modifier * specific skill modifier)
+			
+			Total skill gain = (gain * user modifier * specific modifier)
 			WARNING: modifiers which are set to 0 will cause the skill not to progress!
 			
-			>> Check the settings before continuing a campaign!
-			
-			Click 'ATTENTION' to continue" />
+			>> Check the settings before continuing a campaign!" />
 		<string 
-			id="adjlvl_title_ChangesAttention" 
+			id="adjlvl_title_PopupAttention" 
 			text="ATTENTION" />
 			
 	</strings>

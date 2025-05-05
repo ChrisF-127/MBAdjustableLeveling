@@ -61,6 +61,9 @@ public class AdjustableLeveling : MBSubModuleBase
 			CheckCompatibilityRequired(moduleNames, "TOR_Core", TORUtility.InitializeCompatibility);
 
 			MCMSettings.Settings.Build();
+
+			if (!TaleWorlds.MountAndBlade.Module.CurrentModule.StartupInfo.IsContinueGame)
+				MCMSettings.Settings.AttentionWindow(false);
 		}
 		catch (Exception exc)
 		{
@@ -119,6 +122,9 @@ public class AdjustableLeveling : MBSubModuleBase
 				//GeneralUtility.Message("OnGameLoaded", false, Colors.Magenta);
 				MCMSettings.Settings.OnGameLoaded();
 				GameCreatedOrLoaded(game);
+
+				if (TaleWorlds.MountAndBlade.Module.CurrentModule.StartupInfo.IsContinueGame)
+					MCMSettings.Settings.AttentionWindow(true);
 			}
 		}
 		catch (Exception exc)

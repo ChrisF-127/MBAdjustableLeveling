@@ -1,6 +1,7 @@
 ﻿//#define DEBUG_PRINT
 
 using AdjustableLeveling.Utility;
+using MCM.Abstractions;
 using MCM.Abstractions.Base.Global;
 using MCM.Abstractions.Base.PerCampaign;
 using MCM.Abstractions.FluentBuilder;
@@ -410,30 +411,36 @@ namespace AdjustableLeveling.Settings
 
 			// register global settings
 			GlobalSettings.Register();
+		}
+
+		public void AttentionWindow(bool isContinuedGame)
+		{
+			if (WarningShown_1_2_12_2)
+				return;
 
 			// Version warning popup
-			if (!WarningShown_1_2_12_2)
-			{
-				InformationManager.ShowInquiry(new InquiryData(
-					"{=adjlvl_title_ChangesPopup}ADJUSTABLE LEVELING CHANGES",
-					"{=adjlvl_title_ChangesPopupText_1_2_12_2}>> ATTENTION !!" +
-					"\nAdjustable Leveling has been updated and its skill modifier settings have been reworked:" +
-					"\n" +
-					"\n- General skill user modifiers no longer override each other and instead apply depending on skill user." +
-					"\n- Specific skill modifiers are treated as factors further modifying the result." +
-					"\n Total skill gain = (skill gain * skill user modifier * specific skill modifier)" +
-					"\nWARNING: modifiers which are set to 0 will cause the skill not to progress!" +
-					"\n" +
-					"\n>> Check the settings before continuing a campaign!" +
-					"\n" +
-					"\nClick 'ATTENTION' to continue",
-					true,
-					false,
-					"{=adjlvl_title_ChangesAttention}ATTENTION",
-					"",
-					() => WarningShown_1_2_12_2 = true,
-					() => { }));
-			}
+			InformationManager.ShowInquiry(new InquiryData(
+				LocalizationUtils.Localize("{=adjlvl_title_ChangesPopup}ADJUSTABLE LEVELING CHANGES"),
+				LocalizationUtils.Localize("{=adjlvl_title_ChangesPopupText_1_2_12_2}>> ATTENTION !!" +
+				"\nAdjustable Leveling has been updated and its skill modifier settings have been reworked:" +
+				"\n" +
+				"\n- General skill user modifiers no longer override each other and instead apply depending on skill user." +
+				"\n- Specific skill modifiers are treated as factors further modifying the result." +
+				"\n" +
+				"\nTotal skill gain = (gain * user modifier * specific modifier)" +
+				"\nWARNING: modifiers which are set to 0 will cause the skill not to progress!" +
+				"\n" +
+				"\n>> Check the settings before continuing a campaign!"),
+				true,
+				false,
+				LocalizationUtils.Localize("{=adjlvl_title_PopupAttention}ATTENTION"),
+				"",
+				() =>
+				{
+					WarningShown_1_2_12_2 = true;
+					BaseSettingsProvider.Instance?.SaveSettings(isContinuedGame ? PerCampaignSettings : GlobalSettings);
+				},
+				() => { }));
 		}
 
 		public void OnGameStart()
